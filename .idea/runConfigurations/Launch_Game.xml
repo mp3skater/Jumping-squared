@@ -1,0 +1,9 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="Launch Game" type="Application" factoryName="Application">
+    <option name="MAIN_CLASS_NAME" value="net.mp3skater.main.Main" />
+    <module name="Game Vorlage" />
+    <method v="2">
+      <option name="Make" enabled="true" />
+    </method>
+  </configuration>
+</component>
