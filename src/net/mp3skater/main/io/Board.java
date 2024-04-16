@@ -21,14 +21,14 @@ public class Board {
             for(int x = 0; SQUARE_SIZE*x < GamePanel.WIDTH; x++) {
 
                 // Change color
-                color = color == Color.white ? Color.black : Color.white;
+                color = color == Color.white ? Color.gray : Color.white;
 
                 // Draw the square with the changed color
                 g2.setColor(color);
                 g2.fillRect(x*SQUARE_SIZE, y*SQUARE_SIZE, SQUARE_SIZE, SQUARE_SIZE);
             }
             // Change the color again at the end of each row
-            color = color == Color.white ? Color.black : Color.white;
+            color = color == Color.white ? Color.gray : Color.white;
         }
     }
 }

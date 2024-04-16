@@ -103,14 +103,14 @@ public class GamePanel extends JPanel implements Runnable{
 
 		// SET FONT
 		g2.setColor(Color.white);
-		Font font = new Font ("Courier New", Font.BOLD, 20);
+		Font font = new Font ("Courier New", Font.BOLD, 10);
 		g2.setFont(font);
 
-		// PAUSE
+		// PAUSE (needs to be arranged to the center if you change WIDTH or HEIGHT)
 		if(isPause) {
-			g2.setColor(Color.getColor("purple", 0x8942c8));
-			g2.setFont(new Font ("Courier New", Font.BOLD, 100));
-			g2.drawString("Game Paused", 70, 425);
+			g2.setColor(Color.blue);
+			g2.setFont(new Font ("Courier New", Font.BOLD, 50));
+			g2.drawString("Game Paused", 230, 310);
 		}
 	}
 }
