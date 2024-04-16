@@ -1,9 +1,13 @@
-package net.mp3skater.io;
+package net.mp3skater.main.io;
 
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 public class Mouse extends MouseAdapter {
+
+    /*
+    You can mostly leave this class alone.
+     */
 
     public int x, y;
     public boolean pressed;

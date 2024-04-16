@@ -1,26 +1,27 @@
 package net.mp3skater.main;
 
-import net.mp3skater.utils.Board;
-import net.mp3skater.io.KeyHandler;
-import net.mp3skater.io.Mouse;
-import net.mp3skater.utils.Utils;
+import net.mp3skater.main.elements.Element;
+import net.mp3skater.main.io.Board;
+import net.mp3skater.main.io.KeyHandler;
+import net.mp3skater.main.io.Mouse;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.ArrayList;
 
 public class GamePanel extends JPanel implements Runnable{
 
-	public static final int WIDTH = 1100;
-	public static final int HEIGHT = 800;
+	public static final int WIDTH = 800;
+	public static final int HEIGHT = 600;
 	final int FPS = 60;
 	Thread gameThread;
 	Board board = new Board();
 	Mouse mouse = new Mouse();
 
-	// ELEMENTS
+	// List of Elements
+	ArrayList<Element> elements = new ArrayList<>();
 
-
-	// PAUSE
+	// Booleans for the pause-function
 	private boolean exPause = false; // To see if Pause has been changed
 	private boolean isPause = false;
 
@@ -35,7 +36,7 @@ public class GamePanel extends JPanel implements Runnable{
 		this.setFocusable(true);
 
 		// Initialize Game
-		Utils.setPieces();
+		Utils.setPieces(elements, 5);
 	}
 	public void launchGame() {
 		gameThread = new Thread(this);
@@ -78,8 +79,14 @@ public class GamePanel extends JPanel implements Runnable{
 		if(isPause)
 			return;
 
-		// Insert code here
+		// Insert UPDATE-code here:
 
+		// For example:
+		for(Element e : elements) {
+			// Move all elements one pixel left-down every frame
+			e.setX(e.getX()+1);
+			e.setY(e.getY()+1);
+		}
 	}
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
@@ -90,9 +97,9 @@ public class GamePanel extends JPanel implements Runnable{
 		board.draw(g2);
 
 		// ELEMENTS
-		//for(Element e : elements) {
-		//	e.draw(g2);
-		//}
+		for(Element e : elements) {
+			e.draw(g2);
+		}
 
 		// SET FONT
 		g2.setColor(Color.white);
