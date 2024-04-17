@@ -1,4 +1,3 @@
-# AmazingBario
 <h1 align="center">
   <img src="res/images/logo.png" width="80" height="80" style="image-rendering: pixelated"><br/>
   Amazing Bario
