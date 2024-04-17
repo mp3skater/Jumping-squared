@@ -36,7 +36,7 @@ public class GamePanel extends JPanel implements Runnable{
 		this.setFocusable(true);
 
 		// Initialize Game
-		Utils.setPieces(elements, 5);
+		Utils.setPieces(elements, 50);
 	}
 	public void launchGame() {
 		gameThread = new Thread(this);
@@ -83,9 +83,11 @@ public class GamePanel extends JPanel implements Runnable{
 
 		// For example:
 		for(Element e : elements) {
-			// Move all elements one pixel left-down every frame
-			e.setX(e.getX()+1);
-			e.setY(e.getY()+1);
+			// Move all elements one pixel left-down every frame if they're not 100px away from the border
+			if(e.getX() < WIDTH-100)
+				e.setX(e.getX()+1);
+			if(e.getY() < HEIGHT-100)
+				e.setY(e.getY()+1);
 		}
 	}
 	public void paintComponent(Graphics g) {
@@ -93,15 +95,15 @@ public class GamePanel extends JPanel implements Runnable{
 
 		Graphics2D g2 = (Graphics2D)g;
 
-		// BOARD
+		// Board
 		board.draw(g2);
 
-		// ELEMENTS
+		// Elements
 		for(Element e : elements) {
 			e.draw(g2);
 		}
 
-		// SET FONT
+		// Set a font (example)
 		g2.setColor(Color.white);
 		Font font = new Font ("Courier New", Font.BOLD, 10);
 		g2.setFont(font);
