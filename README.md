@@ -1,6 +1,6 @@
 <h1 align="center">
   <img src="res/images/logo.png" width="80" height="80" style="image-rendering: pixelated"><br/>
-  Amazing Bario
+  Jumping²
 </h1>
 
 > Ein simples "Super Mario Bros"-Klon-Spiel mit Java programmiert.
