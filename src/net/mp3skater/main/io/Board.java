@@ -7,28 +7,17 @@ import java.awt.*;
 public class Board {
 
     /*
-    Here you can draw the background of your game.
+    Draw the background depending on the level
      */
 
-    // Variables
-    private static final int SQUARE_SIZE = 100;
-    private static Color color = Color.white;
-
-    // For this example it will draw a sort of chess-board
     public void draw(Graphics2D g2) {
-        // For all positions that are still inside the board
-        for(int y = 0; SQUARE_SIZE*y < GamePanel.HEIGHT; y++) {
-            for(int x = 0; SQUARE_SIZE*x < GamePanel.WIDTH; x++) {
-
-                // Change color
-                color = color == Color.white ? Color.gray : Color.white;
-
-                // Draw the square with the changed color
-                g2.setColor(color);
-                g2.fillRect(x*SQUARE_SIZE, y*SQUARE_SIZE, SQUARE_SIZE, SQUARE_SIZE);
-            }
-            // Change the color again at the end of each row
-            color = color == Color.white ? Color.gray : Color.white;
+        switch(GamePanel.level) {
+            case 1: g2.setColor(Color.black); break;
+            case 2: g2.setColor(Color.getColor("dark-blue", 0x000034)); break;
+            case 3: g2.setColor(Color.getColor("dark-yellow", 0x003400)); break;
+            case 4: g2.setColor(Color.getColor("dark-purple", 0x240048)); break;
+            case 5: g2.setColor(Color.getColor("dark-red", 0x340000)); break;
         }
+        g2.fillRect(0, 0, GamePanel.WIDTH, GamePanel.HEIGHT);
     }
 }

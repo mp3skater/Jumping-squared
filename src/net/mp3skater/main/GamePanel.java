@@ -1,6 +1,7 @@
 package net.mp3skater.main;
 
-import net.mp3skater.main.elements.Element;
+import net.mp3skater.main.elements.Obj;
+import net.mp3skater.main.elements.Player;
 import net.mp3skater.main.io.Board;
 import net.mp3skater.main.io.KeyHandler;
 import net.mp3skater.main.io.Mouse;
@@ -18,12 +19,22 @@ public class GamePanel extends JPanel implements Runnable{
 	Board board = new Board();
 	Mouse mouse = new Mouse();
 
-	// List of Elements
-	ArrayList<Element> elements = new ArrayList<>();
-
 	// Booleans for the pause-function
-	private boolean exPause = false; // To see if Pause has been changed
-	private boolean isPause = false;
+	private boolean exPause = true; // To see if Pause has been changed
+	private boolean isPause = true;
+
+	// <Obj>'s
+	private static Player player;
+	public static ArrayList<Obj> walls = new ArrayList<>();
+
+	// Level 1-5
+	public static int level = 1;
+
+	// Time (in frames, 60 = 1 sec)
+	private static int time = 0;
+
+	// Offset (moves horizontally with the <Player>)
+	public static double offset = 0;
 
 	public GamePanel() {
 		setPreferredSize(new Dimension(WIDTH, HEIGHT));
@@ -35,12 +46,12 @@ public class GamePanel extends JPanel implements Runnable{
 		this.addKeyListener(new KeyHandler());
 		this.setFocusable(true);
 
-		// Initialize Game
-		Utils.setPieces(elements, 50);
+		player = new Player(300, 300, 50, 80, 0, 0, Color.white, 0.5);
 	}
 	public void launchGame() {
 		gameThread = new Thread(this);
 		gameThread.start();
+		Utils.spawnlevel(1);
 	}
 	@Override
 	public void run() {
@@ -79,15 +90,18 @@ public class GamePanel extends JPanel implements Runnable{
 		if(isPause)
 			return;
 
-		// Insert UPDATE-code here:
+		// Update time
+		time++;
 
-		// For example:
-		for(Element e : elements) {
-			// Move all elements one pixel left-down every frame if they're not 100px away from the border
-			if(e.getX() < WIDTH-100)
-				e.setX(e.getX()+1);
-			if(e.getY() < HEIGHT-100)
-				e.setY(e.getY()+1);
+		// Update Player position
+		player.update();
+
+		// Change level to show all colors ///// NOT LATER IN THE GAME JUST FOR TESTING
+		if(time%100==0) {
+			if(level!=5)
+				level++;
+			else
+				level=1;
 		}
 	}
 	public void paintComponent(Graphics g) {
@@ -99,16 +113,14 @@ public class GamePanel extends JPanel implements Runnable{
 		board.draw(g2);
 
 		// Elements
-		for(Element e : elements) {
-			e.draw(g2);
-		}
+		player.draw(g2);
 
 		// Set a font (example)
 		g2.setColor(Color.white);
 		Font font = new Font ("Courier New", Font.BOLD, 10);
 		g2.setFont(font);
 
-		// PAUSE (needs to be arranged to the center if you change WIDTH or HEIGHT)
+		// Pause (needs to be arranged to the center if you change WIDTH or HEIGHT)
 		if(isPause) {
 			g2.setColor(Color.blue);
 			g2.setFont(new Font ("Courier New", Font.BOLD, 50));

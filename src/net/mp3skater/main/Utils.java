@@ -1,30 +1,50 @@
 package net.mp3skater.main;
 
-import net.mp3skater.main.elements.Element;
+import com.google.gson.Gson;
+import net.mp3skater.main.elements.Obj;
+import net.mp3skater.main.level.Level;
 
-import java.awt.*;
-import java.util.ArrayList;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
 
 public class Utils {
 
     /*
-    Here you can put long code to keep the rest clean.
+    Spawn all walls and other <Obj>'s from the according json file
+    Using Google's Gson library I read the file and create the <level>-class accordingly
      */
+    public static void spawnlevel(int number) {
+        // Get the String value of the json file
+        String text = getJsonString(number);
+        // Create a new <Gson> instance
+        Gson gson = new Gson();
+        // Fill in the class parameter from the json file
+        Level level = gson.fromJson(text, Level.class);
 
-    // Creates <n> numbers of Elements in the given Arraylist
-    public static void setPieces(ArrayList<Element> elements, int n) {
-        for(int i = 0; i<n; i++)
-            elements.add(randomElement());
+        System.out.println(level);
+        
+        // Spawn all <Obj>'s from the class
+        //spawnObjs(level);
     }
 
-    // Random Element
-    public static Element randomElement() {
-        // Random size from 20 to 50
-        int size = (int)(Math.random()*30+20);
+    //private void spawnObjs(Level level) {
+    //    for(Obj o : level.)
+    //}
 
-        // Random position inside the board
-        return new Element(Math.random()*(GamePanel.WIDTH-size), Math.random()*(GamePanel.HEIGHT-size), size,
-                // Random color:
-                new Color((int)(Math.random() * 0x1000000)));
+    private static String getJsonString(int number) {
+        String filePath = "res/level/level_" + number + ".json";
+        StringBuilder text = new StringBuilder();
+
+        try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                text.append(line).append("\n"); // Append each line to the StringBuilder
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return text.toString();
     }
 }

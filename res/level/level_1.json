@@ -1,0 +1,18 @@
+{
+  "number": 1,
+  "name": "hello world",
+
+  "color_player": [255, 255, 255],
+  "color_walls": [100, 226, 226],
+  ""
+
+  "walls": [
+    [],
+    []
+  ],
+
+  "enemies": [
+    [],
+    []
+  ]
+}
