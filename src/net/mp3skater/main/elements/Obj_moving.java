@@ -4,9 +4,9 @@ import net.mp3skater.main.GamePanel;
 
 import java.awt.*;
 
-public class Obj_moving extends Obj {
-    public Obj_moving(double x, double y, int sX, int sY, double vX, double vY, Color color) {
-        super(x, y, sX, sY, color);
+public abstract class Obj_moving extends Obj {
+    public Obj_moving(double x, double y, int sX, int sY, double vX, double vY) {
+        super(x, y, sX, sY);
         this.vec = new double[]{vX, vY};
     }
 

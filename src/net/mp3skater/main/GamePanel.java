@@ -113,7 +113,8 @@ public class GamePanel extends JPanel implements Runnable{
 		board.draw(g2);
 
 		// Elements
-		player.draw(g2);
+		if(player.is_drawable())
+			player.draw(g2);
 
 		// Set a font (example)
 		g2.setColor(Color.white);

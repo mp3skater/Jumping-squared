@@ -1,5 +1,6 @@
 package net.mp3skater.main.elements;
 
+import net.mp3skater.main.Utils;
 import net.mp3skater.main.io.KeyHandler;
 
 import java.awt.*;
@@ -10,13 +11,17 @@ This is the player which you can control through the level.
 
 public class Player extends Obj_moving {
     public Player(double x, double y, int sX, int sY, double vX, double vY, Color color, double turnDown) {
-        super(x, y, sX, sY, vX, vY, color);
+        super(x, y, sX, sY, vX, vY);
         this.turnDown = turnDown;
+        this.color = color;
     }
 
     // Value with which the <Obj> loses speed horizontally
     // Kind of like how "unslippery" the surface is for the <Obj>
     private final double turnDown;
+
+    // Color of the player
+    private final Color color;
 
     /*
     Gives the player movement vectors according to the key's pressed
@@ -65,5 +70,10 @@ public class Player extends Obj_moving {
             else
                 vec[0] += turnDown;
         }
+    }
+
+    @Override
+    public void draw(Graphics2D g2) {
+        Utils.drawRect(g2, pos, size, color);
     }
 }
