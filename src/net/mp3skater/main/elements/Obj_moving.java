@@ -2,8 +2,6 @@ package net.mp3skater.main.elements;
 
 import net.mp3skater.main.GamePanel;
 
-import java.awt.*;
-
 public abstract class Obj_moving extends Obj {
     public Obj_moving(double x, double y, int sX, int sY, double vX, double vY) {
         super(x, y, sX, sY);
@@ -39,9 +37,9 @@ public abstract class Obj_moving extends Obj {
     /*
     Activate x-/yCollision if there is a collision with another <Obj>
      */
-    void collisionBool() {
+    private void collisionBool() {
         // For all elements you could collide with
-        for(Obj o : GamePanel.walls) {
+        for(Obj o : GamePanel.objs) {
             // Test weather going vertically, horizontally or both would make you collide with something
             // Horizontally
             if(collides((int)(o.getX()-vec[0]), (int)o.getY(), (int)o.getSX(), (int)o.getSY())) {

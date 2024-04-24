@@ -28,7 +28,7 @@ public abstract class Obj {
     /*
     Only draw an <Obj> if it's inside the screen
      */
-    public abstract void draw(Graphics2D g2);
+    public abstract void draw(Graphics2D g2, Color color);
 
     // Position getter
     public double getX() {

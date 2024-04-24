@@ -1,10 +1,12 @@
 package net.mp3skater.main;
 
 import net.mp3skater.main.elements.Obj;
-import net.mp3skater.main.elements.Player;
+import net.mp3skater.main.elements.Obj_player;
+import net.mp3skater.main.elements.Obj_wall;
 import net.mp3skater.main.io.Board;
 import net.mp3skater.main.io.KeyHandler;
 import net.mp3skater.main.io.Mouse;
+import net.mp3skater.main.level.Level;
 
 import javax.swing.*;
 import java.awt.*;
@@ -24,11 +26,12 @@ public class GamePanel extends JPanel implements Runnable{
 	private boolean isPause = true;
 
 	// <Obj>'s
-	private static Player player;
-	public static ArrayList<Obj> walls = new ArrayList<>();
+	private static Obj_player player;
+	public static ArrayList<Obj> objs = new ArrayList<>();
 
 	// Level 1-5
-	public static int level = 1;
+	private static int level = 1;
+	private static Level currentLevel;
 
 	// Time (in frames, 60 = 1 sec)
 	private static int time = 0;
@@ -45,13 +48,13 @@ public class GamePanel extends JPanel implements Runnable{
 		// Implement KeyListener:
 		this.addKeyListener(new KeyHandler());
 		this.setFocusable(true);
-
-		player = new Player(300, 300, 50, 80, 0, 0, Color.white, 0.5);
 	}
+
 	public void launchGame() {
 		gameThread = new Thread(this);
 		gameThread.start();
-		Utils.spawnlevel(1);
+		currentLevel.loadLevel(objs);
+		player = new Obj_player(300, 300, 50, 80, 0, 0, 0.5);
 	}
 	@Override
 	public void run() {
@@ -104,6 +107,21 @@ public class GamePanel extends JPanel implements Runnable{
 				level=1;
 		}
 	}
+
+	/*
+	Draws all <Obj>'s using the according color template of the level
+	 */
+	private void paintObjs(Graphics2D g2) {
+		// Player
+		if(player.is_drawable())
+			player.draw(g2, currentLevel.getColor("player"));
+
+		// Walls + Enemies + Texts + Arrows
+		for(Obj o : objs) {
+			if(o instanceof Obj_wall wall) wall.draw(g2, currentLevel.getColor("wall"));
+			//if(o instanceof )
+		}
+	}
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
 
@@ -112,9 +130,8 @@ public class GamePanel extends JPanel implements Runnable{
 		// Board
 		board.draw(g2);
 
-		// Elements
-		if(player.is_drawable())
-			player.draw(g2);
+		// <Obj>'s
+		paintObjs(g2);
 
 		// Set a font (example)
 		g2.setColor(Color.white);

@@ -1,43 +1,32 @@
 {
-  // General info
-  "number": 1,
-  "name": "hello world",
-  "length": 1000, // <------
+  "colPlayer": [255, 255, 255],
+  "colWalls": [100, 226, 226],
+  "colPlatforms": [215, 215, 215],
+  "colText": [255, 255, 255],
+  "colArrow": [85, 85, 85],
+  "colBG": [0, 0, 0],
 
-  // Colors [r, g, b]
-  "color_player": [255, 255, 255], // White
-  "color_walls": [100, 226, 226], // Cyan
-  "color_platforms": [215, 215, 215], // Light gray
-  "color_text": [255, 255, 255], // White
-  "color_arrow": [85, 85, 85], // Dark gray
-
-  // Player starting position [x, y]
   "player_pos": [],
 
-  // Walls (max. 20 walls) [x, y]
   "walls": [
     [],
     []
   ],
 
-  // Enemies (max. 10 enemies) [x, y]
   "enemies": [
     [],
     []
   ],
 
-  // Position of texts (max. 5 texts) [x, y]
   "text_pos": [
     [],
     []
   ],
-  // Text value (String) of the texts in the same order
   "text_string": [
     "",
     ""
   ],
 
-  // Position of arrows (max. 8 arrows) [x, y]
   "arrow_pos": [
     [],
     []

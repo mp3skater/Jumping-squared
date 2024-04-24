@@ -16,7 +16,7 @@ public class Utils {
     Spawn all walls and other <Obj>'s from the according json file
     Using Google's Gson library I read the file and create the <level>-class accordingly
      */
-    public static void spawnlevel(int number) {
+    public static void loadLevel(int number) {
         // Get the String value of the json file
         String text = getJsonString(number);
         // Create a new <Gson> instance
@@ -59,7 +59,7 @@ public class Utils {
     }
 
     /*
-    Draws an image
+    Draws an image, idk how to make it more protected
      */
     public static void drawImage(Graphics2D g2, String path, double[] pos, int[] size) {
         try {

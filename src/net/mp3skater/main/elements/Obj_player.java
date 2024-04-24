@@ -9,19 +9,15 @@ import java.awt.*;
 This is the player which you can control through the level.
 */
 
-public class Player extends Obj_moving {
-    public Player(double x, double y, int sX, int sY, double vX, double vY, Color color, double turnDown) {
-        super(x, y, sX, sY, vX, vY);
+public class Obj_player extends Obj_moving {
+    public Obj_player(double x, double y, double turnDown) {
+        super(x, y, 50, 80, 0, 0);
         this.turnDown = turnDown;
-        this.color = color;
     }
 
     // Value with which the <Obj> loses speed horizontally
     // Kind of like how "unslippery" the surface is for the <Obj>
     private final double turnDown;
-
-    // Color of the player
-    private final Color color;
 
     /*
     Gives the player movement vectors according to the key's pressed
@@ -73,7 +69,7 @@ public class Player extends Obj_moving {
     }
 
     @Override
-    public void draw(Graphics2D g2) {
+    public void draw(Graphics2D g2, Color color) {
         Utils.drawRect(g2, pos, size, color);
     }
 }
