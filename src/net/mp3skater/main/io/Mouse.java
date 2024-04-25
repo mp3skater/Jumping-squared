@@ -6,7 +6,7 @@ import java.awt.event.MouseEvent;
 public class Mouse extends MouseAdapter {
 
     /*
-    You can mostly leave this class alone.
+    Stores the location of the mouse and weather or not it is pressed in local variables
      */
 
     public int x, y;

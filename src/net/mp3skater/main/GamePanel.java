@@ -7,12 +7,13 @@ import net.mp3skater.main.io.Board;
 import net.mp3skater.main.io.KeyHandler;
 import net.mp3skater.main.io.Mouse;
 import net.mp3skater.main.level.Level;
+import net.mp3skater.main.util.Utils;
 
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
 
-public class GamePanel extends JPanel implements Runnable{
+public class GamePanel extends JPanel implements Runnable {
 
 	public static final int WIDTH = 800;
 	public static final int HEIGHT = 600;
@@ -29,14 +30,14 @@ public class GamePanel extends JPanel implements Runnable{
 	private static Obj_player player;
 	public static ArrayList<Obj> objs = new ArrayList<>();
 
-	// Level 1-5
+	// Levels 1-5
 	private static int level = 1;
 	private static Level currentLevel;
 
 	// Time (in frames, 60 = 1 sec)
 	private static int time = 0;
 
-	// Offset (moves horizontally with the <Player>)
+	// Offset (moves horizontally with the player)
 	public static double offset = 0;
 
 	public GamePanel() {
@@ -50,11 +51,21 @@ public class GamePanel extends JPanel implements Runnable{
 		this.setFocusable(true);
 	}
 
+	/*
+	Spawn a new Level with the number <level>
+	 */
+	private static void loadLevel(int level, ArrayList<Obj> objs) {
+		currentLevel = Utils.getLevel(level);
+		player = currentLevel.getPlayer();
+		currentLevel.loadLevelObjs(objs);
+	}
+
 	public void launchGame() {
+		// Get the first level, spawn the player and all other <Obj>'s in <objs>
+		loadLevel(level, objs);
+		// Start the thread to start the Game loop
 		gameThread = new Thread(this);
 		gameThread.start();
-		currentLevel.loadLevel(objs);
-		player = new Obj_player(300, 300, 50, 80, 0, 0, 0.5);
 	}
 	@Override
 	public void run() {
@@ -113,7 +124,7 @@ public class GamePanel extends JPanel implements Runnable{
 	 */
 	private void paintObjs(Graphics2D g2) {
 		// Player
-		if(player.is_drawable())
+		if(player != null && player.is_drawable())
 			player.draw(g2, currentLevel.getColor("player"));
 
 		// Walls + Enemies + Texts + Arrows

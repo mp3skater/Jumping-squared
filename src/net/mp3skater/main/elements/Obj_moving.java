@@ -3,10 +3,14 @@ package net.mp3skater.main.elements;
 import net.mp3skater.main.GamePanel;
 
 public abstract class Obj_moving extends Obj {
-    public Obj_moving(double x, double y, int sX, int sY, double vX, double vY) {
+    public Obj_moving(double x, double y, int sX, int sY, double vX, double vY, double mX, double mY) {
         super(x, y, sX, sY);
+        this.max_speed = new double[]{mX, mY};
         this.vec = new double[]{vX, vY};
     }
+
+    // The max. value of <vec> to ensure more "realistic movement"
+    final double[] max_speed;
 
     // Movement Vector of the <Obj>
     protected final double[] vec;
@@ -58,7 +62,7 @@ public abstract class Obj_moving extends Obj {
     }
 
     /*
-    Activate collision boolean and resets the <vec[]> in that direction
+    Activate collision boolean and reset the <vec[]> in that direction
      */
     private void xCollision() {
         xColl = true;
@@ -82,7 +86,6 @@ public abstract class Obj_moving extends Obj {
     If value bigger than <max_speed> replace with the maximal speed in that direction
      */
     protected void addVec(double x, double y) {
-        final int[] max_speed = new int[]{8, 15};
         vec[0] = vec[0]+x< max_speed[0] && vec[0]+x>-max_speed[0] ? vec[0]+x : vec[0]+x>0? max_speed[0] : -max_speed[0];
         vec[1] = vec[1]+y< max_speed[1] && vec[1]+y>-max_speed[1] ? vec[1]+y : vec[1]+y>0? max_speed[1] : -max_speed[1];
     }

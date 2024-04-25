@@ -1,6 +1,6 @@
 package net.mp3skater.main.elements;
 
-import net.mp3skater.main.Utils;
+import net.mp3skater.main.util.Utils;
 
 import java.awt.*;
 

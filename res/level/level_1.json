@@ -1,34 +1,16 @@
 {
-  "colPlayer": [255, 255, 255],
-  "colWalls": [100, 226, 226],
-  "colPlatforms": [215, 215, 215],
-  "colText": [255, 255, 255],
-  "colArrow": [85, 85, 85],
-  "colBG": [0, 0, 0],
+  "colPlayer":[255, 255, 255],
+  "colWalls":[0,0,0],
+  "colPlatforms":[0,0,0],
+  "colText":[0,0,0],
+  "colArrow":[0,0,0],
+  "colBG":[0,0,0],
 
-  "player_pos": [],
+  "player_pos":[100,100],
 
-  "walls": [
-    [],
-    []
-  ],
-
-  "enemies": [
-    [],
-    []
-  ],
-
-  "text_pos": [
-    [],
-    []
-  ],
-  "text_string": [
-    "",
-    ""
-  ],
-
-  "arrow_pos": [
-    [],
-    []
-  ]
+  "walls":[],//[[2,4,2,4],[2,3,2,4]],
+  "enemies":[],//[[2,4],[2,3]],
+  "text_pos":[],//[[2,4],[2,3]],
+  "text_string":[],//["hello","lol"],
+  "arrow_pos":[]//[[2,4],[2,3]]
 }

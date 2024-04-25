@@ -2,20 +2,40 @@ package net.mp3skater.main.level;
 
 import net.mp3skater.main.elements.Obj;
 import net.mp3skater.main.elements.Obj_player;
-import net.mp3skater.main.elements.Obj_wall;
 
 import java.awt.*;
 import java.util.ArrayList;
 
 public class Level {
 
-    // Individual colors of the level
-    private static int[] colPlayer, colWalls, colPlatforms, colText, colArrow, colBG;
+    /*
+    Giant Constructor
+     */
+    public Level(int[] colPlayer, int[]colWalls, int[] colPlatforms,
+                 int[] colText, int[] colArrow, int[] colBG,
+                 int[] player_pos, int[][] walls, int[][] enemies,
+                 int[][] text_pos, String[] text_string, int[][] arrow_pos) {
+        this.colPlayer = colPlayer;
+        this.colWalls = colWalls;
+        this.colPlatforms = colPlatforms;
+        this.colText = colText;
+        this.colArrow = colArrow;
+        this.colBG = colBG;
+        this.player_pos = player_pos;
+        this.walls = walls;
+        this.enemies = enemies;
+        this.text_pos = text_pos;
+        this.text_string = text_string;
+        this.arrow_pos = arrow_pos;
+    }
 
-    // Player starting position
+    // Individual colors of the level
+    private int[] colPlayer, colWalls, colPlatforms, colText, colArrow, colBG;
+
+    // Player starting position [x, y]
     private int[] player_pos;
 
-    // Walls (max. 20 walls) [x, y]
+    // Walls (max. 20 walls) [x, y, sX, sY]
     private int[][] walls;
 
     // Enemies (max. 10 enemies) [x, y]
@@ -28,16 +48,6 @@ public class Level {
 
     // Position of arrows (max. 8 arrows) [x, y]
     private int[][] arrow_pos;
-
-    /*
-    Spawns all <Obj>'s in the Arraylist
-     */
-    //public static void loadLevel(ArrayList<Obj> objs) {
-    //    // Spawn
-    //    for(int[] w : walls) {
-    //        objs.add(new Obj_wall(w[0], w[1], w[2], w[3]));
-    //    }
-    //}
 
     /*
     Get the color of a type of <Obj> for the current level
@@ -54,11 +64,22 @@ public class Level {
         };
     }
 
-    public void loadLevel(ArrayList<Obj> objs) {
+    /*
+    Returns a new Player with the coordinates from the JSON-file
+     */
+    public Obj_player getPlayer() {
+        return new Obj_player(player_pos[0], player_pos[1]);
+        //return new Obj_player(player_pos[0], player_pos[1]);
+    }
+
+    /*
+    Spawns all <Obj>'s in the given Arraylist
+     */
+    public void loadLevelObjs(ArrayList<Obj> objs) {
         // Clear all previous <Obj>'s
         objs.clear();
 
         // Spawn the player
-        objs.add(new Obj_player(player_pos[0], player_pos[1], ))
+        objs.add(new Obj_player(player_pos[0], player_pos[1]));
     }
 }

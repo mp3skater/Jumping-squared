@@ -21,12 +21,15 @@ public abstract class Obj {
         return x > pos[0] - sX && x < pos[0] + size[0] && y > pos[1] - sY && y < pos[1] + size[1];
     }
 
+    /*
+    Only draw an <Obj> if it is visible in the screen
+     */
     public boolean is_drawable() {
         return collides((int)GamePanel.offset, 0, GamePanel.WIDTH, GamePanel.HEIGHT);
     }
 
     /*
-    Only draw an <Obj> if it's inside the screen
+    Method that draws <this>
      */
     public abstract void draw(Graphics2D g2, Color color);
 

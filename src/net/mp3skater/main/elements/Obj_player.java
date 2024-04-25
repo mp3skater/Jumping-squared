@@ -1,6 +1,6 @@
 package net.mp3skater.main.elements;
 
-import net.mp3skater.main.Utils;
+import net.mp3skater.main.util.Utils;
 import net.mp3skater.main.io.KeyHandler;
 
 import java.awt.*;
@@ -10,28 +10,23 @@ This is the player which you can control through the level.
 */
 
 public class Obj_player extends Obj_moving {
-    public Obj_player(double x, double y, double turnDown) {
-        super(x, y, 50, 80, 0, 0);
-        this.turnDown = turnDown;
+    public Obj_player(double x, double y) {
+        super(x, y, 50, 80, 0, 0, 8, 15);
     }
-
-    // Value with which the <Obj> loses speed horizontally
-    // Kind of like how "unslippery" the surface is for the <Obj>
-    private final double turnDown;
 
     /*
     Gives the player movement vectors according to the key's pressed
     */
     public void movement() {
-        if(KeyHandler.aPressed)
+        //if(KeyHandler.aPressed)
             this.addVec(-1, 0);
         if(KeyHandler.dPressed)
             this.addVec(1, 0);
         if(KeyHandler.spacePressed)
-            this.addVec(0, -15);
+            this.addVec(0, -10);
 
         // Gravity
-        this.addVec(0, 0.4);
+        this.addVec(0, 0.8);
     }
 
     /*
@@ -54,14 +49,17 @@ public class Obj_player extends Obj_moving {
         if(vec[0] == 0)
             return;
 
+        // Value with which the <Obj> loses speed horizontally
+        // Kind of like how "unslippery" the surface is for the <Obj>
+        double turnDown = 0.5;
         if(vec[0]>0) {
-            if(vec[0]-turnDown < 0)
+            if(vec[0]- turnDown < 0)
                 vec[0] = 0;
             else
                 vec[0] -= turnDown;
         }
         else {
-            if(vec[0]+turnDown > 0)
+            if(vec[0]+ turnDown > 0)
                 vec[0] = 0;
             else
                 vec[0] += turnDown;
