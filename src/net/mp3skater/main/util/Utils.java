@@ -42,9 +42,9 @@ public class Utils {
     No robust logging because it would complicate and not help much
      */
     private static String getJsonString(int number) {
-        String filePath = "res/level/level_" + number + ".json";
+        // Uses Java-String-Template, similar to pythons f-strings
+        String filePath = STR."res/level/level_\{number}.json";
         StringBuilder text = new StringBuilder();
-
         try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
             String line;
             while ((line = reader.readLine()) != null) {
