@@ -133,13 +133,17 @@ public class GamePanel extends JPanel implements Runnable {
 			//if(o instanceof )
 		}
 	}
+	private void drawBoard(Graphics2D g2) {
+		if(currentLevel != null)
+			board.draw(g2, currentLevel);
+	}
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
 
 		Graphics2D g2 = (Graphics2D)g;
 
 		// Board
-		board.draw(g2, currentLevel);
+		drawBoard(g2);
 
 		// <Obj>'s
 		paintObjs(g2);
