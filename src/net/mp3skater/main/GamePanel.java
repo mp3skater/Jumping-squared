@@ -1,6 +1,7 @@
 package net.mp3skater.main;
 
 import net.mp3skater.main.elements.Obj;
+import net.mp3skater.main.elements.Obj_endBar;
 import net.mp3skater.main.elements.Obj_player;
 import net.mp3skater.main.elements.Obj_wall;
 import net.mp3skater.main.io.Board;
@@ -130,7 +131,8 @@ public class GamePanel extends JPanel implements Runnable {
 		// Walls + Enemies + Texts + Arrows
 		for(Obj o : objs) {
 			if(o instanceof Obj_wall wall) wall.draw(g2, currentLevel.getColor("wall"));
-			//if(o instanceof )
+
+			if(o instanceof Obj_endBar bar) bar.draw(g2, Color.getColor("light green", 0xccf2b1));
 		}
 	}
 	private void drawBoard(Graphics2D g2) {

@@ -1,5 +1,6 @@
 package net.mp3skater.main.elements;
 
+import net.mp3skater.main.GamePanel;
 import net.mp3skater.main.util.Utils;
 import net.mp3skater.main.io.KeyHandler;
 
@@ -25,13 +26,34 @@ public class Obj_player extends Obj_moving {
         if(KeyHandler.spacePressed)
             this.addVec(0, -10);
 
-        // Gravity
+        // Gravity (positive value because the up-left corner is x:0,y:0)
         this.addVec(0, 0.8);
     }
 
+    @Override
+    protected void collisionBool() {
+        // For all elements you could collide with
+        for(Obj o : GamePanel.objs) {
+            // Test weather going vertically, horizontally or both would make you collide with something
+            // Horizontally
+            if(collides((int)(o.getX()-vec[0]), (int)o.getY(), (int)o.getSX(), (int)o.getSY())) {
+                xCollision((int)o.getX(), vec[0]<0/*going up*/? o.size[0] : 0);
+            }
+            // Vertically
+            if(collides((int)o.getX(), (int)(o.getY()-vec[1]), (int)o.getSX(), (int)o.getSY())) {
+                yCollision((int)o.getY(), vec[1]<0/*going left*/? o.size[1] : 0);
+            }
+            // Both
+            if(collides((int)(o.getX()-vec[0]), (int)(o.getY()-vec[1]), (int)o.getSX(), (int)o.getSY())) {
+                xCollision((int)o.getX(), vec[0]<0/*going up*/? o.size[0] : 0);
+                yCollision((int)o.getY(), vec[1]<0/*going left*/? o.size[1] : 0);
+            }
+        }
+    }
+
     /*
-    Overrides the update class to include the <movement()> and the <turndownvec()> methods
-     */
+        Overrides the update class to include the <movement()> and the <turndownvec()> methods
+         */
     @Override
     public void update() {
         // Adds the movement vectors

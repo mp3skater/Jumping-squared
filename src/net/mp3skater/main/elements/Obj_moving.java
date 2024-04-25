@@ -41,36 +41,39 @@ public abstract class Obj_moving extends Obj {
     /*
     Activate x-/yCollision if there is a collision with another <Obj>
      */
-    private void collisionBool() {
+    protected void collisionBool() {
         // For all elements you could collide with
         for(Obj o : GamePanel.objs) {
             // Test weather going vertically, horizontally or both would make you collide with something
             // Horizontally
             if(collides((int)(o.getX()-vec[0]), (int)o.getY(), (int)o.getSX(), (int)o.getSY())) {
-                xCollision();
+                xCollision((int)o.getX(), vec[0]<0/*going up*/? o.size[0] : 0);
             }
             // Vertically
             if(collides((int)o.getX(), (int)(o.getY()-vec[1]), (int)o.getSX(), (int)o.getSY())) {
-                yCollision();
+                yCollision((int)o.getY(), vec[1]<0/*going left*/? o.size[1] : 0);
             }
             // Both
             if(collides((int)(o.getX()-vec[0]), (int)(o.getY()-vec[1]), (int)o.getSX(), (int)o.getSY())) {
-                xCollision();
-                yCollision();
+                xCollision((int)o.getX(), vec[0]<0/*going up*/? o.size[0] : 0);
+                yCollision((int)o.getY(), vec[1]<0/*going left*/? o.size[1] : 0);
             }
         }
     }
 
     /*
     Activate collision boolean and reset the <vec[]> in that direction
+    If <colSize> is 0, the player is colliding from up or left respectively
      */
-    private void xCollision() {
+    protected void xCollision(int collisionX, int colSize) {
         xColl = true;
         vec[0] = 0;
+        pos[0] = colSize==0? collisionX-size[0] : collisionX+colSize;
     }
-    private void yCollision() {
+    protected void yCollision(int collisionY, int colSize) {
         yColl = true;
         vec[1] = 0;
+        pos[1] = colSize==0? collisionY-size[1] : collisionY+colSize;
     }
 
     /*
