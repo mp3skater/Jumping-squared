@@ -9,7 +9,7 @@ import java.util.ArrayList;
 public class Level {
 
     /*
-    Giant Constructor
+    Giant Constructor, mostly for testing purposes
      */
     public Level(int[] colPlayer, int[]colWalls, int[] colPlatforms,
                  int[] colText, int[] colArrow, int[] colBG,
@@ -69,7 +69,6 @@ public class Level {
      */
     public Obj_player getPlayer() {
         return new Obj_player(player_pos[0], player_pos[1]);
-        //return new Obj_player(player_pos[0], player_pos[1]);
     }
 
     /*
@@ -78,8 +77,5 @@ public class Level {
     public void loadLevelObjs(ArrayList<Obj> objs) {
         // Clear all previous <Obj>'s
         objs.clear();
-
-        // Spawn the player
-        objs.add(new Obj_player(player_pos[0], player_pos[1]));
     }
 }

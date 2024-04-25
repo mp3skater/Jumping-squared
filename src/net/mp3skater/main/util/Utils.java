@@ -21,7 +21,7 @@ public class Utils {
     public static Level getLevel(int level) {
         // Get the String value of the json file
         String text = getJsonString(level);
-        // Create a new <Gson> instance
+        // Create a new Gson instance
         Gson gson = new Gson();
 
         /* Test with Level without Json
@@ -39,7 +39,7 @@ public class Utils {
 
     /*
     Returns a String with the context of the JSON-file
-    No robust logging because it would complicate and not help much
+    No robust logging because it would complicate and not help so much
      */
     private static String getJsonString(int number) {
         // Uses Java-String-Template, similar to pythons f-strings
@@ -58,7 +58,7 @@ public class Utils {
     }
 
     /*
-    Draws a rectangle
+    Draws a rectangle with the given dimensions(<pos>, <size>) and <color>
      */
     public static void drawRect(Graphics2D g2, double[] pos, int[] size, Color color) {
         g2.setColor(color);
@@ -66,7 +66,7 @@ public class Utils {
     }
 
     /*
-    Draws an image. IDK how, but I tried to make it more protected
+    Draws an image. IDK how, but I tried to make it more "protected" using robust logging
      */
     public static void drawImage(Graphics2D g2, String path, double[] pos, int[] size) throws BufferedImageGetException {
         try {
