@@ -113,12 +113,12 @@ public class GamePanel extends JPanel implements Runnable {
 		player.update();
 
 		// Change level to show all colors ///// NOT LATER IN THE GAME JUST FOR TESTING
-		if(time%100==0) {
-			if(level!=5)
-				level++;
-			else
-				level=1;
-		}
+		//if(time%100==0) {
+		//	if(level!=5)
+		//		level++;
+		//	else
+		//		level=1;
+		//}
 	}
 
 	/*
