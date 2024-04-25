@@ -32,7 +32,7 @@ public class GamePanel extends JPanel implements Runnable {
 	public static ArrayList<Obj> objs = new ArrayList<>();
 
 	// Levels 1-5
-	private static int level = 1;
+	private static int level = 0;
 	private static Level currentLevel;
 
 	// Time (in frames, 60 = 1 sec)
@@ -55,7 +55,8 @@ public class GamePanel extends JPanel implements Runnable {
 	/*
 	Spawn a new Level with the number <level>
 	 */
-	private static void loadLevel(int level, ArrayList<Obj> objs) {
+	public static void loadNewLevel() {
+		level++;
 		currentLevel = Utils.getLevel(level);
 		player = currentLevel.getPlayer();
 		currentLevel.loadLevelObjs(objs);
@@ -63,7 +64,7 @@ public class GamePanel extends JPanel implements Runnable {
 
 	public void launchGame() {
 		// Get the first level, spawn the player and all other <Obj>'s in <objs>
-		loadLevel(level, objs);
+		loadNewLevel();
 		// Start the thread to start the Game loop
 		gameThread = new Thread(this);
 		gameThread.start();

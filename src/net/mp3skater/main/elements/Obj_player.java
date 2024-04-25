@@ -34,6 +34,10 @@ public class Obj_player extends Obj_moving {
     protected void collisionBool() {
         // For all elements you could collide with
         for(Obj o : GamePanel.objs) {
+            if(o instanceof Obj_endBar) {
+                GamePanel.loadNewLevel();
+            }
+
             // Test weather going vertically, horizontally or both would make you collide with something
             // Horizontally
             if(collides((int)(o.getX()-vec[0]), (int)o.getY(), (int)o.getSX(), (int)o.getSY())) {
