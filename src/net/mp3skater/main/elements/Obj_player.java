@@ -18,7 +18,7 @@ public class Obj_player extends Obj_moving {
     Gives the player movement vectors according to the key's pressed
     */
     public void movement() {
-        //if(KeyHandler.aPressed)
+        if(KeyHandler.aPressed)
             this.addVec(-1, 0);
         if(KeyHandler.dPressed)
             this.addVec(1, 0);
