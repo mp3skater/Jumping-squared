@@ -43,8 +43,12 @@ public class Obj_player extends Obj_moving {
             GamePanel.gameOver();
 
         // Collision with left side of the screen
-        if(pos[0]+vec[0] < 0)
-            xCollision(size[0], 0);
+        if(pos[0]+vec[0]-GamePanel.offset < 0)
+            xCollision((int) (size[0]+GamePanel.offset), 0);
+
+        // Update Offset if the player moves forwards in the level
+        if(pos[0]+size[0] -GamePanel.offset > GamePanel.WIDTH -500 && vec[0]>0)
+            GamePanel.increaseOffset((int) vec[0]);
 
         // For all elements you could collide with
         for(Obj o : GamePanel.objs) {
@@ -127,6 +131,6 @@ public class Obj_player extends Obj_moving {
 
     @Override
     public void draw(Graphics2D g2, Color color) {
-        Utils.drawRect(g2, pos, size, color);
+        Utils.drawRect(g2, this, color);
     }
 }

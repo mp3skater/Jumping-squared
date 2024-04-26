@@ -3,6 +3,7 @@ package net.mp3skater.main.util;
 import com.google.gson.Gson;
 import net.mp3skater.main.GamePanel;
 import net.mp3skater.main.level.Level;
+import net.mp3skater.main.obj.Obj;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -60,18 +61,18 @@ public class Utils {
     /*
     Draws a rectangle with the given dimensions(<pos>, <size>) and <color>
      */
-    public static void drawRect(Graphics2D g2, double[] pos, int[] size, Color color) {
+    public static void drawRect(Graphics2D g2, Obj o, Color color) {
         g2.setColor(color);
-        g2.fillRect((int)pos[0], (int)pos[1], size[0], size[1]);
+        g2.fillRect(o.getDrawX(o), (int) o.getY(), (int) o.getSX(), (int) o.getSY());
     }
 
     /*
     Draws an image. IDK how, but I tried to make it more "protected" using robust logging
      */
-    public static void drawImage(Graphics2D g2, String path, double[] pos, int[] size) throws BufferedImageGetException {
+    public static void drawImage(Graphics2D g2, String path, Obj o) throws BufferedImageGetException {
         try {
             BufferedImage bImage = ImageIO.read(Objects.requireNonNull(Utils.class.getClassLoader().getResourceAsStream(path)));
-            drawBufferedImage(g2, bImage, pos, size);
+            drawBufferedImage(g2, bImage, new double[]{o.getDrawX(o), (int)o.getY()}, new int[]{(int) o.getSX(), (int) o.getSY()});
         }
         catch(BufferedImageDrawException | IOException e) {
             throw new BufferedImageGetException(e);

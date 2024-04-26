@@ -37,7 +37,6 @@ public class Obj_enemy extends Obj_moving {
 
     @Override
     public void draw(Graphics2D g2, Color color) {
-        g2.setColor(color);
-        Utils.drawRect(g2, pos, size, color);
+        Utils.drawRect(g2, this, color);
     }
 }

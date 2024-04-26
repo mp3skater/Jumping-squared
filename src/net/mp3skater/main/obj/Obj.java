@@ -29,6 +29,13 @@ public abstract class Obj {
     }
 
     /*
+
+     */
+    public int getDrawX(Obj obj) {
+        return (int) (obj.pos[0] - GamePanel.offset);
+    }
+
+    /*
     Method that draws <this>
      */
     public abstract void draw(Graphics2D g2, Color color);

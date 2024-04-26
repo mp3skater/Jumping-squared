@@ -1,6 +1,7 @@
 package net.mp3skater.main.obj;
 
 import net.mp3skater.main.GamePanel;
+import net.mp3skater.main.util.Utils;
 
 import java.awt.*;
 
@@ -11,7 +12,6 @@ public class Obj_endBar extends Obj {
 
     @Override
     public void draw(Graphics2D g2, Color color) {
-        g2.setColor(color);
-        g2.fillRect((int)pos[0], (int)pos[1], size[0], size[1]);
+        Utils.drawRect(g2, this, color);
     }
 }
