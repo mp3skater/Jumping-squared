@@ -20,7 +20,7 @@ public class KeyHandler implements KeyListener {
 
         if(keyCode == KeyEvent.VK_A)
             aPressed = true;
-        if(keyCode == KeyEvent.VK_D)
+        if(keyCode == KeyEvent.VK_D || keyCode == KeyEvent.VK_H)
             dPressed = true;
         if(keyCode == KeyEvent.VK_SPACE)
             spacePressed = true;
@@ -35,7 +35,7 @@ public class KeyHandler implements KeyListener {
 
         if(keyCode == KeyEvent.VK_A)
             aPressed = false;
-        if(keyCode == KeyEvent.VK_D)
+        if(keyCode == KeyEvent.VK_D || keyCode == KeyEvent.VK_H)
             dPressed = false;
         if(keyCode == KeyEvent.VK_SPACE)
             spacePressed = false;
