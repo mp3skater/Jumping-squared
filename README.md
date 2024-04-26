@@ -3,7 +3,7 @@
   Jumping²
 </h1>
 
-> Ein simples "Super Mario Bros"-Klon-Spiel mit Java programmiert.
+> Ein simples 2D-Platformer-Spiel mit Java programmiert.
 
 <details>
 <summary>Schau das Playthrough an: (Youtube video)</summary>
@@ -14,7 +14,7 @@
 
 ## Features
 
---> Info: This is a school-project, so that's why it's in German...
+--> Info: This is a school-project, so that's why it's in german.
 
 **Added Features:**
 - Nix
