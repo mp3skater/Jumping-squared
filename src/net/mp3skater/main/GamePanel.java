@@ -54,6 +54,7 @@ public class GamePanel extends JPanel implements Runnable {
 	Spawn a new Level with the number <level>
 	 */
 	public static void loadNewLevel() {
+		offset = 0;
 		level++;
 		currentLevel = Utils.getLevel(level);
 		player = currentLevel.getPlayer();

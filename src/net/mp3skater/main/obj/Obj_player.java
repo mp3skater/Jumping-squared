@@ -38,6 +38,14 @@ public class Obj_player extends Obj_moving {
         // Reset onGround
         onGround = false;
 
+        // Kill Player if he falls down
+        if(pos[1] > GamePanel.HEIGHT)
+            GamePanel.gameOver();
+
+        // Collision with left side of the screen
+        if(pos[0]+vec[0] < 0)
+            xCollision(size[0], 0);
+
         // For all elements you could collide with
         for(Obj o : GamePanel.objs) {
             if (collides((int) (o.getX() - vec[0]), (int) o.getY(), (int) o.getSX(), (int) o.getSY()) ||
