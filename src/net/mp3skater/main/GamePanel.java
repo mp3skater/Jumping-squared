@@ -1,9 +1,6 @@
 package net.mp3skater.main;
 
-import net.mp3skater.main.elements.Obj;
-import net.mp3skater.main.elements.Obj_endBar;
-import net.mp3skater.main.elements.Obj_player;
-import net.mp3skater.main.elements.Obj_wall;
+import net.mp3skater.main.obj.*;
 import net.mp3skater.main.io.Board;
 import net.mp3skater.main.io.KeyHandler;
 import net.mp3skater.main.io.Mouse;
@@ -26,13 +23,14 @@ public class GamePanel extends JPanel implements Runnable {
 	// Booleans for the pause-function
 	private boolean exPause = true; // To see if Pause has been changed
 	private boolean isPause = true;
+	private static boolean activatePause = false;
 
 	// <Obj>'s
 	private static Obj_player player;
 	public static ArrayList<Obj> objs = new ArrayList<>();
 
 	// Levels 1-5
-	private static int level = 0;
+	public static int level = 0;
 	private static Level currentLevel;
 
 	// Time (in frames, 60 = 1 sec)
@@ -60,6 +58,13 @@ public class GamePanel extends JPanel implements Runnable {
 		currentLevel = Utils.getLevel(level);
 		player = currentLevel.getPlayer();
 		currentLevel.loadLevelObjs(objs);
+	}
+
+	public static void gameOver() {
+		activatePause = true;
+		time = -1; // It updates the time once, so this sets it to 0 essentially
+		level = 0;
+		loadNewLevel();
 	}
 
 	public void launchGame() {
@@ -106,11 +111,23 @@ public class GamePanel extends JPanel implements Runnable {
 		if(isPause)
 			return;
 
+		// Change Pause
+		if(activatePause) {
+			isPause = true;
+			activatePause = false;
+		}
+
 		// Update time
 		time++;
 
 		// Update Player position
 		player.update();
+
+		// Update the Enemy AI
+		for(Obj o : objs) {
+			if(o instanceof Obj_enemy enemy)
+				enemy.update();
+		}
 
 		// Change level to show all colors ///// NOT LATER IN THE GAME JUST FOR TESTING
 		//if(time%100==0) {
@@ -132,8 +149,9 @@ public class GamePanel extends JPanel implements Runnable {
 		// Walls + Enemies + Texts + Arrows
 		for(Obj o : objs) {
 			if(o instanceof Obj_wall wall) wall.draw(g2, currentLevel.getColor("wall"));
+			if(o instanceof Obj_enemy enemy) enemy.draw(g2, currentLevel.getColor("enemy"));
 
-			if(o instanceof Obj_endBar bar) bar.draw(g2, Color.getColor("light green", 0xccf2b1));
+			if(o instanceof Obj_endBar bar) bar.draw(g2, currentLevel.getColor("endbar"));
 		}
 	}
 	private void drawBoard(Graphics2D g2) {
@@ -155,6 +173,9 @@ public class GamePanel extends JPanel implements Runnable {
 		g2.setColor(Color.white);
 		Font font = new Font ("Courier New", Font.BOLD, 10);
 		g2.setFont(font);
+
+		// Time
+		g2.drawString(STR."\{time}", 10, 15);
 
 		// Pause (needs to be arranged to the center if you change WIDTH or HEIGHT)
 		if(isPause) {

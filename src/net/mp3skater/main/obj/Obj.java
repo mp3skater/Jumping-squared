@@ -1,4 +1,4 @@
-package net.mp3skater.main.elements;
+package net.mp3skater.main.obj;
 
 import net.mp3skater.main.GamePanel;
 

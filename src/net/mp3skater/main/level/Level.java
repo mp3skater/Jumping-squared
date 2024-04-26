@@ -1,9 +1,6 @@
 package net.mp3skater.main.level;
 
-import net.mp3skater.main.elements.Obj;
-import net.mp3skater.main.elements.Obj_endBar;
-import net.mp3skater.main.elements.Obj_player;
-import net.mp3skater.main.elements.Obj_wall;
+import net.mp3skater.main.obj.*;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -13,17 +10,19 @@ public class Level {
     /*
     Giant Constructor, mostly for testing purposes
      */
-    public Level(int[] colPlayer, int[]colWalls, int[] colPlatforms,
-                 int[] colText, int[] colArrow, int[] colBG, int length,
+    public Level(int[] colPlayer, int[] colEnemies, int[]colWalls, int[] colPlatforms,
+                 int[] colText, int[] colArrow, int[] colBG, int length, int[] colEnd,
                  int[] player_pos, int[][] walls, int[][] enemies,
                  int[][] text_pos, String[] text_string, int[][] arrow_pos) {
         this.colPlayer = colPlayer;
+        this.colEnemies = colEnemies;
         this.colWalls = colWalls;
         this.colPlatforms = colPlatforms;
         this.colText = colText;
         this.colArrow = colArrow;
         this.colBG = colBG;
         this.length = length;
+        this.colEnd = colEnd;
         this.player_pos = player_pos;
         this.walls = walls;
         this.enemies = enemies;
@@ -42,7 +41,7 @@ public class Level {
     private final int length;
 
     // Individual colors of the level
-    private final int[] colPlayer, colWalls, colPlatforms, colText, colArrow, colBG;
+    private final int[] colPlayer, colEnemies, colWalls, colPlatforms, colText, colArrow, colBG, colEnd;
 
     // Player starting position [x, y]
     private final int[] player_pos;
@@ -65,15 +64,17 @@ public class Level {
     Get the color of a type of <Obj> for the current level
      */
     public Color getColor(String name) {
-        return switch (name) {
-            case "player" -> new Color(colPlayer[0], colPlayer[1], colPlayer[2]);
-            case "wall" -> new Color(colWalls[0], colWalls[1], colWalls[2]);
-            case "platform" -> new Color(colPlatforms[0], colPlatforms[1], colPlatforms[2]);
-            case "text" -> new Color(colText[0], colText[1], colText[2]);
-            case "arrow" -> new Color(colArrow[0], colArrow[1], colArrow[2]);
-            case "background" -> new Color(colBG[0], colBG[1], colBG[2]);
-            default -> null;
-        };
+        switch (name) {
+            case "player" -> { return new Color(colPlayer[0], colPlayer[1], colPlayer[2]); }
+            case "enemy" -> { return new Color(colEnemies[0], colEnemies[1], colEnemies[2]); }
+            case "wall" -> { return new Color(colWalls[0], colWalls[1], colWalls[2]); }
+            case "platform" -> { return new Color(colPlatforms[0], colPlatforms[1], colPlatforms[2]); }
+            case "text" -> { return new Color(colText[0], colText[1], colText[2]); }
+            case "arrow" -> { return new Color(colArrow[0], colArrow[1], colArrow[2]); }
+            case "background" -> { return new Color(colBG[0], colBG[1], colBG[2]); }
+            case "endbar" -> { return new Color(colEnd[0], colEnd[1], colEnd[2]); }
+            default -> { System.out.println(STR."Color \"\{name}\" not found."); return null; }
+        }
     }
 
     /*
@@ -92,8 +93,8 @@ public class Level {
 
         for(int[] w : walls)
             objs.add(new Obj_wall(w[0], w[1], w[2], w[3]));
-        //for(int[] e : enemies)
-        //    objs.add(new
+        for(int[] e : enemies)
+            objs.add(new Obj_enemy(e[0], e[1]));
 
         // Spawn the "End-Bar"
         objs.add(new Obj_endBar(length));

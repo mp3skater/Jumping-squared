@@ -1,4 +1,4 @@
-package net.mp3skater.main.elements;
+package net.mp3skater.main.obj;
 
 import net.mp3skater.main.GamePanel;
 import net.mp3skater.main.util.Utils;
@@ -15,6 +15,9 @@ public class Obj_player extends Obj_moving {
         super(x, y, 50, 80, 0, 0, 8, 15);
     }
 
+    // If he touches the ground
+    private boolean onGround;
+
     /*
     Gives the player movement vectors according to the key's pressed
     */
@@ -23,44 +26,49 @@ public class Obj_player extends Obj_moving {
             this.addVec(-1, 0);
         if(KeyHandler.dPressed)
             this.addVec(1, 0);
-        if(KeyHandler.spacePressed)
-            this.addVec(0, -10);
+        if(KeyHandler.spacePressed && onGround)
+            this.addVec(0, -15);
 
         // Gravity (positive value because the up-left corner is x:0,y:0)
-        this.addVec(0, 0.8);
+        this.addVec(0, 0.6);
     }
 
     @Override
     protected void collisionBool() {
+        // Reset onGround
+        onGround = false;
+
         // For all elements you could collide with
         for(Obj o : GamePanel.objs) {
+            if (collides((int) (o.getX() - vec[0]), (int) o.getY(), (int) o.getSX(), (int) o.getSY()) ||
+                    collides((int) o.getX(), (int) (o.getY() - vec[1]), (int) o.getSX(), (int) o.getSY()) ||
+                    collides((int) (o.getX() - vec[0]), (int) (o.getY() - vec[1]), (int) o.getSX(), (int) o.getSY())) {
+                // Level finished
+                if(o instanceof Obj_endBar) {
+                    GamePanel.loadNewLevel();
+                    break;
+                }
+                // Die when hitting an enemy
+                if(o instanceof Obj_enemy) {
+                    GamePanel.gameOver();
+                    break;
+                }
+            }
+            // No collision
+            else continue;
 
             // Test weather going vertically, horizontally or both would make you collide with something
             // Horizontally
             if(collides((int)(o.getX()-vec[0]), (int)o.getY(), (int)o.getSX(), (int)o.getSY())) {
-                // Level finished
-                if(o instanceof Obj_endBar) {
-                    GamePanel.loadNewLevel();
-                    return;
-                }
                 xCollision((int)o.getX(), vec[0]<0/*going up*/? o.size[0] : 0);
             }
             // Vertically
             if(collides((int)o.getX(), (int)(o.getY()-vec[1]), (int)o.getSX(), (int)o.getSY())) {
-                // Level finished
-                if(o instanceof Obj_endBar) {
-                    GamePanel.loadNewLevel();
-                    return;
-                }
                 yCollision((int)o.getY(), vec[1]<0/*going left*/? o.size[1] : 0);
+                onGround = true;
             }
             // Both
             if(collides((int)(o.getX()-vec[0]), (int)(o.getY()-vec[1]), (int)o.getSX(), (int)o.getSY())) {
-                // Level finished
-                if(o instanceof Obj_endBar) {
-                    GamePanel.loadNewLevel();
-                    return;
-                }
                 xCollision((int)o.getX(), vec[0]<0/*going up*/? o.size[0] : 0);
                 yCollision((int)o.getY(), vec[1]<0/*going left*/? o.size[1] : 0);
             }
@@ -84,12 +92,17 @@ public class Obj_player extends Obj_moving {
     Makes the <Player> slow down horizontally to ensure it doesn't drift away
      */
     public void turndownvec() {
+        // No movement
         if(vec[0] == 0)
             return;
 
+        // In the air // EXPERIMENTAL: Not good for control, feeling: Strange
+        //if(!onGround)
+        //    return;
+
         // Value with which the <Obj> loses speed horizontally
-        // Kind of like how "unslippery" the surface is for the <Obj>
-        double turnDown = 0.5;
+        // Kind of like how "unslippery" the ground is for the <Obj>
+        double turnDown = onGround? /*On the ground*/0.5 : /*In the air*/0.2;
         if(vec[0]>0) {
             if(vec[0]- turnDown < 0)
                 vec[0] = 0;

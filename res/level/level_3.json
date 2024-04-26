@@ -1,14 +1,13 @@
 {
-  "colPlayer":[255, 255, 255],
-  "colEnemies":[],
-  "colWalls":[86, 217, 217],
-  "colPlatforms":[200,200,200],
+  "colPlayer":[13, 232, 132],
+  "colWalls":[26, 54, 51],
+  "colPlatforms":[47,25,7],
   "colText":[255,255,255],
-  "colArrow":[105,105,105],
-  "colBG":[0,0,0],
-  "colEnd":[144,0,0],
+  "colArrow":[240,82,20],
+  "colBG":[144,0,0],
+  "colEnd":[242,136,15],
 
-  "length": 700,
+  "length": 500,
   "player_pos":[100,100],
 
   "walls":[[10,400,400,150]],

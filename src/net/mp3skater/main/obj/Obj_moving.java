@@ -1,4 +1,4 @@
-package net.mp3skater.main.elements;
+package net.mp3skater.main.obj;
 
 import net.mp3skater.main.GamePanel;
 
@@ -79,7 +79,7 @@ public abstract class Obj_moving extends Obj {
     /*
     Finally makes the Object move (change the position)
      */
-    private void move() {
+    protected void move() {
         pos[0] += xColl? 0 : vec[0];
         pos[1] += yColl? 0 : vec[1];
     }
