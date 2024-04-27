@@ -1,8 +1,6 @@
-package net.mp3skater.main.util;
+package net.mp3skater.main;
 
 import com.google.gson.Gson;
-import net.mp3skater.main.GamePanel;
-import net.mp3skater.main.level.Level;
 import net.mp3skater.main.obj.Obj;
 
 import javax.imageio.ImageIO;

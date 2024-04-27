@@ -1,7 +1,7 @@
 package net.mp3skater.main.io;
 
 import net.mp3skater.main.GamePanel;
-import net.mp3skater.main.level.Level;
+import net.mp3skater.main.Level;
 
 import java.awt.*;
 

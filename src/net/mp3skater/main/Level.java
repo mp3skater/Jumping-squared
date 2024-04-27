@@ -1,4 +1,4 @@
-package net.mp3skater.main.level;
+package net.mp3skater.main;
 
 import net.mp3skater.main.obj.*;
 

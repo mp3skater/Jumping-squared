@@ -4,8 +4,6 @@ import net.mp3skater.main.obj.*;
 import net.mp3skater.main.io.Board;
 import net.mp3skater.main.io.KeyHandler;
 import net.mp3skater.main.io.Mouse;
-import net.mp3skater.main.level.Level;
-import net.mp3skater.main.util.Utils;
 
 import javax.swing.*;
 import java.awt.*;
