@@ -27,7 +27,10 @@ public class GamePanel extends JPanel implements Runnable {
 
 	// <Obj>'s
 	private static Obj_player player;
-	public static ArrayList<Obj> objs = new ArrayList<>();
+	public static ArrayList<Obj> walls = new ArrayList<>();
+	public static ArrayList<Obj_enemy> enemies = new ArrayList<>();
+	public static ArrayList<Obj_text> texts = new ArrayList<>();
+	public static ArrayList<Obj_arrow> arrows = new ArrayList<>();
 
 	// Levels 1-5
 	public static int level = 0;
@@ -61,24 +64,28 @@ public class GamePanel extends JPanel implements Runnable {
 	/*
 	Spawn a new Level with the number <level>
 	 */
-	public static void loadNewLevel() {
+	public static void loadNextLevel() {
 		offset = 0;
 		level++;
 		currentLevel = Utils.getLevel(level);
 		player = currentLevel.getPlayer();
-		currentLevel.loadLevelObjs(objs);
+		currentLevel.loadLevelObjs(walls, enemies, texts, arrows);
+	}
+
+	public static int getLength() {
+		return currentLevel.getLength();
 	}
 
 	public static void gameOver() {
 		activatePause = true;
 		time = -1; // It updates the time once, so this sets it to 0 essentially
 		level = 0;
-		loadNewLevel();
+		loadNextLevel();
 	}
 
 	public void launchGame() {
 		// Get the first level, spawn the player and all other <Obj>'s in <objs>
-		loadNewLevel();
+		loadNextLevel();
 		// Start the thread to start the Game loop
 		gameThread = new Thread(this);
 		gameThread.start();
@@ -133,9 +140,8 @@ public class GamePanel extends JPanel implements Runnable {
 		player.update();
 
 		// Update the Enemy AI
-		for(Obj o : objs)
-			if(o instanceof Obj_enemy enemy)
-				enemy.update();
+		for(Obj_enemy e : enemies)
+			e.update();
 
 		//
 
@@ -150,19 +156,23 @@ public class GamePanel extends JPanel implements Runnable {
 
 	/*
 	Draws all <Obj>'s using the according color template of the level
+	In a specific order, DO NOT CHANGE!
 	 */
 	private void paintObjs(Graphics2D g2) {
+		// Walls + Enemies + Texts + Arrows
+		for(Obj o : walls) {
+			if (o instanceof Obj_wall w) w.draw(g2, currentLevel.getColor("wall"));
+			if (o instanceof Obj_endBar bar) bar.draw(g2, currentLevel.getColor("endbar"));
+		}
+		for(Obj_arrow a : arrows)
+			a.draw(g2, currentLevel.getColor("arrow"));
+		for(Obj_enemy e : enemies)
+			e.draw(g2, currentLevel.getColor("enemy"));
+
 		// Player
 		if(player != null && player.is_drawable())
 			player.draw(g2, currentLevel.getColor("player"));
 
-		// Walls + Enemies + Texts + Arrows
-		for(Obj o : objs) {
-			if(o instanceof Obj_wall wall) wall.draw(g2, currentLevel.getColor("wall"));
-			if(o instanceof Obj_enemy enemy) enemy.draw(g2, currentLevel.getColor("enemy"));
-
-			if(o instanceof Obj_endBar bar) bar.draw(g2, currentLevel.getColor("endbar"));
-		}
 	}
 	private void drawBoard(Graphics2D g2) {
 		if(currentLevel != null)

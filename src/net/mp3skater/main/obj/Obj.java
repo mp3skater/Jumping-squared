@@ -17,6 +17,9 @@ public abstract class Obj {
     /*
     Formula that checks if another <Obj> and this collide
      */
+    protected boolean collides(Obj obj) {
+        return collides((int)obj.pos[0], (int)obj.pos[1], obj.size[0], obj.size[1]);
+    }
     protected boolean collides(int x, int y, int sX, int sY) {
         return x > pos[0] - sX && x < pos[0] + size[0] && y > pos[1] - sY && y < pos[1] + size[1];
     }

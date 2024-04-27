@@ -43,7 +43,7 @@ public abstract class Obj_moving extends Obj {
      */
     protected void collisionBool() {
         // For all elements you could collide with
-        for(Obj o : GamePanel.objs) {
+        for(Obj o : GamePanel.walls) {
             // Test weather going vertically, horizontally or both would make you collide with something
             // Horizontally
             if(collides((int)(o.getX()-vec[0]), (int)o.getY(), (int)o.getSX(), (int)o.getSY())) {

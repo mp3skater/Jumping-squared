@@ -85,18 +85,33 @@ public class Level {
     }
 
     /*
+    Returns the length of the level
+     */
+    public int getLength() {
+        return length;
+    }
+
+    /*
     Spawns all <Obj>'s in the given Arraylist
      */
-    public void loadLevelObjs(ArrayList<Obj> objs) {
+    public void loadLevelObjs(ArrayList<Obj> walls, ArrayList<Obj_enemy> enemies, ArrayList<Obj_text> texts, ArrayList<Obj_arrow> arrows) {
         // Clear all previous <Obj>'s
-        objs.clear();
+        walls.clear();
+        enemies.clear();
+        texts.clear();
+        arrows.clear();
 
-        for(int[] w : walls)
-            objs.add(new Obj_wall(w[0], w[1], w[2], w[3]));
-        for(int[] e : enemies)
-            objs.add(new Obj_enemy(e[0], e[1]));
+        for(int[] w : this.walls)
+            walls.add(new Obj_wall(w[0], w[1], w[2], w[3]));
+        for(int[] e : this.enemies)
+            enemies.add(new Obj_enemy(e[0], e[1]));
+        assert text_pos.length == text_string.length;
+        for(int i = 0; i<text_pos.length; i++)
+            texts.add(new Obj_text(text_pos[i][0], text_pos[i][1], text_string[i]));
+        for(int[] a : this.arrow_pos)
+            arrows.add(new Obj_arrow(a[0], a[1]));
 
         // Spawn the "End-Bar"
-        objs.add(new Obj_endBar(length));
+        walls.add(new Obj_endBar(length));
     }
 }

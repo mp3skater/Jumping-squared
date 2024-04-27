@@ -50,39 +50,37 @@ public class Obj_player extends Obj_moving {
         if(pos[0]+size[0] -GamePanel.offset > GamePanel.WIDTH/2.0 && vec[0]>0)
             GamePanel.increaseOffset((int) vec[0]);
 
-        // For all elements you could collide with
-        for(Obj o : GamePanel.objs) {
-            if (collides((int) (o.getX() - vec[0]), (int) o.getY(), (int) o.getSX(), (int) o.getSY()) ||
-                    collides((int) o.getX(), (int) (o.getY() - vec[1]), (int) o.getSX(), (int) o.getSY()) ||
-                    collides((int) (o.getX() - vec[0]), (int) (o.getY() - vec[1]), (int) o.getSX(), (int) o.getSY())) {
-                // Level finished
-                if(o instanceof Obj_endBar) {
-                    GamePanel.loadNewLevel();
-                    break;
-                }
-                // Die when hitting an enemy
-                if(o instanceof Obj_enemy) {
-                    GamePanel.gameOver();
-                    break;
-                }
+        // Kill player if he hits an enemy
+        for(Obj e : GamePanel.enemies)
+            if(collides(e)) {
+                GamePanel.gameOver();
+                return;
             }
-            // No collision
-            else continue;
+
+        // Load new level if player reaches the end-bar
+        if(pos[0] >= GamePanel.getLength()-50)
+            GamePanel.loadNextLevel();
+
+        // For all elements you could collide with
+        for(Obj w : GamePanel.walls) {
+            // Return if endbar to allow the player to finish the level
+            if(w instanceof Obj_endBar)
+                continue;
 
             // Test weather going vertically, horizontally or both would make you collide with something
             // Horizontally
-            if(collides((int)(o.getX()-vec[0]), (int)o.getY(), (int)o.getSX(), (int)o.getSY())) {
-                xCollision((int)o.getX(), vec[0]<0/*going up*/? o.size[0] : 0);
+            if(collides((int)(w.getX()-vec[0]), (int)w.getY(), (int)w.getSX(), (int)w.getSY())) {
+                xCollision((int)w.getX(), vec[0]<0/*going up*/? w.size[0] : 0);
             }
             // Vertically
-            if(collides((int)o.getX(), (int)(o.getY()-vec[1]), (int)o.getSX(), (int)o.getSY())) {
-                yCollision((int)o.getY(), vec[1]<0/*going left*/? o.size[1] : 0);
+            if(collides((int)w.getX(), (int)(w.getY()-vec[1]), (int)w.getSX(), (int)w.getSY())) {
+                yCollision((int)w.getY(), vec[1]<0/*going left*/? w.size[1] : 0);
                 onGround = true;
             }
             // Both
-            if(collides((int)(o.getX()-vec[0]), (int)(o.getY()-vec[1]), (int)o.getSX(), (int)o.getSY())) {
-                xCollision((int)o.getX(), vec[0]<0/*going up*/? o.size[0] : 0);
-                yCollision((int)o.getY(), vec[1]<0/*going left*/? o.size[1] : 0);
+            if(collides((int)(w.getX()-vec[0]), (int)(w.getY()-vec[1]), (int)w.getSX(), (int)w.getSY())) {
+                xCollision((int)w.getX(), vec[0]<0/*going up*/? w.size[0] : 0);
+                yCollision((int)w.getY(), vec[1]<0/*going left*/? w.size[1] : 0);
             }
         }
     }
@@ -114,7 +112,7 @@ public class Obj_player extends Obj_moving {
 
         // Value with which the <Obj> loses speed horizontally
         // Kind of like how "unslippery" the ground is for the <Obj>
-        double turnDown = onGround? /*On the ground*/0.3 : /*In the air*/0.2;
+        double turnDown = onGround? /*On the ground*/0.3 : /*In the air*/0.25;
         if(vec[0]>0) {
             if(vec[0]- turnDown < 0)
                 vec[0] = 0;
