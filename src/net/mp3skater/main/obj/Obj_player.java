@@ -23,9 +23,9 @@ public class Obj_player extends Obj_moving {
     */
     public void movement() {
         if(KeyHandler.aPressed)
-            this.addVec(-1, 0);
+            this.addVec(-0.5, 0);
         if(KeyHandler.dPressed)
-            this.addVec(1, 0);
+            this.addVec(0.5, 0);
         if(KeyHandler.spacePressed && onGround)
             this.addVec(0, -15);
 
@@ -47,7 +47,7 @@ public class Obj_player extends Obj_moving {
             xCollision((int) (size[0]+GamePanel.offset), 0);
 
         // Update Offset if the player moves forwards in the level
-        if(pos[0]+size[0] -GamePanel.offset > GamePanel.WIDTH -500 && vec[0]>0)
+        if(pos[0]+size[0] -GamePanel.offset > GamePanel.WIDTH/2.0 && vec[0]>0)
             GamePanel.increaseOffset((int) vec[0]);
 
         // For all elements you could collide with
@@ -114,7 +114,7 @@ public class Obj_player extends Obj_moving {
 
         // Value with which the <Obj> loses speed horizontally
         // Kind of like how "unslippery" the ground is for the <Obj>
-        double turnDown = onGround? /*On the ground*/0.5 : /*In the air*/0.2;
+        double turnDown = onGround? /*On the ground*/0.3 : /*In the air*/0.2;
         if(vec[0]>0) {
             if(vec[0]- turnDown < 0)
                 vec[0] = 0;

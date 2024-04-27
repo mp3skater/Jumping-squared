@@ -133,10 +133,11 @@ public class GamePanel extends JPanel implements Runnable {
 		player.update();
 
 		// Update the Enemy AI
-		for(Obj o : objs) {
+		for(Obj o : objs)
 			if(o instanceof Obj_enemy enemy)
 				enemy.update();
-		}
+
+		//
 
 		// Change level to show all colors ///// NOT LATER IN THE GAME JUST FOR TESTING
 		//if(time%100==0) {
