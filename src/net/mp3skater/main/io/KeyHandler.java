@@ -4,9 +4,8 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
 public class KeyHandler implements KeyListener {
-
     /*
-    This class handles the key presses and stores them in global variables.
+    This class handles the key presses and stores them in global variables
      */
 
     public static boolean pausePressed, aPressed, dPressed, spacePressed;
@@ -20,6 +19,7 @@ public class KeyHandler implements KeyListener {
 
         if(keyCode == KeyEvent.VK_A)
             aPressed = true;
+        // Allow also H instead of d because of workman compatibility
         if(keyCode == KeyEvent.VK_D || keyCode == KeyEvent.VK_H)
             dPressed = true;
         if(keyCode == KeyEvent.VK_SPACE)

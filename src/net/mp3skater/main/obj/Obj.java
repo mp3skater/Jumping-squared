@@ -5,10 +5,17 @@ import net.mp3skater.main.GamePanel;
 import java.awt.*;
 
 public abstract class Obj {
-    // Size and position of the Obj
+    /*
+    Superclass of all objects you can see on the screen
+     */
+
+    // Size and position of <this>
     protected final int[] size;
     protected final double[] pos;
 
+    /*
+    Simple constructor
+     */
     public Obj(double x, double y, int sX, int sY) {
         this.size = new int[]{sX, sY};
         this.pos = new double[]{x, y};
@@ -32,7 +39,7 @@ public abstract class Obj {
     }
 
     /*
-
+    Returns the right x-coordinate considering the offset
      */
     public int getDrawX(Obj obj) {
         return (int) (obj.pos[0] - GamePanel.offset);

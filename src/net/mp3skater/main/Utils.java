@@ -12,6 +12,9 @@ import java.io.IOException;
 import java.util.Objects;
 
 public class Utils {
+    /*
+    Utils class with globally used methods
+     */
 
     /*
     Returns the level with the path: "level/level_<level>.json"

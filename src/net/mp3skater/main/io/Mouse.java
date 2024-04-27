@@ -4,9 +4,8 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 public class Mouse extends MouseAdapter {
-
     /*
-    Stores the location of the mouse and weather or not it is pressed in local variables
+    Stores the location of the mouse and weather or not it is pressed in global variables
      */
 
     public int x, y;

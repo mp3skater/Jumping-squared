@@ -3,6 +3,10 @@ package net.mp3skater.main.obj;
 import net.mp3skater.main.GamePanel;
 
 public abstract class Obj_moving extends Obj {
+    /*
+    Superclass for all moving objects, like the player
+     */
+
     public Obj_moving(double x, double y, int sX, int sY, double vX, double vY, double mX, double mY) {
         super(x, y, sX, sY);
         this.max_speed = new double[]{mX, mY};

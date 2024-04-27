@@ -74,6 +74,10 @@ public class GamePanel extends JPanel implements Runnable {
 		return currentLevel.getLength();
 	}
 
+	/*
+	Gets called when the player dies
+	Sets pause to true and loads the first level
+	 */
 	public static void gameOver() {
 		activatePause = true;
 		time = -1; // It updates the time once, so this sets it to 0 essentially
@@ -81,6 +85,9 @@ public class GamePanel extends JPanel implements Runnable {
 		loadNextLevel();
 	}
 
+	/*
+	Method that gets called from <main.Main>
+	 */
 	public void launchGame() {
 		// Get the first level, spawn the player and all other <Obj>'s in <objs>
 		loadNextLevel();
@@ -88,6 +95,7 @@ public class GamePanel extends JPanel implements Runnable {
 		gameThread = new Thread(this);
 		gameThread.start();
 	}
+
 	@Override
 	public void run() {
 
@@ -114,6 +122,10 @@ public class GamePanel extends JPanel implements Runnable {
 	private void changePauseState() {
 		isPause = !isPause;
 	}
+
+	/*
+	Update method for player, enemies...
+	 */
 	private void update() {
 
 		// Pause, when pause is being pressed
@@ -140,16 +152,6 @@ public class GamePanel extends JPanel implements Runnable {
 		// Update the Enemy AI
 		for(Obj_enemy e : enemies)
 			e.update();
-
-		//
-
-		// Change level to show all colors ///// NOT LATER IN THE GAME JUST FOR TESTING
-		//if(time%100==0) {
-		//	if(level!=5)
-		//		level++;
-		//	else
-		//		level=1;
-		//}
 	}
 
 	/*
@@ -172,10 +174,18 @@ public class GamePanel extends JPanel implements Runnable {
 			player.draw(g2, currentLevel.getColor("player"));
 
 	}
+
+	/*
+	Draws the background using the <board>-class
+	 */
 	private void drawBoard(Graphics2D g2) {
 		if(currentLevel != null)
 			board.draw(g2, currentLevel);
 	}
+
+	/*
+	Gets activated with <repaint();>
+	 */
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
 

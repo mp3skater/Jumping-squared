@@ -5,6 +5,10 @@ import net.mp3skater.main.Utils;
 import java.awt.*;
 
 public class Obj_text extends Obj {
+    /*
+    Texts that can indicate a new Game mechanic
+     */
+
     public Obj_text(double x, double y, String text) {
         super(x, y, 0, 0);
         this.text = text;

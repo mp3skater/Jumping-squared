@@ -6,10 +6,11 @@ import java.awt.*;
 import java.util.ArrayList;
 
 public class Level {
-
     /*
-    Giant Constructor, mostly for testing purposes
+    Has arrays with all elements of the level
+    All values get inserted with the json files in: "res/level"
      */
+
     public Level(int[] colPlayer, int[] colEnemies, int[]colWalls, int[] colPlatforms,
                  int[] colText, int[] colArrow, int[] colBG, int length, int[] colEnd,
                  int[] player_pos, int[][] walls, int[][] enemies,

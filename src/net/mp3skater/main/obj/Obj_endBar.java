@@ -6,6 +6,10 @@ import net.mp3skater.main.Utils;
 import java.awt.*;
 
 public class Obj_endBar extends Obj {
+    /*
+    End of the level
+     */
+
     public Obj_endBar(int length) {
         super(length, 0, GamePanel.WIDTH, GamePanel.HEIGHT);
     }

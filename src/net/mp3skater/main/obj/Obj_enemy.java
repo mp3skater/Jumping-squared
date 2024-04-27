@@ -6,6 +6,10 @@ import net.mp3skater.main.Utils;
 import java.awt.*;
 
 public class Obj_enemy extends Obj_moving {
+    /*
+    Enemy class for enemies with unique AI for each level
+     */
+
     public Obj_enemy(double x, double y) {
         super(x, y, 50, 50, 5,0,0,0);
         this.startPos = new int[]{(int)x, (int)y};
@@ -22,6 +26,9 @@ public class Obj_enemy extends Obj_moving {
         super.move();
     }
 
+    /*
+    Movement-method with different outcomes for each level
+     */
     private void movement() {
         switch(GamePanel.level) {
             case 1: return;

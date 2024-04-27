@@ -6,11 +6,11 @@ import net.mp3skater.main.io.KeyHandler;
 
 import java.awt.*;
 
-/*
-This is the player which you can control through the level.
-*/
-
 public class Obj_player extends Obj_moving {
+    /*
+    This is the player which you can control through the level.
+    */
+
     public Obj_player(double x, double y) {
         super(x, y, 50, 80, 0, 0, 8, 15);
     }
