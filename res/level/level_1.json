@@ -8,13 +8,12 @@
   "colBG":[0,0,0],
   "colEnd":[144,0,0],
 
-  "length": 3000,
+  "length": 3700,
   "player_pos":[200,370],
 
   "walls":[[0,450,850,150],[850,350,300,250],[1150,400,300,200],[1650,400,300,200],[1980,0,310,275],[2300,450,400,150]],
   "enemies":[],
-  "text_pos":[[100,230],[800,240],[2025,350],[2025,390]],
-  "text_string":["Use A & D to move","And SPACE to jump","Place Platforms","by leftclicking",
-"Attention: You can't place more","than 2 at a time, place wisely!"],
+  "text_pos":[[100,230],[800,240],[2025,350],[2025,390],[2850,250],[2850,300]],
+  "text_string":["Use A & D to move","And SPACE to jump","Place Platforms","by leftclicking","Attention: You can't place more","than 2 at a time, place wisely!"],
   "arrow_pos":[[500,300]]
 }
