@@ -8,6 +8,7 @@ import net.mp3skater.main.io.Mouse;
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class GamePanel extends JPanel implements Runnable {
 
@@ -23,6 +24,9 @@ public class GamePanel extends JPanel implements Runnable {
 	private boolean isPause = true;
 	private static boolean activatePause = false;
 
+	// High-score
+	private static int highscore = -1;
+
 	// <Obj>'s
 	private static Obj_player player;
 	public static ArrayList<Obj> walls = new ArrayList<>();
@@ -30,9 +34,16 @@ public class GamePanel extends JPanel implements Runnable {
 	public static ArrayList<Obj_text> texts = new ArrayList<>();
 	public static ArrayList<Obj_arrow> arrows = new ArrayList<>();
 
+	// Platforms
+	// x:-100,y:-100 means if the game is currently paused
+	private static final Obj_platform aimPlatform = new Obj_platform(0,0);
+	public static Obj_platform[] platforms = new Obj_platform[2];
+	private static int delay = -50;
+
 	// Levels 1-5
 	public static int level = 0;
 	private static Level currentLevel;
+	public static int newGame = 2;
 
 	// Time (in frames, 60 = 1 sec)
 	private static int time = 0;
@@ -60,16 +71,32 @@ public class GamePanel extends JPanel implements Runnable {
 	}
 
 	/*
-	Spawn a new Level with the number <level>
+	Loads the next level, incrementing <level>
+	If it was the last level the game is over
 	 */
 	public static void loadNextLevel() {
-		offset = 0;
-		level++;
-		currentLevel = Utils.getLevel(level);
-		player = currentLevel.getPlayer();
-		currentLevel.loadLevelObjs(walls, enemies, texts, arrows);
+		if(level==3)
+			gameWon();
+		else {
+			delay = -50;
+			offset = 0;
+			level++;
+			currentLevel = Utils.getLevel(level);
+			player = currentLevel.getPlayer();
+			currentLevel.loadLevelObjs(walls, enemies, texts, arrows);
+		}
 	}
 
+	/*
+	Clears all platforms from <platforms>
+	 */
+	public static void clearPlatforms() {
+        Arrays.fill(platforms, null);
+	}
+
+	/*
+	Returns the length of the current level
+	 */
 	public static int getLength() {
 		return currentLevel.getLength();
 	}
@@ -79,10 +106,25 @@ public class GamePanel extends JPanel implements Runnable {
 	Sets pause to true and loads the first level
 	 */
 	public static void gameOver() {
+		newGame = 2;
 		activatePause = true;
 		time = -1; // It updates the time once, so this sets it to 0 essentially
 		level = 0;
 		loadNextLevel();
+	}
+
+	/*
+	Gets called when the player dies
+	Sets pause to true and loads the first level
+	 */
+	public static void gameWon() {
+		if(highscore == -1 || time < highscore) {
+			System.out.println(STR."NEW HIGHSCORE: \{time}");
+			highscore = time;
+		}
+		System.out.println(STR."Game won, time = \{time/60} sec. / \{time} frames");
+		// Insert code
+		gameOver();
 	}
 
 	/*
@@ -119,8 +161,29 @@ public class GamePanel extends JPanel implements Runnable {
 			}
 		}
 	}
+
+	/*
+	Changes the current pause state
+	 */
 	private void changePauseState() {
 		isPause = !isPause;
+	}
+
+	/*
+
+	 */
+	private void checkPlatforms() {
+		aimPlatform.setPos((int)(mouse.x-(aimPlatform.getSX()/2)+offset),
+				(int)(mouse.y-(aimPlatform.getSY()/2)));
+
+		if(newGame>0)
+			clearPlatforms();
+
+		if(mouse.pressed && delay+20<time && !player.collides(aimPlatform)) {
+			platforms[1] = platforms[0];
+			platforms[0] = aimPlatform.neu();
+			delay = time;
+		}
 	}
 
 	/*
@@ -143,11 +206,18 @@ public class GamePanel extends JPanel implements Runnable {
 			activatePause = false;
 		}
 
+		// Change newGame
+		if(newGame >= 0)
+			newGame--;
+
 		// Update time
 		time++;
 
 		// Update Player position
 		player.update();
+
+		// Update the set
+		checkPlatforms();
 
 		// Update the Enemy AI
 		for(Obj_enemy e : enemies)
@@ -159,20 +229,39 @@ public class GamePanel extends JPanel implements Runnable {
 	In a specific order, DO NOT CHANGE!
 	 */
 	private void paintObjs(Graphics2D g2) {
-		// Walls + Enemies + Texts + Arrows
+		if(currentLevel == null)
+			return;
+
+		// Arrows and texts
+		for(Obj_arrow a : arrows)
+			a.draw(g2, currentLevel.getColor("arrow"));
+		for(Obj_text t : texts)
+			t.draw(g2, currentLevel.getColor("text"));
+
+		// Walls and Endbar
 		for(Obj o : walls) {
 			if (o instanceof Obj_wall w) w.draw(g2, currentLevel.getColor("wall"));
 			if (o instanceof Obj_endBar bar) bar.draw(g2, currentLevel.getColor("endbar"));
 		}
-		for(Obj_arrow a : arrows)
-			a.draw(g2, currentLevel.getColor("arrow"));
+
+		// Platforms
+		for(Obj_platform p : platforms)
+			if(p != null)
+				p.draw(g2, currentLevel.getColor("platform"));
+		if(!isPause) {
+			g2.setStroke(new BasicStroke(5));
+			if(aimPlatform != null)
+				if(!player.collides(aimPlatform))
+					aimPlatform.drawAim(g2, currentLevel.getColor("platform"));
+		}
+
+		// Enemies
 		for(Obj_enemy e : enemies)
 			e.draw(g2, currentLevel.getColor("enemy"));
 
 		// Player
 		if(player != null && player.is_drawable())
 			player.draw(g2, currentLevel.getColor("player"));
-
 	}
 
 	/*
@@ -191,25 +280,37 @@ public class GamePanel extends JPanel implements Runnable {
 
 		Graphics2D g2 = (Graphics2D)g;
 
+		// Set a font (example)
+		g2.setColor(Color.white);
+		Font font = new Font ("OpenSymbol", Font.BOLD, 30);
+		g2.setFont(font);
+
 		// Board
 		drawBoard(g2);
 
 		// <Obj>'s
 		paintObjs(g2);
 
-		// Set a font (example)
-		g2.setColor(Color.white);
-		Font font = new Font ("Courier New", Font.BOLD, 10);
-		g2.setFont(font);
-
 		// Time
-		g2.drawString(STR."\{time}", 10, 15);
+		font = new Font ("OpenSymbol", Font.BOLD, 10);
+		g2.setFont(font);
+		g2.drawString(STR."Time: \{time}", 10, 15);
 
 		// Pause (needs to be arranged to the center if you change WIDTH or HEIGHT)
 		if(isPause) {
-			g2.setColor(Color.blue);
-			g2.setFont(new Font ("Courier New", Font.BOLD, 50));
-			g2.drawString("Game Paused", 230, 310);
+			g2.setColor(new Color(0.5f, 0.5f, 0.5f, 0.5f));
+			g2.fillRect(0,0,WIDTH,HEIGHT);
+		}
+
+		if(newGame > 0) {
+			// Background
+			g2.setColor(Color.black);
+			g2.fillRect(0,0,WIDTH,HEIGHT);
+
+			g2.setColor(Color.white);
+			font = new Font ("OpenSymbol", Font.BOLD, 50);
+			g2.setFont(font);
+			g2.drawString("Press ENTER to Start", 140, 300);
 		}
 	}
 }
