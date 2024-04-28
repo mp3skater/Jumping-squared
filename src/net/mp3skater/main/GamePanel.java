@@ -63,14 +63,6 @@ public class GamePanel extends JPanel implements Runnable {
 	}
 
 	/*
-	Move Offset with the player, so you can see what's happening
-	Its one-directional like super mario bros 1
-	 */
-	public static void increaseOffset(int increase) {
-		offset += increase;
-	}
-
-	/*
 	Loads the next level, incrementing <level>
 	If it was the last level the game is over
 	 */
