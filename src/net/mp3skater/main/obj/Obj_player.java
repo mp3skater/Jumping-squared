@@ -48,7 +48,7 @@ public class Obj_player extends Obj_moving {
 
         // Update Offset if the player moves forwards in the level
         if(pos[0]+size[0]-GamePanel.offset > GamePanel.WIDTH/2.0 && vec[0]>0)
-            GamePanel.offset = GamePanel.offset +((int) vec[0]);
+            GamePanel.offset = pos[0]+size[0]-GamePanel.WIDTH/2.0;
 
         // Kill player if he hits an enemy
         for(Obj e : GamePanel.enemies)
