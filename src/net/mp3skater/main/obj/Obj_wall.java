@@ -16,6 +16,6 @@ public class Obj_wall extends Obj {
 
     @Override
     public void draw(Graphics2D g2, Color color) {
-        Utils.drawRect(g2, this, color);
+        Utils.fillRect(g2, this, color);
     }
 }

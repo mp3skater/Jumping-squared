@@ -62,9 +62,17 @@ public class Utils {
     /*
     Draws a rectangle with the given dimensions(<pos>, <size>) and <color>
      */
+    public static void fillRect(Graphics2D g2, Obj o, Color color) {
+        g2.setColor(color);
+        g2.fillRect(o.getDrawX(), (int) o.getY(), (int) o.getSX(), (int) o.getSY());
+    }
+
+    /*
+    Draws a rectangle with the given dimensions(<pos>, <size>) and <color>
+     */
     public static void drawRect(Graphics2D g2, Obj o, Color color) {
         g2.setColor(color);
-        g2.fillRect(o.getDrawX(o), (int) o.getY(), (int) o.getSX(), (int) o.getSY());
+        g2.drawRect(o.getDrawX(), (int) o.getY(), (int) o.getSX(), (int) o.getSY());
     }
 
     /*
@@ -74,7 +82,7 @@ public class Utils {
     public static void drawArrow(Graphics2D g2, int x, int y, Color color) {
         int length = 200;
         double x2 = x + length;
-        int d = length/2, h = (int) (length*0.3);
+        int d = (int) (length/3.5), h = (int) (length*0.2);
         int dx = (int)(x2 - x), dy = (int)((double)y - y);
         double D = Math.sqrt(dx*dx + dy*dy);
         double xm = D - d, xn = xm, ym = h, yn = -h, x1;
@@ -92,8 +100,8 @@ public class Utils {
         int[] ypoints = {(int) (double)y, (int)ym, (int)yn};
 
         g2.setColor(color);
-        g2.setStroke(new BasicStroke(length/5f));
-        g2.drawLine(x+(length/10), y, x+length-d, y);
+        g2.setStroke(new BasicStroke(length/4f));
+        g2.drawLine(x+(length/10), y, x+length-d-10, y);
         g2.fillPolygon(xpoints, ypoints, 3);
     }
 
@@ -110,7 +118,7 @@ public class Utils {
     Draws an image. IDK how, but I tried to make it more "protected" using robust logging
      */
     public static void drawImage(Graphics2D g2, String path, Obj o) throws BufferedImageGetException {
-        drawImage(g2, path, new double[]{o.getDrawX(o), (int) o.getY()}, new int[]{(int) o.getSX(), (int) o.getSY()});
+        drawImage(g2, path, new double[]{o.getDrawX(), (int) o.getY()}, new int[]{(int) o.getSX(), (int) o.getSY()});
     }
     public static void drawImage(Graphics2D g2, String path, double[] pos, int[] size) throws BufferedImageGetException {
         try {

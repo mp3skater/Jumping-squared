@@ -19,6 +19,6 @@ public class Obj_text extends Obj {
 
     @Override
     public void draw(Graphics2D g2, Color color) {
-        Utils.drawString(g2, text, new int[]{(int)pos[0], (int)pos[1]}, color);
+        Utils.drawString(g2, text, new int[]{getDrawX(), (int)pos[1]}, color);
     }
 }

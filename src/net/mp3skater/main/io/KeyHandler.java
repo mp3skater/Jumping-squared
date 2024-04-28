@@ -1,5 +1,7 @@
 package net.mp3skater.main.io;
 
+import net.mp3skater.main.GamePanel;
+
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
@@ -14,7 +16,8 @@ public class KeyHandler implements KeyListener {
     public void keyPressed(KeyEvent e) {
         int keyCode = e.getKeyCode();
 
-        if(keyCode == KeyEvent.VK_ESCAPE)
+        // For the start of the game
+        if(keyCode == KeyEvent.VK_ESCAPE || keyCode == KeyEvent.VK_ENTER)
             pausePressed = true;
 
         if(keyCode == KeyEvent.VK_A)
@@ -30,7 +33,7 @@ public class KeyHandler implements KeyListener {
     public void keyReleased(KeyEvent e) {
         int keyCode = e.getKeyCode();
 
-        if(keyCode == KeyEvent.VK_ESCAPE)
+        if(keyCode == KeyEvent.VK_ESCAPE || keyCode == KeyEvent.VK_ENTER)
             pausePressed = false;
 
         if(keyCode == KeyEvent.VK_A)

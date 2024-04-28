@@ -24,10 +24,10 @@ public abstract class Obj {
     /*
     Formula that checks if another <Obj> and this collide
      */
-    protected boolean collides(Obj obj) {
+    public boolean collides(Obj obj) {
         return collides((int)obj.pos[0], (int)obj.pos[1], obj.size[0], obj.size[1]);
     }
-    protected boolean collides(int x, int y, int sX, int sY) {
+    public boolean collides(int x, int y, int sX, int sY) {
         return x > pos[0] - sX && x < pos[0] + size[0] && y > pos[1] - sY && y < pos[1] + size[1];
     }
 
@@ -41,8 +41,8 @@ public abstract class Obj {
     /*
     Returns the right x-coordinate considering the offset
      */
-    public int getDrawX(Obj obj) {
-        return (int) (obj.pos[0] - GamePanel.offset);
+    public int getDrawX() {
+        return (int) (pos[0] - GamePanel.offset);
     }
 
     /*

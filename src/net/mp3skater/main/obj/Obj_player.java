@@ -61,7 +61,7 @@ public class Obj_player extends Obj_moving {
         if(pos[0] >= GamePanel.getLength()-50)
             GamePanel.loadNextLevel();
 
-        // For all elements you could collide with
+        // For all elements you could collide with in walls
         for(Obj w : GamePanel.walls) {
             // Return if endbar to allow the player to finish the level
             if(w instanceof Obj_endBar)
@@ -81,6 +81,27 @@ public class Obj_player extends Obj_moving {
             if(collides((int)(w.getX()-vec[0]), (int)(w.getY()-vec[1]), (int)w.getSX(), (int)w.getSY())) {
                 xCollision((int)w.getX(), vec[0]<0/*going up*/? w.size[0] : 0);
                 yCollision((int)w.getY(), vec[1]<0/*going left*/? w.size[1] : 0);
+            }
+        }
+        // For all elements you could collide with in platforms
+        for(Obj p : GamePanel.platforms) {
+            if(p == null)
+                continue;
+
+            // Test weather going vertically, horizontally or both would make you collide with something
+            // Horizontally
+            if(collides((int)(p.getX()-vec[0]), (int)p.getY(), (int)p.getSX(), (int)p.getSY())) {
+                xCollision((int)p.getX(), vec[0]<0/*going up*/? p.size[0] : 0);
+            }
+            // Vertically
+            if(collides((int)p.getX(), (int)(p.getY()-vec[1]), (int)p.getSX(), (int)p.getSY())) {
+                yCollision((int)p.getY(), vec[1]<0/*going left*/? p.size[1] : 0);
+                onGround = true;
+            }
+            // Both
+            if(collides((int)(p.getX()-vec[0]), (int)(p.getY()-vec[1]), (int)p.getSX(), (int)p.getSY())) {
+                xCollision((int)p.getX(), vec[0]<0/*going up*/? p.size[0] : 0);
+                yCollision((int)p.getY(), vec[1]<0/*going left*/? p.size[1] : 0);
             }
         }
     }
@@ -129,6 +150,6 @@ public class Obj_player extends Obj_moving {
 
     @Override
     public void draw(Graphics2D g2, Color color) {
-        Utils.drawRect(g2, this, color);
+        Utils.fillRect(g2, this, color);
     }
 }
