@@ -186,8 +186,8 @@ public class GamePanel extends JPanel implements Runnable {
 	 */
 	private void update() {
 
-		System.out.println(STR."\{(int)player.getX()}, \{(int)player.getY()}, nG = \{newGame}, vec: "+
-				STR."\{player.getVX()}, \{player.getVY()}");
+		//System.out.println(STR."\{(int)player.getX()}, \{(int)player.getY()}, nG = \{newGame}, vec: "+
+				//STR."\{player.getVX()}, \{player.getVY()}");
 
 		// Pause, when pause is being pressed
 		if(KeyHandler.pausePressed && !exPause)

@@ -80,7 +80,10 @@ public class Obj_player extends Obj_moving {
             }
             // Both
             if(collides((int)(w.getX()-vec[0]), (int)(w.getY()-vec[1]), (int)w.getSX(), (int)w.getSY())) {
-                xCollision((int)w.getX(), vec[0]<0/*going up*/? w.size[0] : 0);
+                // To avoid player from getting stuck
+                if(!(!collides((int)(w.getX()-vec[0]), (int)w.getY(), (int)w.getSX(), (int)w.getSY()) &&
+                        !collides((int)w.getX(), (int)(w.getY()-vec[1]), (int)w.getSX(), (int)w.getSY())))
+                    xCollision((int)w.getX(), vec[0]<0/*going up*/? w.size[0] : 0);
                 yCollision((int)w.getY(), vec[1]<0/*going left*/? w.size[1] : 0);
             }
         }
