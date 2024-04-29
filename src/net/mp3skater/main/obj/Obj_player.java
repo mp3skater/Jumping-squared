@@ -43,7 +43,7 @@ public class Obj_player extends Obj_moving {
             GamePanel.gameOver();
 
         // Collision with left side of the screen
-        if(pos[0]+vec[0]-GamePanel.offset < 0)
+        if(pos[0]+vec[0]-(int)GamePanel.offset < 0)
             xCollision((int) (size[0]+GamePanel.offset), 0);
 
         // Update Offset if the player moves forwards in the level
@@ -105,7 +105,10 @@ public class Obj_player extends Obj_moving {
             }
             // Both
             if(collides((int)(p.getX()-vec[0]), (int)(p.getY()-vec[1]), (int)p.getSX(), (int)p.getSY())) {
-                xCollision((int)p.getX(), vec[0]<0/*going up*/? p.size[0] : 0);
+                // To avoid player from getting stuck
+                if(!(!collides((int)(p.getX()-vec[0]), (int)p.getY(), (int)p.getSX(), (int)p.getSY()) &&
+                        !collides((int)p.getX(), (int)(p.getY()-vec[1]), (int)p.getSX(), (int)p.getSY())))
+                    xCollision((int)p.getX(), vec[0]<0/*going up*/? p.size[0] : 0);
                 yCollision((int)p.getY(), vec[1]<0/*going left*/? p.size[1] : 0);
             }
         }
