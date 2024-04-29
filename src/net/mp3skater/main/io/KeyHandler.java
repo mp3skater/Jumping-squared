@@ -1,7 +1,5 @@
 package net.mp3skater.main.io;
 
-import net.mp3skater.main.GamePanel;
-
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 

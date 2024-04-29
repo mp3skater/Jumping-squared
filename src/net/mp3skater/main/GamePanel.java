@@ -70,6 +70,7 @@ public class GamePanel extends JPanel implements Runnable {
 		if(level==3)
 			gameWon();
 		else {
+			clearPlatforms();
 			delay = -50;
 			offset = 0;
 			level++;
@@ -162,7 +163,7 @@ public class GamePanel extends JPanel implements Runnable {
 	}
 
 	/*
-
+	Spawn new Platforms and update the pos of <aimPlatform>
 	 */
 	private void checkPlatforms() {
 		aimPlatform.setPos((int)(mouse.x-(aimPlatform.getSX()/2)+offset),
@@ -183,6 +184,8 @@ public class GamePanel extends JPanel implements Runnable {
 	 */
 	private void update() {
 
+		System.out.println(STR."\{(int)player.getX()}, \{(int)player.getY()}, newGame = \{newGame}");
+
 		// Pause, when pause is being pressed
 		if(KeyHandler.pausePressed && !exPause)
 			changePauseState();
@@ -199,7 +202,7 @@ public class GamePanel extends JPanel implements Runnable {
 		}
 
 		// Change newGame
-		if(newGame >= 0)
+		if(newGame > 0)
 			newGame--;
 
 		// Update time
