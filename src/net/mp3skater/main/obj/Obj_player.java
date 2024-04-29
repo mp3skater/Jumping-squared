@@ -75,7 +75,8 @@ public class Obj_player extends Obj_moving {
             // Vertically
             if(collides((int)w.getX(), (int)(w.getY()-vec[1]), (int)w.getSX(), (int)w.getSY())) {
                 yCollision((int)w.getY(), vec[1]<0/*going left*/? w.size[1] : 0);
-                onGround = true;
+                if(vec[1]>0)
+                    onGround = true;
             }
             // Both
             if(collides((int)(w.getX()-vec[0]), (int)(w.getY()-vec[1]), (int)w.getSX(), (int)w.getSY())) {
