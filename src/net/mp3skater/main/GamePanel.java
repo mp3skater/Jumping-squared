@@ -39,6 +39,7 @@ public class GamePanel extends JPanel implements Runnable {
 	private static final Obj_platform aimPlatform = new Obj_platform(0,0);
 	public static Obj_platform[] platforms = new Obj_platform[2];
 	private static int delay = -50;
+	private boolean exMClicked = false; // So no player can spam platforms by leaving the mouse pressed
 
 	// Levels 1-5
 	public static int level = 0;
@@ -172,11 +173,12 @@ public class GamePanel extends JPanel implements Runnable {
 		if(newGame>0)
 			clearPlatforms();
 
-		if(mouse.pressed && delay+20<time && !player.collides(aimPlatform)) {
+		if(mouse.pressed && !exMClicked && delay+20<time && !player.collides(aimPlatform)) {
 			platforms[1] = platforms[0];
 			platforms[0] = aimPlatform.neu();
 			delay = time;
 		}
+		exMClicked = mouse.pressed;
 	}
 
 	/*
@@ -184,7 +186,8 @@ public class GamePanel extends JPanel implements Runnable {
 	 */
 	private void update() {
 
-		System.out.println(STR."\{(int)player.getX()}, \{(int)player.getY()}, newGame = \{newGame}");
+		System.out.println(STR."\{(int)player.getX()}, \{(int)player.getY()}, nG = \{newGame}, vec: "+
+				STR."\{player.getVX()}, \{player.getVY()}");
 
 		// Pause, when pause is being pressed
 		if(KeyHandler.pausePressed && !exPause)

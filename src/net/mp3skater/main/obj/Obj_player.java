@@ -74,9 +74,9 @@ public class Obj_player extends Obj_moving {
             }
             // Vertically
             if(collides((int)w.getX(), (int)(w.getY()-vec[1]), (int)w.getSX(), (int)w.getSY())) {
-                yCollision((int)w.getY(), vec[1]<0/*going left*/? w.size[1] : 0);
                 if(vec[1]>0)
                     onGround = true;
+                yCollision((int)w.getY(), vec[1]<0/*going left*/? w.size[1] : 0);
             }
             // Both
             if(collides((int)(w.getX()-vec[0]), (int)(w.getY()-vec[1]), (int)w.getSX(), (int)w.getSY())) {
@@ -96,8 +96,9 @@ public class Obj_player extends Obj_moving {
             }
             // Vertically
             if(collides((int)p.getX(), (int)(p.getY()-vec[1]), (int)p.getSX(), (int)p.getSY())) {
+                if(vec[1]>0)
+                    onGround = true;
                 yCollision((int)p.getY(), vec[1]<0/*going left*/? p.size[1] : 0);
-                onGround = true;
             }
             // Both
             if(collides((int)(p.getX()-vec[0]), (int)(p.getY()-vec[1]), (int)p.getSX(), (int)p.getSY())) {
@@ -147,6 +148,13 @@ public class Obj_player extends Obj_moving {
             else
                 vec[0] += turnDown;
         }
+    }
+
+    public int getVX() {
+        return (int)vec[0];
+    }
+    public int getVY() {
+        return (int)vec[1];
     }
 
     @Override
