@@ -46,7 +46,7 @@ public class Obj_player extends Obj_moving {
         if(pos[0]+vec[0]-(int)GamePanel.offset < 0)
             xCollision((int) (size[0]+GamePanel.offset), 0);
 
-        // Update Offset if the player moves forwards in the level
+        // Update offset if the player moves forwards in the level
         if(pos[0]+size[0]-GamePanel.offset > GamePanel.WIDTH/2.0 && vec[0]>0)
             GamePanel.offset += vec[0];//pos[0]+size[0]-GamePanel.WIDTH/2.0;
 

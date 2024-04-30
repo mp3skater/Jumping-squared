@@ -64,6 +64,41 @@ public class GamePanel extends JPanel implements Runnable {
 	}
 
 	/*
+	Method that gets called from <main.Main>
+	 */
+	public void launchGame() {
+		// Get the first level, spawn the player and all other <Obj>'s in <objs>
+		loadNextLevel();
+		// Start the thread to start the Game loop
+		gameThread = new Thread(this);
+		gameThread.start();
+	}
+
+	@Override
+	public void run() {
+
+		// GAME LOOP
+		double drawInterval = 1_000_000_000d/FPS;
+		double delta = 0;
+		long lastTime = System.nanoTime();
+		long currentTime;
+
+		while(gameThread != null) {
+
+			currentTime = System.nanoTime();
+
+			delta += (currentTime-lastTime)/drawInterval;
+			lastTime = currentTime;
+
+			if(delta >= 1) {
+				update();
+				repaint();
+				delta--;
+			}
+		}
+	}
+
+	/*
 	Loads the next level, incrementing <level>
 	If it was the last level the game is over
 	 */
@@ -119,41 +154,6 @@ public class GamePanel extends JPanel implements Runnable {
 		System.out.println(STR."Game won, time = \{time/60} sec. / \{time} frames");
 		// Insert code
 		gameOver();
-	}
-
-	/*
-	Method that gets called from <main.Main>
-	 */
-	public void launchGame() {
-		// Get the first level, spawn the player and all other <Obj>'s in <objs>
-		loadNextLevel();
-		// Start the thread to start the Game loop
-		gameThread = new Thread(this);
-		gameThread.start();
-	}
-
-	@Override
-	public void run() {
-
-		// GAME LOOP
-		double drawInterval = 1_000_000_000d/FPS;
-		double delta = 0;
-		long lastTime = System.nanoTime();
-		long currentTime;
-
-		while(gameThread != null) {
-
-			currentTime = System.nanoTime();
-
-			delta += (currentTime-lastTime)/drawInterval;
-			lastTime = currentTime;
-
-			if(delta >= 1) {
-				update();
-				repaint();
-				delta--;
-			}
-		}
 	}
 
 	/*
