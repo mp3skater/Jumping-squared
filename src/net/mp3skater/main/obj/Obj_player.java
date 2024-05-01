@@ -39,8 +39,10 @@ public class Obj_player extends Obj_moving {
         onGround = false;
 
         // Kill Player if he falls down
-        if(pos[1] > GamePanel.HEIGHT)
+        if(pos[1] > GamePanel.HEIGHT) {
             GamePanel.gameOver();
+            return;
+        }
 
         // Collision with left side of the screen
         if(pos[0]+vec[0]-(int)GamePanel.offset < 0)
@@ -156,6 +158,9 @@ public class Obj_player extends Obj_moving {
         }
     }
 
+    /*
+    Returns the vector of the player, for the log
+     */
     public int getVX() {
         return (int)vec[0];
     }
