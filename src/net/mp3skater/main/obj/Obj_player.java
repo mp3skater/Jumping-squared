@@ -71,23 +71,26 @@ public class Obj_player extends Obj_moving {
 
             // Test weather going vertically, horizontally or both would make you collide with something
             // Horizontally
-            if(collides((int)(w.getX()-vec[0]), (int)w.getY(), (int)w.getSX(), (int)w.getSY())) {
-                xCollision((int)w.getX(), vec[0]<0/*going up*/? w.size[0] : 0);
-            }
+            if(vec[0] != 0)
+                if(collides((int)(w.getX()-vec[0]), (int)w.getY(), (int)w.getSX(), (int)w.getSY())) {
+                    xCollision((int)w.getX(), vec[0]<0/*going left*/? w.size[0] : 0);
+                }
             // Vertically
-            if(collides((int)w.getX(), (int)(w.getY()-vec[1]), (int)w.getSX(), (int)w.getSY())) {
-                if(vec[1]>0)
-                    onGround = true;
-                yCollision((int)w.getY(), vec[1]<0/*going left*/? w.size[1] : 0);
-            }
+            if(vec[1] != 0)
+                if(collides((int)w.getX(), (int)(w.getY()-vec[1]), (int)w.getSX(), (int)w.getSY())) {
+                    if(vec[1]>0)
+                        onGround = true;
+                    yCollision((int)w.getY(), vec[1]<0/*going up*/? w.size[1] : 0);
+                }
             // Both
-            if(collides((int)(w.getX()-vec[0]), (int)(w.getY()-vec[1]), (int)w.getSX(), (int)w.getSY())) {
-                // To avoid player from getting stuck
-                if(!(!collides((int)(w.getX()-vec[0]), (int)w.getY(), (int)w.getSX(), (int)w.getSY()) &&
-                        !collides((int)w.getX(), (int)(w.getY()-vec[1]), (int)w.getSX(), (int)w.getSY())))
-                    xCollision((int)w.getX(), vec[0]<0/*going up*/? w.size[0] : 0);
-                yCollision((int)w.getY(), vec[1]<0/*going left*/? w.size[1] : 0);
-            }
+            if(vec[0] != 0 && vec[1] != 0)
+                if(collides((int)(w.getX()-vec[0]), (int)(w.getY()-vec[1]), (int)w.getSX(), (int)w.getSY())) {
+                    // To avoid player from getting stuck
+                    if(!(!collides((int)(w.getX()-vec[0]), (int)w.getY(), (int)w.getSX(), (int)w.getSY()) &&
+                            !collides((int)w.getX(), (int)(w.getY()-vec[1]), (int)w.getSX(), (int)w.getSY())))
+                        xCollision((int)w.getX(), vec[0]<0/*going left*/? w.size[0] : 0);
+                    yCollision((int)w.getY(), vec[1]<0/*going up*/? w.size[1] : 0);
+                }
         }
         // For all elements you could collide with in platforms
         for(Obj p : GamePanel.platforms) {
@@ -96,23 +99,26 @@ public class Obj_player extends Obj_moving {
 
             // Test weather going vertically, horizontally or both would make you collide with something
             // Horizontally
-            if(collides((int)(p.getX()-vec[0]), (int)p.getY(), (int)p.getSX(), (int)p.getSY())) {
-                xCollision((int)p.getX(), vec[0]<0/*going up*/? p.size[0] : 0);
-            }
+            if(vec[0] != 0)
+                if(collides((int)(p.getX()-vec[0]), (int)p.getY(), (int)p.getSX(), (int)p.getSY())) {
+                    xCollision((int)p.getX(), vec[0]<0/*going left*/? p.size[0] : 0);
+                }
             // Vertically
-            if(collides((int)p.getX(), (int)(p.getY()-vec[1]), (int)p.getSX(), (int)p.getSY())) {
-                if(vec[1]>0)
-                    onGround = true;
-                yCollision((int)p.getY(), vec[1]<0/*going left*/? p.size[1] : 0);
-            }
+            if(vec[1] != 0)
+                if(collides((int)p.getX(), (int)(p.getY()-vec[1]), (int)p.getSX(), (int)p.getSY())) {
+                    if(vec[1]>0)
+                        onGround = true;
+                    yCollision((int)p.getY(), vec[1]<0/*going up*/? p.size[1] : 0);
+                }
             // Both
-            if(collides((int)(p.getX()-vec[0]), (int)(p.getY()-vec[1]), (int)p.getSX(), (int)p.getSY())) {
-                // To avoid player from getting stuck
-                if(!(!collides((int)(p.getX()-vec[0]), (int)p.getY(), (int)p.getSX(), (int)p.getSY()) &&
-                        !collides((int)p.getX(), (int)(p.getY()-vec[1]), (int)p.getSX(), (int)p.getSY())))
-                    xCollision((int)p.getX(), vec[0]<0/*going up*/? p.size[0] : 0);
-                yCollision((int)p.getY(), vec[1]<0/*going left*/? p.size[1] : 0);
-            }
+            if(vec[0] != 0 && vec[1] != 0)
+                if(collides((int)(p.getX()-vec[0]), (int)(p.getY()-vec[1]), (int)p.getSX(), (int)p.getSY())) {
+                    // To avoid player from getting stuck
+                    if(!(!collides((int)(p.getX()-vec[0]), (int)p.getY(), (int)p.getSX(), (int)p.getSY()) &&
+                            !collides((int)p.getX(), (int)(p.getY()-vec[1]), (int)p.getSX(), (int)p.getSY())))
+                        xCollision((int)p.getX(), vec[0]<0/*going left*/? p.size[0] : 0);
+                    yCollision((int)p.getY(), vec[1]<0/*going up*/? p.size[1] : 0);
+                }
         }
     }
 
