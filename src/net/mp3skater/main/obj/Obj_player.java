@@ -18,6 +18,9 @@ public class Obj_player extends Obj_moving {
     // If he touches the ground
     private boolean onGround;
 
+    // To draw the last direction the player was going to
+    private boolean left = false;
+
     /*
     Gives the player movement vectors according to the key's pressed
     */
@@ -176,6 +179,36 @@ public class Obj_player extends Obj_moving {
 
     @Override
     public void draw(Graphics2D g2, Color color) {
-        Utils.fillRect(g2, this, color);
+        if(GamePanel.won)
+            drawAmogus(g2, vec[0]==0? left : vec[0] < 0);
+        else
+            Utils.fillRect(g2, this, color);
+    }
+
+    private void drawAmogus(Graphics2D g2, boolean left) {
+        if(left) {
+            g2.setColor(Color.red);
+            g2.fillRect(getDrawX(), (int)pos[1], 50, 65);
+            g2.fillRect(getDrawX(), (int)pos[1]+65, 18, 15);
+            g2.fillRect(getDrawX()+32,(int)pos[1]+65, 18, 15);
+            g2.fillRect(getDrawX()+size[0], (int)pos[1]+15, 15, 35);
+            g2.setColor(Color.cyan);
+            g2.fillRect(getDrawX()-10, (int)pos[1]+10, 50, 30);
+            g2.setColor(Color.white);
+            g2.fillRect(getDrawX(), (int)pos[1]+15, 20, 5);
+            this.left = true;
+        }
+        else {
+            g2.setColor(Color.red);
+            g2.fillRect(getDrawX(), (int)pos[1], 50, 65);
+            g2.fillRect(getDrawX(), (int)pos[1]+65, 18, 15);
+            g2.fillRect(getDrawX()+32,(int)pos[1]+65, 18, 15);
+            g2.fillRect(getDrawX()-15, (int)pos[1]+15, 15, 35);
+            g2.setColor(Color.cyan);
+            g2.fillRect(getDrawX()+10, (int)pos[1]+10, 50, 30);
+            g2.setColor(Color.white);
+            g2.fillRect(getDrawX()+33, (int)pos[1]+15, 20, 5);
+            this.left = false;
+        }
     }
 }

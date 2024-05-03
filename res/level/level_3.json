@@ -12,8 +12,8 @@
   "player_pos":[100,100],
 
   "walls":[[10,400,400,150]],
-  "enemies":[],//[[2,4],[2,3]],
-  "text_pos":[],//[[2,4],[2,3]],
-  "text_string":[],//["hello","lol"],
-  "arrow_pos":[]//[[2,4],[2,3]]
+  "enemies":[],
+  "text_pos":[],
+  "text_string":[],
+  "arrow_pos":[]
 }

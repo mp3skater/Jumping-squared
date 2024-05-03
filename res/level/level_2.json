@@ -6,14 +6,14 @@
   "colText":[255,255,255],
   "colArrow":[240,82,20],
   "colBG":[144,0,0],
-  "colEnd":[172,16,175], // SHIT
+  "colEnd":[172,16,175],
 
   "length": 600,
   "player_pos":[100,100],
 
   "walls":[[10,400,600,150]],
-  "enemies":[[500,300]],
-  "text_pos":[],//[[2,4],[2,3]],
-  "text_string":[],//["hello","lol"],
-  "arrow_pos":[]//[[2,4],[2,3]]
+  "enemies":[[500,300,0]],
+  "text_pos":[],
+  "text_string":[],
+  "arrow_pos":[]
 }

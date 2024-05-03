@@ -27,6 +27,9 @@ public class GamePanel extends JPanel implements Runnable {
 	// High-score
 	private static int highscore = -1;
 
+	// Won (Amogus skin)
+	public static boolean won = false;
+
 	// <Obj>'s
 	private static Obj_player player;
 	public static ArrayList<Obj> walls = new ArrayList<>();
@@ -99,6 +102,13 @@ public class GamePanel extends JPanel implements Runnable {
 	}
 
 	/*
+	Returns the color from the current level
+	 */
+	public static Color getColor(String name) {
+		return currentLevel.getColor(name);
+	}
+
+	/*
 	Loads the next level, incrementing <level>
 	If it was the last level the game is over
 	 */
@@ -147,6 +157,7 @@ public class GamePanel extends JPanel implements Runnable {
 	Sets pause to true and loads the first level
 	 */
 	public static void gameWon() {
+		won = true;
 		if(highscore == -1 || time < highscore) {
 			System.out.println(STR."NEW HIGHSCORE: \{time}");
 			highscore = time;
