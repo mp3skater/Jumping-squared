@@ -321,6 +321,7 @@ public class GamePanel extends JPanel implements Runnable {
 		g2.setColor(Color.white);
 		g2.setFont(maruMonica);
 
+
 		//TITLE SCREEN View
 		if(titleState){
 
@@ -329,8 +330,8 @@ public class GamePanel extends JPanel implements Runnable {
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
-
-        }else{
+				return;
+        }
 			// Board
 			drawBoard(g2);
 
@@ -347,7 +348,7 @@ public class GamePanel extends JPanel implements Runnable {
 				g2.fillRect(0,0,WIDTH,HEIGHT);
 			}
 
-		}
+
 
 //		if(newGame > 0) {
 //			// Background
@@ -375,28 +376,59 @@ public class GamePanel extends JPanel implements Runnable {
 
 
 		String text = "New Game";
-		g2.setColor(new Color(145, 208, 129));
 		int x = Utils.getXforCenteredText(g2,text);
+
+		g2.setColor(new Color(78, 88, 78));
+		g2.drawString(text,x+3,350+3);
+
+		g2.setColor(new Color(145, 208, 129));
 		g2.drawString(text,x,350);
+
 		if(comandNum==0){
 			g2.drawString(">",x-25,350);
+			g2.setColor(new Color(217, 236, 214));
+			g2.drawString(">",x-21,350);
+			g2.drawString(text,x,350);
 		}
 
-		text = "Records";
+		text = "Highscore";
 		x = Utils.getXforCenteredText(g2,text);
+
+		g2.setColor(new Color(78, 88, 78));
+		g2.drawString(text,x+3,425+3);
+
+		g2.setColor(new Color(145, 208, 129));
 		g2.drawString(text,x,425);
+
 		if(comandNum==1){
 			g2.drawString(">",x-25,425);
+			g2.setColor(new Color(217, 236, 214));
+			g2.drawString(">",x-21,425);
+			g2.drawString(text,x,425);
 		}
 
 		text = "Exit Game";
 		x = Utils.getXforCenteredText(g2,text);
+
+		g2.setColor(new Color(78, 88, 78));
+		g2.drawString(text,x+3,500+3);
+
+		g2.setColor(new Color(145, 208, 129));
 		g2.drawString(text,x,500);
+
 		if(comandNum==2){
 			g2.drawString(">",x-25,500);
+			g2.setColor(new Color(217, 236, 214));
+			g2.drawString(">",x-21,500);
+			g2.drawString(text,x,500);
 		}
 
 
+
+
+	}
+
+	public static void drawDeathScreen(Graphics2D g2){
 
 
 	}

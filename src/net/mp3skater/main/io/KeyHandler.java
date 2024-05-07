@@ -17,13 +17,13 @@ public class KeyHandler implements KeyListener {
         int keyCode = e.getKeyCode();
 
         if(GamePanel.titleState){
-            if(keyCode == KeyEvent.VK_W) {
+            if(keyCode == KeyEvent.VK_W||keyCode == KeyEvent.VK_UP) {
                 GamePanel.comandNum--;
                 if (GamePanel.comandNum < 0) {
                     GamePanel.comandNum = 2;
                 }
             }
-            if(keyCode == KeyEvent.VK_S) {
+            if(keyCode == KeyEvent.VK_S||keyCode == KeyEvent.VK_DOWN) {
                 GamePanel.comandNum++;
                 if (GamePanel.comandNum > 2) {
                     GamePanel.comandNum = 0;
