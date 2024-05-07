@@ -1,16 +1,19 @@
 package net.mp3skater.main;
 
 import javax.swing.*;
+import java.awt.*;
+import java.io.IOException;
 
 public class Main {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException, FontFormatException {
 
-        JFrame window = new JFrame("mp3skater's Game");
+        JFrame window = new JFrame("Jumping²");
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         window.setResizable(false);
 
         // Add GamePanel to the window:
         GamePanel gp = new GamePanel();
+        gp.titleState=true;
         window.add(gp);
         window.pack();
 

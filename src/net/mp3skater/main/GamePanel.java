@@ -5,10 +5,17 @@ import net.mp3skater.main.io.Board;
 import net.mp3skater.main.io.KeyHandler;
 import net.mp3skater.main.io.Mouse;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.MouseListener;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
+
+import static java.lang.StringTemplate.STR;
 
 public class GamePanel extends JPanel implements Runnable {
 
@@ -19,10 +26,23 @@ public class GamePanel extends JPanel implements Runnable {
 	Board board = new Board();
 	Mouse mouse = new Mouse();
 
+	//Font Styles
+	Font maruMonica;
+
+
+	//Game State Screens
+	public static boolean titleState;
+	public static int comandNum =0;
+
+	public static boolean deathState;
+	public static int deathNum =0;
+
 	// Booleans for the pause-function
 	private boolean exPause = true; // To see if Pause has been changed
 	private boolean isPause = true;
 	private static boolean activatePause = false;
+	public static int pauseNum =0;
+
 
 	// High-score
 	private static int highscore = -1;
@@ -55,15 +75,19 @@ public class GamePanel extends JPanel implements Runnable {
 	// Offset (moves horizontally with the player)
 	public static double offset = 0;
 
-	public GamePanel() {
+	public GamePanel() throws IOException, FontFormatException {
 		setPreferredSize(new Dimension(WIDTH, HEIGHT));
 		setBackground(Color.black);
 		addMouseMotionListener(mouse);
 		addMouseListener(mouse);
 
+		InputStream is = getClass().getResourceAsStream("/font/x12y16pxMaruMonica.ttf");
+		maruMonica = Font.createFont(Font.TRUETYPE_FONT, is);
+
 		// Implement KeyListener:
 		this.addKeyListener(new KeyHandler());
 		this.setFocusable(true);
+
 	}
 
 	/*
@@ -113,7 +137,7 @@ public class GamePanel extends JPanel implements Runnable {
 	If it was the last level the game is over
 	 */
 	public static void loadNextLevel() {
-		if(level==3)
+		if(level==4)
 			gameWon();
 		else {
 			clearPlatforms();
@@ -178,6 +202,7 @@ public class GamePanel extends JPanel implements Runnable {
 	Spawn new Platforms and update the pos of <aimPlatform>
 	 */
 	private void checkPlatforms() {
+
 		aimPlatform.setPos((int)(mouse.x-(aimPlatform.getSX()/2)+offset),
 				(int)(mouse.y-(aimPlatform.getSY()/2)));
 
@@ -185,6 +210,7 @@ public class GamePanel extends JPanel implements Runnable {
 			clearPlatforms();
 
 		if(mouse.pressed && !exMClicked && delay+20<time && !player.collides(aimPlatform)) {
+
 			platforms[1] = platforms[0];
 			platforms[0] = aimPlatform.neu();
 			delay = time;
@@ -214,6 +240,8 @@ public class GamePanel extends JPanel implements Runnable {
 			isPause = true;
 			activatePause = false;
 		}
+
+
 
 		// Change newGame
 		if(newGame > 0)
@@ -291,35 +319,85 @@ public class GamePanel extends JPanel implements Runnable {
 
 		// Set a font (example)
 		g2.setColor(Color.white);
-		Font font = new Font ("OpenSymbol", Font.BOLD, 30);
-		g2.setFont(font);
+		g2.setFont(maruMonica);
 
-		// Board
-		drawBoard(g2);
+		//TITLE SCREEN View
+		if(titleState){
 
-		// <Obj>'s
-		paintObjs(g2);
+            try {
+                drawTitleScreen(g2);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
 
-		// Time
-		font = new Font ("OpenSymbol", Font.BOLD, 10);
-		g2.setFont(font);
-		g2.drawString(STR."Time: \{time}", 10, 15);
+        }else{
+			// Board
+			drawBoard(g2);
 
-		// Pause (needs to be arranged to the center if you change WIDTH or HEIGHT)
-		if(isPause) {
-			g2.setColor(new Color(0.5f, 0.5f, 0.5f, 0.5f));
-			g2.fillRect(0,0,WIDTH,HEIGHT);
+			// <Obj>'s
+			paintObjs(g2);
+
+			// Time
+
+			g2.drawString(STR."Time: \{time}", 10, 15);
+
+			// Pause (needs to be arranged to the center if you change WIDTH or HEIGHT)
+			if(isPause) {
+				g2.setColor(new Color(0.5f, 0.5f, 0.5f, 0.5f));
+				g2.fillRect(0,0,WIDTH,HEIGHT);
+			}
+
 		}
 
-		if(newGame > 0) {
-			// Background
-			g2.setColor(Color.black);
-			g2.fillRect(0,0,WIDTH,HEIGHT);
+//		if(newGame > 0) {
+//			// Background
+//			g2.setColor(Color.black);
+//			g2.fillRect(0,0,WIDTH,HEIGHT);
+//
+//			g2.setColor(Color.white);
+//			font = new Font ("Century", Font.BOLD, 50);
+//			g2.setFont(font);
+//			g2.drawString("Press ENTER to Start", 140, 300);
+//		}
+	}
 
-			g2.setColor(Color.white);
-			font = new Font ("OpenSymbol", Font.BOLD, 50);
-			g2.setFont(font);
-			g2.drawString("Press ENTER to Start", 140, 300);
+	public static void drawTitleScreen(Graphics2D g2) throws IOException {
+
+
+		//Buffer Image
+		BufferedImage image = ImageIO.read(Utils.class.getResourceAsStream("/images/Logo.png"));
+
+		//Title Image
+		g2.drawImage(image,0,-50,800,350, null);
+
+		//Menu
+		g2.setFont(g2.getFont().deriveFont(Font.BOLD,48F));
+
+
+		String text = "New Game";
+		g2.setColor(new Color(145, 208, 129));
+		int x = Utils.getXforCenteredText(g2,text);
+		g2.drawString(text,x,350);
+		if(comandNum==0){
+			g2.drawString(">",x-25,350);
 		}
+
+		text = "Records";
+		x = Utils.getXforCenteredText(g2,text);
+		g2.drawString(text,x,425);
+		if(comandNum==1){
+			g2.drawString(">",x-25,425);
+		}
+
+		text = "Exit Game";
+		x = Utils.getXforCenteredText(g2,text);
+		g2.drawString(text,x,500);
+		if(comandNum==2){
+			g2.drawString(">",x-25,500);
+		}
+
+
+
+
 	}
 }

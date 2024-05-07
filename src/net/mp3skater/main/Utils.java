@@ -6,7 +6,9 @@ import net.mp3skater.main.obj.Obj;
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.awt.image.ImageObserver;
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.Objects;
@@ -136,4 +138,11 @@ public class Utils {
 
     public static class BufferedImageGetException extends Exception { BufferedImageGetException(Throwable cause)  { super(cause); } }
     public static class BufferedImageDrawException extends Exception {}
+
+    public static int getXforCenteredText(Graphics2D g2,String text){
+        //Gets the perfect X.Coordinates for the Text position
+        int textLenght = (int)g2.getFontMetrics().getStringBounds(text,g2).getWidth();
+        return GamePanel.WIDTH/2 - textLenght/2;
+    }
+
 }

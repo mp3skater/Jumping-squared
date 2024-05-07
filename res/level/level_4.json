@@ -1,0 +1,19 @@
+{
+  "colPlayer":[255, 255, 255],
+  "colEnemies":[],
+  "colWalls":[15, 200, 200],
+  "colPlatforms":[200,200,200],
+  "colText":[255,255,255],
+  "colArrow":[105,105,105],
+  "colBG":[0,0,0],
+  "colEnd":[144,0,0],
+
+  "length": 3700,
+  "player_pos":[200,370],
+
+  "walls":[[0,450,850,150],[850,350,300,250],[1150,400,300,200],[1650,400,300,200],[1980,0,210,275],[2200,450,400,150]],
+  "enemies":[],
+  "text_pos":[[100,230],[800,240],[1970,350],[1970,390],[2850,250],[2850,300]],
+  "text_string":["Use A & D to move","And SPACE to jump","Place Platforms","by leftclicking","Attention: You can't place more","than 2 at a time, place wisely!"],
+  "arrow_pos":[[500,300]]
+}

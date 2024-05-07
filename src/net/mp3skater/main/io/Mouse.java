@@ -10,14 +10,21 @@ public class Mouse extends MouseAdapter {
 
     public int x, y;
     public boolean pressed;
+    public boolean isEnabled = true;
+
 
     @Override
     public void mousePressed(MouseEvent e) {
-        pressed = true;
+        if(isEnabled) {
+            pressed = true;
+        }
     }
     @Override
     public void mouseReleased(MouseEvent e) {
-        pressed = false;
+        if(isEnabled){
+            pressed = false;
+        }
+
     }
     @Override
     public void mouseDragged(MouseEvent e) {
