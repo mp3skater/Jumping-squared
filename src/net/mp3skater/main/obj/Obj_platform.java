@@ -1,7 +1,6 @@
 package net.mp3skater.main.obj;
 
-import net.mp3skater.main.utils.DrawUtils;
-import net.mp3skater.main.utils.Level_Utils;
+import net.mp3skater.main.utils.Draw_Utils;
 
 import java.awt.*;
 
@@ -31,6 +30,6 @@ public class Obj_platform extends Obj_wall {
     Draws the aimPlatform with a border
      */
     public void drawAim(Graphics2D g2, Color color) {
-        DrawUtils.drawRect(g2, this, color);
+        Draw_Utils.drawRect(g2, this, color);
     }
 }

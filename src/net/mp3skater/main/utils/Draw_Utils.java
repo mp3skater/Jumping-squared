@@ -11,7 +11,7 @@ import java.util.Objects;
 
 import static net.mp3skater.main.GamePanel.comandNum;
 
-public class DrawUtils {
+public class Draw_Utils {
     /*
     Globally available Draw-Methods
      */
@@ -19,15 +19,15 @@ public class DrawUtils {
     /*
     Draws the Titlescreen
      */
-    public static void drawTitleScreen(Graphics2D g2) throws IOException, DrawUtils.BufferedImageGetException {
+    public static void drawTitleScreen(Graphics2D g2) throws IOException, Draw_Utils.BufferedImageGetException {
         //Title Image
-        DrawUtils.drawImage(g2, "/images/Logo.png", new double[]{0,-50}, new int[]{800,350});
+        Draw_Utils.drawImage(g2, "/images/Logo.png", new double[]{0,-50}, new int[]{800,350});
 
         //Menu
         g2.setFont(g2.getFont().deriveFont(Font.BOLD,48F));
 
         String text = "New Game";
-        int x = DrawUtils.getXforCenteredText(g2,text);
+        int x = Draw_Utils.getXforCenteredText(g2,text);
 
         g2.setColor(new Color(78, 88, 78));
         g2.drawString(text,x+3,350+3);
@@ -43,7 +43,7 @@ public class DrawUtils {
         }
 
         text = "Highscore";
-        x = DrawUtils.getXforCenteredText(g2,text);
+        x = Draw_Utils.getXforCenteredText(g2,text);
 
         g2.setColor(new Color(78, 88, 78));
         g2.drawString(text,x+3,425+3);
@@ -59,7 +59,7 @@ public class DrawUtils {
         }
 
         text = "Exit Game";
-        x = DrawUtils.getXforCenteredText(g2,text);
+        x = Draw_Utils.getXforCenteredText(g2,text);
 
         g2.setColor(new Color(78, 88, 78));
         g2.drawString(text,x+3,500+3);

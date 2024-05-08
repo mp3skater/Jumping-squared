@@ -1,7 +1,7 @@
 package net.mp3skater.main.obj;
 
 import net.mp3skater.main.GamePanel;
-import net.mp3skater.main.utils.DrawUtils;
+import net.mp3skater.main.utils.Draw_Utils;
 import net.mp3skater.main.io.KeyHandler;
 
 import java.awt.*;
@@ -190,7 +190,7 @@ public class Obj_player extends Obj_moving {
         if(GamePanel.won)
             drawAmogus(g2, vec[0]==0? left : vec[0] < 0);
         else
-            DrawUtils.fillRect(g2, this, color);
+            Draw_Utils.fillRect(g2, this, color);
     }
 
     /*

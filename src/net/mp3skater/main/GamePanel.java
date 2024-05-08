@@ -4,6 +4,7 @@ import net.mp3skater.main.obj.*;
 import net.mp3skater.main.io.Board;
 import net.mp3skater.main.io.KeyHandler;
 import net.mp3skater.main.io.Mouse;
+import net.mp3skater.main.utils.Draw_Utils;
 import net.mp3skater.main.utils.Level_Utils;
 
 import javax.swing.*;
@@ -12,6 +13,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
+
+import static net.mp3skater.main.utils.Draw_Utils.drawTitleScreen;
 
 public class GamePanel extends JPanel implements Runnable {
 
@@ -309,14 +312,14 @@ public class GamePanel extends JPanel implements Runnable {
 		g2.setFont(maruMonica);
 
 		//TITLE SCREEN View
-//		if(titleState){
-//            try {
-//                drawTitleScreen(g2);
-//            } catch (IOException | DrawUtils.BufferedImageGetException e) {
-//                throw new RuntimeException(e);
-//            }
-//			return;
-//        }
+		if(titleState){
+            try {
+                drawTitleScreen(g2);
+            } catch (IOException | Draw_Utils.BufferedImageGetException e) {
+                throw new RuntimeException(e);
+            }
+			return;
+        }
 
 		// Game not paused:
 		// Board

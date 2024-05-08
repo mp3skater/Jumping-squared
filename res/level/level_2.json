@@ -12,7 +12,7 @@
   "player_pos":[100,100],
 
   "walls":[[10,400,600,150]],
-  "enemies":[[500,300,0]],
+  "enemies":[[500,300,30,30,2]],
   "text_pos":[],
   "text_string":[],
   "arrow_pos":[]
