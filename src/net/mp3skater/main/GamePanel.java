@@ -7,6 +7,7 @@ import net.mp3skater.main.io.Mouse;
 import net.mp3skater.main.utils.Draw_Utils;
 import net.mp3skater.main.utils.Level_Utils;
 
+
 import javax.swing.*;
 import java.awt.*;
 import java.io.IOException;
@@ -24,6 +25,10 @@ public class GamePanel extends JPanel implements Runnable {
 	Thread gameThread;
 	Board board = new Board();
 	Mouse mouse = new Mouse();
+
+	//SOUND
+    static Sound music = new Sound();
+	static Sound se = new Sound();
 
 	// Font Styles
 	Font maruMonica;
@@ -86,6 +91,8 @@ public class GamePanel extends JPanel implements Runnable {
 	Method that gets called from <main.Main>
 	 */
 	public void launchGame() {
+
+		playMusic(0);
 		// Get the first level, spawn the player and all other <Obj>'s in <objs>
 		loadLevel(level);
 		// Start the thread to start the Game loop
@@ -159,6 +166,7 @@ public class GamePanel extends JPanel implements Runnable {
 	Sets pause to true and loads the first level
 	 */
 	public static void gameOver() {
+		playSE(5);
 		newGame = 2;
 		activatePause = true;
 		time = -1; // It updates the time once, so this sets it to 0 essentially
@@ -173,6 +181,7 @@ public class GamePanel extends JPanel implements Runnable {
 	public static void gameWon() {
 		won = true;
 		if(highscore == -1 || time < highscore) {
+			playSE(6);
 			System.out.println("NEW HIGHSCORE: "+time);
 			highscore = time;
 		}
@@ -360,5 +369,18 @@ public class GamePanel extends JPanel implements Runnable {
 //			g2.setFont(font);
 //			g2.drawString("Press ENTER to Start", 140, 300);
 //		}
+	}
+	public static void playMusic(int i ) {
+		music.setFile(i);
+		music.play();
+		music.loop();
+	}
+	public static void stopMusic() {
+		music.stop();
+	}
+	public static void playSE(int i) {
+
+		se.setFile(i);
+		se.play();
 	}
 }
