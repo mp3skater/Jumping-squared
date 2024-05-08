@@ -4,18 +4,14 @@ import net.mp3skater.main.obj.*;
 import net.mp3skater.main.io.Board;
 import net.mp3skater.main.io.KeyHandler;
 import net.mp3skater.main.io.Mouse;
+import net.mp3skater.main.utils.Level_Utils;
 
-import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.MouseListener;
-import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
-
-import static java.lang.StringTemplate.STR;
 
 public class GamePanel extends JPanel implements Runnable {
 
@@ -26,23 +22,16 @@ public class GamePanel extends JPanel implements Runnable {
 	Board board = new Board();
 	Mouse mouse = new Mouse();
 
-	//Font Styles
+	// Font Styles
 	Font maruMonica;
 
-
-	//Game State Screens
-	public static boolean titleState;
-	public static int comandNum =0;
-
-	public static boolean deathState;
-	public static int deathNum =0;
+	// Game State Screens
+	public static boolean titleState, deathState;;
+	public static int comandNum =0, deathNum =0;
 
 	// Booleans for the pause-function
-	private boolean exPause = true; // To see if Pause has been changed
-	private boolean isPause = true;
+	private boolean isPause = true, exPause = true; // To see if Pause has been changed
 	private static boolean activatePause = false;
-	public static int pauseNum =0;
-
 
 	// High-score
 	private static int highscore = -1;
@@ -82,12 +71,12 @@ public class GamePanel extends JPanel implements Runnable {
 		addMouseListener(mouse);
 
 		InputStream is = getClass().getResourceAsStream("/font/x12y16pxMaruMonica.ttf");
-		maruMonica = Font.createFont(Font.TRUETYPE_FONT, is);
+        assert is != null;
+        maruMonica = Font.createFont(Font.TRUETYPE_FONT, is);
 
 		// Implement KeyListener:
 		this.addKeyListener(new KeyHandler());
 		this.setFocusable(true);
-
 	}
 
 	/*
@@ -113,7 +102,6 @@ public class GamePanel extends JPanel implements Runnable {
 		while(gameThread != null) {
 
 			currentTime = System.nanoTime();
-
 			delta += (currentTime-lastTime)/drawInterval;
 			lastTime = currentTime;
 
@@ -144,7 +132,7 @@ public class GamePanel extends JPanel implements Runnable {
 			delay = -50;
 			offset = 0;
 			level++;
-			currentLevel = Utils.getLevel(level);
+			currentLevel = Level_Utils.getLevel(level);
 			player = currentLevel.getPlayer();
 			currentLevel.loadLevelObjs(walls, enemies, texts, arrows);
 		}
@@ -183,10 +171,10 @@ public class GamePanel extends JPanel implements Runnable {
 	public static void gameWon() {
 		won = true;
 		if(highscore == -1 || time < highscore) {
-			System.out.println(STR."NEW HIGHSCORE: \{time}");
+			System.out.println("NEW HIGHSCORE: "+time);
 			highscore = time;
 		}
-		System.out.println(STR."Game won, time = \{time/60} sec. / \{time} frames");
+		System.out.println("Game won, time = "+time/60+" sec. / "+time+" frames");
 		// Insert code
 		gameOver();
 	}
@@ -223,8 +211,9 @@ public class GamePanel extends JPanel implements Runnable {
 	 */
 	private void update() {
 
-		//System.out.println(STR."\{(int)player.getX()}, \{(int)player.getY()}, nG = \{newGame}, vec: "+
-				//STR."\{player.getVX()}, \{player.getVY()}");
+		// Uncode this to get a log of your game...
+		//System.out.println((int)player.getX()+", "+(int)player.getY()+
+				//", nG = "+newGame+", vec: "+player.getVX()+", "+player.getVY());
 
 		// Pause, when pause is being pressed
 		if(KeyHandler.pausePressed && !exPause)
@@ -240,8 +229,6 @@ public class GamePanel extends JPanel implements Runnable {
 			isPause = true;
 			activatePause = false;
 		}
-
-
 
 		// Change newGame
 		if(newGame > 0)
@@ -321,34 +308,28 @@ public class GamePanel extends JPanel implements Runnable {
 		g2.setColor(Color.white);
 		g2.setFont(maruMonica);
 
-
 		//TITLE SCREEN View
-		if(titleState){
+//		if(titleState){
+//            try {
+//                drawTitleScreen(g2);
+//            } catch (IOException | DrawUtils.BufferedImageGetException e) {
+//                throw new RuntimeException(e);
+//            }
+//			return;
+//        }
 
-            try {
-                drawTitleScreen(g2);
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
-				return;
-        }
-			// Board
-			drawBoard(g2);
-
-			// <Obj>'s
-			paintObjs(g2);
-
-			// Time
-
-			g2.drawString(STR."Time: \{time}", 10, 15);
-
-			// Pause (needs to be arranged to the center if you change WIDTH or HEIGHT)
-			if(isPause) {
-				g2.setColor(new Color(0.5f, 0.5f, 0.5f, 0.5f));
-				g2.fillRect(0,0,WIDTH,HEIGHT);
-			}
-
-
+		// Game not paused:
+		// Board
+		drawBoard(g2);
+		// <Obj>'s
+		paintObjs(g2);
+		// Time
+		g2.drawString("Time: "+time, 10, 15);
+		// Pause (needs to be arranged to the center if you change WIDTH or HEIGHT)
+		if(isPause) {
+			g2.setColor(new Color(0.2f, 0.2f, 0.2f, 0.8f));
+			g2.fillRect(0,0,WIDTH,HEIGHT);
+		}
 
 //		if(newGame > 0) {
 //			// Background
@@ -360,76 +341,5 @@ public class GamePanel extends JPanel implements Runnable {
 //			g2.setFont(font);
 //			g2.drawString("Press ENTER to Start", 140, 300);
 //		}
-	}
-
-	public static void drawTitleScreen(Graphics2D g2) throws IOException {
-
-
-		//Buffer Image
-		BufferedImage image = ImageIO.read(Utils.class.getResourceAsStream("/images/Logo.png"));
-
-		//Title Image
-		g2.drawImage(image,0,-50,800,350, null);
-
-		//Menu
-		g2.setFont(g2.getFont().deriveFont(Font.BOLD,48F));
-
-
-		String text = "New Game";
-		int x = Utils.getXforCenteredText(g2,text);
-
-		g2.setColor(new Color(78, 88, 78));
-		g2.drawString(text,x+3,350+3);
-
-		g2.setColor(new Color(145, 208, 129));
-		g2.drawString(text,x,350);
-
-		if(comandNum==0){
-			g2.drawString(">",x-25,350);
-			g2.setColor(new Color(217, 236, 214));
-			g2.drawString(">",x-21,350);
-			g2.drawString(text,x,350);
-		}
-
-		text = "Highscore";
-		x = Utils.getXforCenteredText(g2,text);
-
-		g2.setColor(new Color(78, 88, 78));
-		g2.drawString(text,x+3,425+3);
-
-		g2.setColor(new Color(145, 208, 129));
-		g2.drawString(text,x,425);
-
-		if(comandNum==1){
-			g2.drawString(">",x-25,425);
-			g2.setColor(new Color(217, 236, 214));
-			g2.drawString(">",x-21,425);
-			g2.drawString(text,x,425);
-		}
-
-		text = "Exit Game";
-		x = Utils.getXforCenteredText(g2,text);
-
-		g2.setColor(new Color(78, 88, 78));
-		g2.drawString(text,x+3,500+3);
-
-		g2.setColor(new Color(145, 208, 129));
-		g2.drawString(text,x,500);
-
-		if(comandNum==2){
-			g2.drawString(">",x-25,500);
-			g2.setColor(new Color(217, 236, 214));
-			g2.drawString(">",x-21,500);
-			g2.drawString(text,x,500);
-		}
-
-
-
-
-	}
-
-	public static void drawDeathScreen(Graphics2D g2){
-
-
 	}
 }

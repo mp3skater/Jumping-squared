@@ -34,8 +34,7 @@ public class Level {
 
     /*
     Info:
-    negative values in the y direction or x > <GamePanel.HEIGHT> will not make a difference they are unreachable
-    negative in the x direction will be invisible, but they still have impact with the game
+    negative values in the x/y direction or x > <GamePanel.HEIGHT> will not make a difference, they are unreachable
      */
 
     // Length of the level
