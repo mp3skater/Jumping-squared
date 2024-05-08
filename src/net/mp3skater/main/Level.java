@@ -106,7 +106,7 @@ public class Level {
         for(int[] w : this.walls)
             walls.add(new Obj_wall(w[0], w[1], w[2], w[3]));
         for(int[] e : this.enemies)
-            enemies.add(new Obj_enemy(e[0], e[1], e[2]));
+            enemies.add(new Obj_enemy(e[0], e[1], e[2], e[3], e[4]));
         assert text_pos.length == text_string.length;
         for(int i = 0; i<text_pos.length; i++)
             texts.add(new Obj_text(text_pos[i][0], text_pos[i][1], text_string[i]));

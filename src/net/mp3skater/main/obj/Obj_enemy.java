@@ -9,8 +9,8 @@ public class Obj_enemy extends Obj_moving {
     Enemy class for enemies with unique AI for each level
      */
 
-    public Obj_enemy(double x, double y, int type) {
-        super(x, y, 50, 50, 5,0,0,0);
+    public Obj_enemy(double x, double y, int sX, int sY, int type) {
+        super(x, y, sX, sY, 5,0,0,0);
         this.type = type;
         this.startPos = new int[]{(int)x, (int)y};
     }
