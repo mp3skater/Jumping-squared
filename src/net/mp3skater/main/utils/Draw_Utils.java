@@ -145,20 +145,19 @@ public class Draw_Utils {
     }
     public static void drawImage(Graphics2D g2, String path, double[] pos, int[] size) throws BufferedImageGetException {
         try {
-            BufferedImage bImage = ImageIO.read(Objects.requireNonNull(Level_Utils.class.getClassLoader().getResourceAsStream(path)));
-            drawBufferedImage(g2, bImage, pos, size);
+            BufferedImage image = ImageIO.read(Objects.requireNonNull(Draw_Utils.class.getResourceAsStream(path)));
+            drawBufferedImage(g2, image, pos, size);
         }
-        catch(BufferedImageDrawException | IOException e) {
+        catch(IOException e) {
             throw new BufferedImageGetException(e);
         }
     }
-    private static void drawBufferedImage(Graphics2D g2, BufferedImage bImage, double[] pos, int[] size) throws BufferedImageDrawException {
+    private static void drawBufferedImage(Graphics2D g2, BufferedImage bImage, double[] pos, int[] size) {
         g2.drawImage(bImage, (int)(pos[0]+ GamePanel.offset),
                 (int)(pos[1]+GamePanel.offset), size[0], size[1], null);
     }
 
     public static class BufferedImageGetException extends Exception { BufferedImageGetException(Throwable cause)  { super(cause); } }
-    public static class BufferedImageDrawException extends Exception {}
 
     public static int getXforCenteredText(Graphics2D g2,String text){
         //Gets the perfect X.Coordinates for the Text position
