@@ -36,20 +36,17 @@ public class KeyHandler implements KeyListener {
                 if(GamePanel.comandNum==1){
                     //Open Records File
                 }
-                if(GamePanel.comandNum==2){
+                if(GamePanel.comandNum==2)
                     System.exit(0);
-                }
             }
         }
 
         // Dev tool
         if(keyCode == KeyEvent.VK_0)
             zeroPressed = true;
-
         // For the start of the game
         if(keyCode == KeyEvent.VK_ESCAPE || keyCode == KeyEvent.VK_ENTER)
             pausePressed = true;
-
         if(keyCode == KeyEvent.VK_A)
             aPressed = true;
         // Allow also H instead of d because of workman compatibility
@@ -66,10 +63,8 @@ public class KeyHandler implements KeyListener {
         // Dev tool
         if(keyCode == KeyEvent.VK_0)
             zeroPressed = false;
-
         if(keyCode == KeyEvent.VK_ESCAPE || keyCode == KeyEvent.VK_ENTER)
             pausePressed = false;
-
         if(keyCode == KeyEvent.VK_A)
             aPressed = false;
         if(keyCode == KeyEvent.VK_D || keyCode == KeyEvent.VK_H)
