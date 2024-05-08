@@ -33,7 +33,7 @@ public class GamePanel extends JPanel implements Runnable {
 	public static int comandNum =0, deathNum =0;
 
 	// Booleans for the pause-function
-	private boolean isPause = true, exPause = true; // To see if Pause has been changed
+	public static boolean isPause = true, exPause = true; // To see if Pause has been changed
 	private static boolean activatePause = false;
 
 	// High-score
@@ -57,7 +57,7 @@ public class GamePanel extends JPanel implements Runnable {
 	private boolean exMClicked = false; // So no player can spam platforms by leaving the mouse pressed
 
 	// Levels 1-5
-	public static int level = 0;
+	public static int level = 1;
 	private static Level currentLevel;
 	public static int newGame = 2;
 
@@ -87,7 +87,7 @@ public class GamePanel extends JPanel implements Runnable {
 	 */
 	public void launchGame() {
 		// Get the first level, spawn the player and all other <Obj>'s in <objs>
-		loadNextLevel();
+		loadLevel(level);
 		// Start the thread to start the Game loop
 		gameThread = new Thread(this);
 		gameThread.start();
@@ -127,14 +127,13 @@ public class GamePanel extends JPanel implements Runnable {
 	Loads the next level, incrementing <level>
 	If it was the last level the game is over
 	 */
-	public static void loadNextLevel() {
-		if(level==4)
+	public static void loadLevel(int level) {
+		if(level == 5)
 			gameWon();
 		else {
 			clearPlatforms();
 			delay = -50;
 			offset = 0;
-			level++;
 			currentLevel = Level_Utils.getLevel(level);
 			player = currentLevel.getPlayer();
 			currentLevel.loadLevelObjs(walls, enemies, texts, arrows);
@@ -163,8 +162,8 @@ public class GamePanel extends JPanel implements Runnable {
 		newGame = 2;
 		activatePause = true;
 		time = -1; // It updates the time once, so this sets it to 0 essentially
-		level = 0;
-		loadNextLevel();
+		level = 1;
+		loadLevel(level);
 	}
 
 	/*
@@ -209,6 +208,10 @@ public class GamePanel extends JPanel implements Runnable {
 		exMClicked = mouse.pressed;
 	}
 
+	private void focusCam() {
+		offset = player.getX()-GamePanel.WIDTH/2.0;
+	}
+
 	/*
 	Update method for player, enemies...
 	 */
@@ -217,6 +220,15 @@ public class GamePanel extends JPanel implements Runnable {
 		// Uncode this to get a log of your game...
 		//System.out.println((int)player.getX()+", "+(int)player.getY()+
 				//", nG = "+newGame+", vec: "+player.getVX()+", "+player.getVY());
+
+		// Devtool
+		// Move when paused
+		if(GamePanel.isPause && newGame == 0) {
+			if(KeyHandler.aPressed || KeyHandler.leftPressed) player.addX(-10); focusCam();
+			if(KeyHandler.dPressed || KeyHandler.rightPressed) player.addX(10); focusCam();
+			if(KeyHandler.upPressed) player.addY(-10); focusCam();
+			if(KeyHandler.downPressed) player.addY(10); focusCam();
+		}
 
 		// Pause, when pause is being pressed
 		if(KeyHandler.pausePressed && !exPause)
@@ -328,6 +340,7 @@ public class GamePanel extends JPanel implements Runnable {
 		// <Obj>'s
 		paintObjs(g2);
 		// Time
+		g2.setColor(currentLevel.getColor("text"));
 		g2.setFont(g2.getFont().deriveFont(Font.BOLD,20f));
 		g2.drawString("Time: "+time, 5, 20);
 		g2.setFont(g2.getFont().deriveFont(Font.BOLD,48f));

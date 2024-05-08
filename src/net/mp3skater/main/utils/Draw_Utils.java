@@ -20,10 +20,10 @@ public class Draw_Utils {
     Draws the Titlescreen
      */
     public static void drawTitleScreen(Graphics2D g2) throws IOException, Draw_Utils.BufferedImageGetException {
-        //Title Image
+        // Title Image
         Draw_Utils.drawImage(g2, "/images/Logo.png", new double[]{0,-50}, new int[]{800,350});
 
-        //Menu
+        // Menu
         g2.setFont(g2.getFont().deriveFont(Font.BOLD,48F));
 
         String text = "New Game";

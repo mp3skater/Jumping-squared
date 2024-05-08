@@ -47,9 +47,19 @@ public class Obj_player extends Obj_moving {
             return;
         }
 
-        // Dev tool
+        // Dev tools:
+        // Reset camera
         if(KeyHandler.zeroPressed)
             GamePanel.offset = pos[0] - GamePanel.WIDTH/2.0;
+        // Change level
+        if(KeyHandler.onePressed)
+            GamePanel.loadLevel(1);
+        else if(KeyHandler.twoPressed)
+            GamePanel.loadLevel(2);
+        else if(KeyHandler.threePressed)
+            GamePanel.loadLevel(3);
+        else if(KeyHandler.fourPressed)
+            GamePanel.loadLevel(4);
 
         // Collision with left side of the screen
         if(pos[0]+vec[0]-(int)GamePanel.offset < 0)
@@ -67,8 +77,10 @@ public class Obj_player extends Obj_moving {
             }
 
         // Load new level if player reaches the end-bar
-        if(pos[0] >= GamePanel.getLength()-50)
-            GamePanel.loadNextLevel();
+        if(pos[0] >= GamePanel.getLength()-50) {
+            GamePanel.level++;
+            GamePanel.loadLevel(GamePanel.level);
+        }
 
         // For all elements you could collide with in walls
         for(Obj w : GamePanel.walls) {

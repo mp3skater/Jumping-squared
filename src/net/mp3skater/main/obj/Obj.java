@@ -57,12 +57,18 @@ public abstract class Obj {
     public double getY() {
         return pos[1];
     }
-
     // Size getter
     public double getSX() {
         return size[0];
     }
     public double getSY() {
         return size[1];
+    }
+    // Adds a value to the position
+    public void addX(double value) {
+        pos[0] += value;
+    }
+    public void addY(double value) {
+        pos[1] += value;
     }
 }

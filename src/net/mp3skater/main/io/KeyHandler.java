@@ -10,7 +10,8 @@ public class KeyHandler implements KeyListener {
     This class handles the key presses and stores them in global variables
      */
 
-    public static boolean pausePressed, aPressed, dPressed, spacePressed, zeroPressed;
+    public static boolean pausePressed, aPressed, dPressed, spacePressed, zeroPressed, onePressed,
+            twoPressed, threePressed, fourPressed, upPressed, downPressed, leftPressed, rightPressed;
 
     @Override
     public void keyPressed(KeyEvent e) {
@@ -41,9 +42,26 @@ public class KeyHandler implements KeyListener {
             }
         }
 
-        // Dev tool
+        // Dev tools
         if(keyCode == KeyEvent.VK_0)
             zeroPressed = true;
+        if(keyCode == KeyEvent.VK_1)
+            onePressed = true;
+        if(keyCode == KeyEvent.VK_2)
+            twoPressed = true;
+        if(keyCode == KeyEvent.VK_3)
+            threePressed = true;
+        if(keyCode == KeyEvent.VK_4)
+            fourPressed = true;
+        if(keyCode == KeyEvent.VK_UP)
+            upPressed = true;
+        if(keyCode == KeyEvent.VK_DOWN)
+            downPressed = true;
+        if(keyCode == KeyEvent.VK_LEFT)
+            leftPressed = true;
+        if(keyCode == KeyEvent.VK_RIGHT)
+            rightPressed = true;
+
         // For the start of the game
         if(keyCode == KeyEvent.VK_ESCAPE || keyCode == KeyEvent.VK_ENTER)
             pausePressed = true;
@@ -60,9 +78,26 @@ public class KeyHandler implements KeyListener {
     public void keyReleased(KeyEvent e) {
         int keyCode = e.getKeyCode();
 
-        // Dev tool
+        // Dev tools
         if(keyCode == KeyEvent.VK_0)
             zeroPressed = false;
+        if(keyCode == KeyEvent.VK_1)
+            onePressed = false;
+        if(keyCode == KeyEvent.VK_2)
+            twoPressed = false;
+        if(keyCode == KeyEvent.VK_3)
+            threePressed = false;
+        if(keyCode == KeyEvent.VK_4)
+            fourPressed = false;
+        if(keyCode == KeyEvent.VK_UP)
+            upPressed = false;
+        if(keyCode == KeyEvent.VK_DOWN)
+            downPressed = false;
+        if(keyCode == KeyEvent.VK_LEFT)
+            leftPressed = false;
+        if(keyCode == KeyEvent.VK_RIGHT)
+            rightPressed = false;
+
         if(keyCode == KeyEvent.VK_ESCAPE || keyCode == KeyEvent.VK_ENTER)
             pausePressed = false;
         if(keyCode == KeyEvent.VK_A)
