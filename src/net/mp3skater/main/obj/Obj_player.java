@@ -127,6 +127,10 @@ public class Obj_player extends Obj_moving {
     }
 
     /*
+    Enemy
+     */
+
+    /*
     Overrides the update class to include the <movement()> and the <turndownvec()> methods
     */
     @Override
@@ -186,6 +190,9 @@ public class Obj_player extends Obj_moving {
             DrawUtils.fillRect(g2, this, color);
     }
 
+    /*
+    Easteregg if you finish the game
+     */
     private void drawAmogus(Graphics2D g2, boolean left) {
         if(left) {
             g2.setColor(Color.red);

@@ -13,7 +13,7 @@ public class Main {
 
         // Add GamePanel to the window:
         GamePanel gp = new GamePanel();
-        gp.titleState=true;
+        GamePanel.titleState =true;
         window.add(gp);
         window.pack();
 

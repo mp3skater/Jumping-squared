@@ -33,7 +33,12 @@ public class Obj_enemy extends Obj_moving {
     Movement-method with different outcomes for each level
      */
     private void movement() {
-        switch(GamePanel.level) {
+        switch(type) {
+        /*
+        Name: Block (no movement, size: 50*50)
+         */
+            case 0: return;
+
             case 1: return;
             case 2: {
                 // The max. distance an enemy should(doesn't need to) go away from <startPos>
