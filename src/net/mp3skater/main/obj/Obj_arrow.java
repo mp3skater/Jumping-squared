@@ -1,6 +1,7 @@
 package net.mp3skater.main.obj;
 
-import net.mp3skater.main.Utils;
+import net.mp3skater.main.utils.DrawUtils;
+import net.mp3skater.main.utils.Level_Utils;
 
 import java.awt.*;
 
@@ -15,6 +16,6 @@ public class Obj_arrow extends Obj {
 
     @Override
     public void draw(Graphics2D g2, Color color) {
-        Utils.drawArrow(g2, getDrawX(), (int)pos[1], color);
+        DrawUtils.drawArrow(g2, getDrawX(), (int)pos[1], color);
     }
 }

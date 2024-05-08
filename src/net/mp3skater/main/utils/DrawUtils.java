@@ -1,64 +1,85 @@
-package net.mp3skater.main;
+package net.mp3skater.main.utils;
 
-import com.google.gson.Gson;
+import net.mp3skater.main.GamePanel;
 import net.mp3skater.main.obj.Obj;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.awt.image.ImageObserver;
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
 import java.io.IOException;
 import java.util.Objects;
 
-public class Utils {
+import static net.mp3skater.main.GamePanel.comandNum;
+
+public class DrawUtils {
     /*
-    Utils class with globally used methods
+    Globally available Draw-Methods
      */
 
     /*
-    Returns the level with the path: "level/level_<level>.json"
-    We're using Google's Gson library that reads the file and creates the Level-class accordingly
+    Draws the Titlescreen
      */
-    public static Level getLevel(int level) {
-        // Get the String value of the json file
-        String text = getJsonString(level);
-        // Create a new Gson instance
-        Gson gson = new Gson();
+    public static void drawTitleScreen(Graphics2D g2) throws IOException, DrawUtils.BufferedImageGetException {
+        //Title Image
+        DrawUtils.drawImage(g2, "/images/Logo.png", new double[]{0,-50}, new int[]{800,350});
 
-        /* Test with Level without Json
-        Level levl = new Level(new int[]{0, 0, 0}, new int[]{0, 0, 0}, new int[]{0, 0, 0},
-                new int[]{0, 0, 0}, new int[]{0, 0, 0}, new int[]{0, 0, 0}, new int[]{100, 100},
-                new int[][]{{2, 4, 2, 4}, {2, 3, 2, 4}}, new int[][]{{2, 4}, {2, 3}},
-                new int[][]{{2, 4}, {2, 3}}, new String[]{"hello", "lol"}, new int[][]{{2, 4}, {2, 3}});
-        String json = gson.toJson(levl);
-        System.out.println(json);
-         */
+        //Menu
+        g2.setFont(g2.getFont().deriveFont(Font.BOLD,48F));
 
-        // Returns the class with the elements inside the JSON-file
-        return gson.fromJson(text, Level.class);
+        String text = "New Game";
+        int x = DrawUtils.getXforCenteredText(g2,text);
+
+        g2.setColor(new Color(78, 88, 78));
+        g2.drawString(text,x+3,350+3);
+
+        g2.setColor(new Color(145, 208, 129));
+        g2.drawString(text,x,350);
+
+        if(comandNum==0){
+            g2.drawString(">",x-25,350);
+            g2.setColor(new Color(217, 236, 214));
+            g2.drawString(">",x-21,350);
+            g2.drawString(text,x,350);
+        }
+
+        text = "Highscore";
+        x = DrawUtils.getXforCenteredText(g2,text);
+
+        g2.setColor(new Color(78, 88, 78));
+        g2.drawString(text,x+3,425+3);
+
+        g2.setColor(new Color(145, 208, 129));
+        g2.drawString(text,x,425);
+
+        if(comandNum==1){
+            g2.drawString(">",x-25,425);
+            g2.setColor(new Color(217, 236, 214));
+            g2.drawString(">",x-21,425);
+            g2.drawString(text,x,425);
+        }
+
+        text = "Exit Game";
+        x = DrawUtils.getXforCenteredText(g2,text);
+
+        g2.setColor(new Color(78, 88, 78));
+        g2.drawString(text,x+3,500+3);
+
+        g2.setColor(new Color(145, 208, 129));
+        g2.drawString(text,x,500);
+
+        if(comandNum==2){
+            g2.drawString(">",x-25,500);
+            g2.setColor(new Color(217, 236, 214));
+            g2.drawString(">",x-21,500);
+            g2.drawString(text,x,500);
+        }
     }
 
     /*
-    Returns a String with the context of the JSON-file
-    No robust logging because it would complicate and not help so much
+    Draws...
      */
-    private static String getJsonString(int number) {
-        // Uses Java-String-Template, similar to pythons f-strings
-        String filePath = STR."res/level/level_\{number}.json";
-        StringBuilder text = new StringBuilder();
-        try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
-            String line;
-            while ((line = reader.readLine()) != null) {
-                text.append(line).append("\n"); // Append each line to the StringBuilder
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+    public static void drawDeathScreen(Graphics2D g2){
 
-        return text.toString();
     }
 
     /*
@@ -124,7 +145,7 @@ public class Utils {
     }
     public static void drawImage(Graphics2D g2, String path, double[] pos, int[] size) throws BufferedImageGetException {
         try {
-            BufferedImage bImage = ImageIO.read(Objects.requireNonNull(Utils.class.getClassLoader().getResourceAsStream(path)));
+            BufferedImage bImage = ImageIO.read(Objects.requireNonNull(Level_Utils.class.getClassLoader().getResourceAsStream(path)));
             drawBufferedImage(g2, bImage, pos, size);
         }
         catch(BufferedImageDrawException | IOException e) {
@@ -141,8 +162,7 @@ public class Utils {
 
     public static int getXforCenteredText(Graphics2D g2,String text){
         //Gets the perfect X.Coordinates for the Text position
-        int textLenght = (int)g2.getFontMetrics().getStringBounds(text,g2).getWidth();
-        return GamePanel.WIDTH/2 - textLenght/2;
+        int textLength = (int)g2.getFontMetrics().getStringBounds(text,g2).getWidth();
+        return GamePanel.WIDTH/2 - textLength/2;
     }
-
 }
