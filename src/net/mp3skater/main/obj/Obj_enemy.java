@@ -1,7 +1,6 @@
 package net.mp3skater.main.obj;
 
 import net.mp3skater.main.utils.DrawUtils;
-import net.mp3skater.main.utils.Level_Utils;
 
 import java.awt.*;
 
@@ -44,6 +43,14 @@ public class Obj_enemy extends Obj_moving {
                     vec[0] *= -1;
             }
         }
+    }
+
+    @Override
+    public boolean collides(int x, int y, int sX, int sY) {
+        //if(type == 4) {
+        //    Really strange math to calculate different collision
+        //}
+        return super.collides(x, y, sX, sY);
     }
 
     @Override
