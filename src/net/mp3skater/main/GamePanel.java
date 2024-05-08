@@ -167,6 +167,7 @@ public class GamePanel extends JPanel implements Runnable {
 	 */
 	public static void gameOver() {
 		playSE(5);
+		stopMusic();
 		newGame = 2;
 		activatePause = true;
 		time = -1; // It updates the time once, so this sets it to 0 essentially

@@ -5,6 +5,8 @@ import net.mp3skater.main.GamePanel;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
+import static net.mp3skater.main.GamePanel.playSE;
+
 public class KeyHandler implements KeyListener {
     /*
     This class handles the key presses and stores them in global variables
@@ -70,8 +72,10 @@ public class KeyHandler implements KeyListener {
         // Allow also H instead of d because of workman compatibility
         if(keyCode == KeyEvent.VK_D || keyCode == KeyEvent.VK_H)
             dPressed = true;
-        if(keyCode == KeyEvent.VK_SPACE)
+        if(keyCode == KeyEvent.VK_SPACE) {
             spacePressed = true;
+            playSE(4);
+        }
     }
 
     @Override
