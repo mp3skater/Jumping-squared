@@ -10,7 +10,7 @@ public class KeyHandler implements KeyListener {
     This class handles the key presses and stores them in global variables
      */
 
-    public static boolean pausePressed, aPressed, dPressed, spacePressed;
+    public static boolean pausePressed, aPressed, dPressed, spacePressed, zeroPressed;
 
     @Override
     public void keyPressed(KeyEvent e) {
@@ -42,6 +42,10 @@ public class KeyHandler implements KeyListener {
             }
         }
 
+        // Dev tool
+        if(keyCode == KeyEvent.VK_0)
+            zeroPressed = true;
+
         // For the start of the game
         if(keyCode == KeyEvent.VK_ESCAPE || keyCode == KeyEvent.VK_ENTER)
             pausePressed = true;
@@ -58,6 +62,10 @@ public class KeyHandler implements KeyListener {
     @Override
     public void keyReleased(KeyEvent e) {
         int keyCode = e.getKeyCode();
+
+        // Dev tool
+        if(keyCode == KeyEvent.VK_0)
+            zeroPressed = false;
 
         if(keyCode == KeyEvent.VK_ESCAPE || keyCode == KeyEvent.VK_ENTER)
             pausePressed = false;

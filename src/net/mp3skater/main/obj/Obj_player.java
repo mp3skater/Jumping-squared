@@ -2,7 +2,6 @@ package net.mp3skater.main.obj;
 
 import net.mp3skater.main.GamePanel;
 import net.mp3skater.main.utils.DrawUtils;
-import net.mp3skater.main.utils.Level_Utils;
 import net.mp3skater.main.io.KeyHandler;
 
 import java.awt.*;
@@ -47,6 +46,10 @@ public class Obj_player extends Obj_moving {
             GamePanel.gameOver();
             return;
         }
+
+        // Dev tool
+        if(KeyHandler.zeroPressed)
+            GamePanel.offset = pos[0] - GamePanel.WIDTH/2.0;
 
         // Collision with left side of the screen
         if(pos[0]+vec[0]-(int)GamePanel.offset < 0)
