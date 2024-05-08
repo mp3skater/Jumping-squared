@@ -29,7 +29,7 @@ public class GamePanel extends JPanel implements Runnable {
 	Font maruMonica;
 
 	// Game State Screens
-	public static boolean titleState, deathState;;
+	public static boolean titleState, deathState;
 	public static int comandNum =0, deathNum =0;
 
 	// Booleans for the pause-function
@@ -262,6 +262,7 @@ public class GamePanel extends JPanel implements Runnable {
 		// Arrows and texts
 		for(Obj_arrow a : arrows)
 			a.draw(g2, currentLevel.getColor("arrow"));
+		g2.setFont(g2.getFont().deriveFont(Font.BOLD,48F));
 		for(Obj_text t : texts)
 			t.draw(g2, currentLevel.getColor("text"));
 
@@ -327,7 +328,9 @@ public class GamePanel extends JPanel implements Runnable {
 		// <Obj>'s
 		paintObjs(g2);
 		// Time
-		g2.drawString("Time: "+time, 10, 15);
+		g2.setFont(g2.getFont().deriveFont(Font.BOLD,20f));
+		g2.drawString("Time: "+time, 5, 20);
+		g2.setFont(g2.getFont().deriveFont(Font.BOLD,48f));
 		// Pause (needs to be arranged to the center if you change WIDTH or HEIGHT)
 		if(isPause) {
 			g2.setColor(new Color(0.2f, 0.2f, 0.2f, 0.8f));
