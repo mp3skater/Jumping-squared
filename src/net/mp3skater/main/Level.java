@@ -73,7 +73,9 @@ public class Level {
             case "arrow" -> { return new Color(colArrow[0], colArrow[1], colArrow[2]); }
             case "background" -> { return new Color(colBG[0], colBG[1], colBG[2]); }
             case "endbar" -> { return new Color(colEnd[0], colEnd[1], colEnd[2]); }
-            default -> { System.out.println(STR."Color \"\{name}\" not found."); return null; }
+            // Invalid color name
+            default -> { System.out.println("Color \""+name+"\" not recognized, make sure level_"+
+                    GamePanel.level+".json is configured correctly"); return null; }
         }
     }
 
