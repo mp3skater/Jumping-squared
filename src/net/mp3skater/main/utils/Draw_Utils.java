@@ -9,7 +9,7 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.Objects;
 
-import static net.mp3skater.main.GamePanel.comandNum;
+import static net.mp3skater.main.GamePanel.*;
 
 public class Draw_Utils {
     /*
@@ -21,7 +21,7 @@ public class Draw_Utils {
      */
     public static void drawTitleScreen(Graphics2D g2) throws IOException, Draw_Utils.BufferedImageGetException {
         // Title Image
-        Draw_Utils.drawImage(g2, "/images/Logo.png", new double[]{0,-50}, new int[]{800,350});
+        Draw_Utils.drawImage(g2, "/images/Logo.png", new double[]{125,75}, new int[]{575,150});
 
         // Menu
         g2.setFont(g2.getFont().deriveFont(Font.BOLD,48F));
@@ -35,7 +35,7 @@ public class Draw_Utils {
         g2.setColor(new Color(145, 208, 129));
         g2.drawString(text,x,350);
 
-        if(comandNum==0){
+        if(titleNum==0){
             g2.drawString(">",x-25,350);
             g2.setColor(new Color(217, 236, 214));
             g2.drawString(">",x-21,350);
@@ -51,7 +51,7 @@ public class Draw_Utils {
         g2.setColor(new Color(145, 208, 129));
         g2.drawString(text,x,425);
 
-        if(comandNum==1){
+        if(titleNum==1){
             g2.drawString(">",x-25,425);
             g2.setColor(new Color(217, 236, 214));
             g2.drawString(">",x-21,425);
@@ -67,7 +67,7 @@ public class Draw_Utils {
         g2.setColor(new Color(145, 208, 129));
         g2.drawString(text,x,500);
 
-        if(comandNum==2){
+        if(titleNum==2){
             g2.drawString(">",x-25,500);
             g2.setColor(new Color(217, 236, 214));
             g2.drawString(">",x-21,500);
@@ -75,12 +75,148 @@ public class Draw_Utils {
         }
     }
 
+    public static void drawPauseScreen(Graphics2D g2) {
+
+//        if(GamePanel.framesCounter<=60)
+//            GamePanel.framesCounter++;
+//        else
+//            GamePanel.framesCounter=0;
+
+
+        //TITLE PAUSED
+        g2.setFont(g2.getFont().deriveFont(Font.BOLD,70F));
+        g2.setColor(new Color(255, 255, 255, 255));
+        g2.drawRoundRect(250,75,300,450,40,40);
+        String text = "Paused";
+        int x =Draw_Utils.getXforCenteredText(g2,text);
+        int y =155;
+
+        g2.setColor(new Color(78, 88, 78));
+        g2.drawString(text,x+2,y+2);
+
+
+        g2.setColor(new Color(145, 208, 129));
+        g2.drawString(text,x,y);
+
+
+        //RESUME
+        g2.setFont(g2.getFont().deriveFont(Font.BOLD,35F));
+        text = "Resume";
+        x=Draw_Utils.getXforCenteredText(g2,text);
+        y =300;
+        g2.setColor(new Color(78, 88, 78));
+        g2.drawString(text,x+3,y+2);
+
+        g2.setColor(new Color(145, 208, 129));
+        g2.drawString(text,x,y);
+
+        if(pauseNum==0){
+//            if(GamePanel.framesCounter<=15) {
+                g2.drawString(">", x - 25, y);
+                g2.setColor(new Color(255, 255, 255));
+                g2.drawString(">", x - 21, y);
+                g2.drawString(text, x, y);
+//            }
+        }
+
+
+        //EXIT LEVEL
+        g2.setFont(g2.getFont().deriveFont(Font.BOLD,35F));
+        text = "Quit Level";
+        x=Draw_Utils.getXforCenteredText(g2,text);
+        y =375;
+        g2.setColor(new Color(78, 88, 78));
+        g2.drawString(text,x+3,y+2);
+
+        g2.setColor(new Color(145, 208, 129));
+        g2.drawString(text,x,y);
+
+        if(pauseNum==1){
+//            if(GamePanel.framesCounter<=15) {
+                g2.drawString(">", x - 25, y);
+                g2.setColor(new Color(255, 255, 255));
+                g2.drawString(">", x - 21, y);
+                g2.drawString(text, x, y);
+//            }
+        }
+
+    }
+
+
     /*
     Draws...
      */
     public static void drawDeathScreen(Graphics2D g2){
 
+//        if(GamePanel.framesCounter<=60)
+//            GamePanel.framesCounter++;
+//        else
+//            GamePanel.framesCounter=0;
+
+        g2.setColor(new Color(112, 0, 0, 255));
+        g2.fillRect(0,0,GamePanel.WIDTH,GamePanel.HEIGHT);
+        g2.setColor(new Color(44, 1, 1, 255));
+        g2.fillRect(10,10,GamePanel.WIDTH-20,GamePanel.HEIGHT-20);
+        g2.setFont(g2.getFont().deriveFont(Font.BOLD,96F));
+
+        //GAME OVER text
+        String text ="Game Over";
+        int x = Draw_Utils.getXforCenteredText(g2,text);
+
+        //Main
+        g2.setColor(Color.darkGray);
+        g2.drawString(text,x+3,197);
+
+        //Shadow
+        g2.setColor(Color.WHITE);
+        g2.drawString(text,x,200);
+
+
+        //Retry
+        g2.setFont(g2.getFont().deriveFont(Font.BOLD,50F));
+        text = "Retry";
+        x=Draw_Utils.getXforCenteredText(g2,text);
+
+        g2.setColor(new Color(220, 86, 86));
+        g2.drawString(text,x+3,375+3);
+
+        g2.setColor(new Color(148, 4, 4));
+        g2.drawString(text,x,375);
+
+
+        if(deathNum==0){
+//            if(GamePanel.framesCounter<=15) {
+                g2.drawString(">", x - 25, 375);
+                g2.setColor(new Color(220, 154, 154));
+                g2.drawString(">", x - 21, 375);
+                g2.drawString(text, x, 375);
+//            }
+        }
+
+
+
+        //Back to TitleScreen
+        g2.setFont(g2.getFont().deriveFont(Font.BOLD,50F));
+        text = "Quit";
+        x=Draw_Utils.getXforCenteredText(g2,text);
+        g2.setColor(new Color(220, 86, 86));
+        g2.drawString(text,x+3,450+3);
+
+        g2.setColor(new Color(148, 4, 4));
+        g2.drawString(text,x,450);
+
+
+        if(deathNum==1){
+//            if(GamePanel.framesCounter<=15) {
+                g2.drawString(">", x - 25, 450);
+                g2.setColor(new Color(220, 154, 154));
+                g2.drawString(">", x - 21, 450);
+                g2.drawString(text, x, 450);
+//            }
+        }
+
     }
+
 
     /*
     Draws a rectangle with the given dimensions(<pos>, <size>) and <color>
