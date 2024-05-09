@@ -21,28 +21,82 @@ public class KeyHandler implements KeyListener {
 
         if(GamePanel.titleState){
             if(keyCode == KeyEvent.VK_W||keyCode == KeyEvent.VK_UP) {
-                GamePanel.comandNum--;
-                if (GamePanel.comandNum < 0) {
-                    GamePanel.comandNum = 2;
+                GamePanel.titleNum--;
+                if (GamePanel.titleNum < 0) {
+                    GamePanel.titleNum = 2;
                 }
             }
             if(keyCode == KeyEvent.VK_S||keyCode == KeyEvent.VK_DOWN) {
-                GamePanel.comandNum++;
-                if (GamePanel.comandNum > 2) {
-                    GamePanel.comandNum = 0;
+                GamePanel.titleNum++;
+                if (GamePanel.titleNum > 2) {
+                    GamePanel.titleNum = 0;
                 }
             }
             if(keyCode ==KeyEvent.VK_ENTER){
                 if(GamePanel.comandNum==0){
                     GamePanel.titleState=false;
                 }
-                if(GamePanel.comandNum==1){
+                if(GamePanel.titleNum==1){
+                    GamePanel.comandNum=0;
                     //Open Records File
                 }
-                if(GamePanel.comandNum==2)
+                if(GamePanel.titleNum==2)
                     System.exit(0);
             }
         }
+        if(GamePanel.isPause) {
+            if (keyCode == KeyEvent.VK_W || keyCode == KeyEvent.VK_UP) {
+                GamePanel.pauseNum--;
+                if (GamePanel.pauseNum < 0) {
+                    GamePanel.pauseNum = 1;
+                }
+            }
+            if (keyCode == KeyEvent.VK_S || keyCode == KeyEvent.VK_DOWN) {
+                GamePanel.pauseNum++;
+                if (GamePanel.pauseNum > 1) {
+                    GamePanel.pauseNum = 0;
+                }
+            }
+            if (keyCode == KeyEvent.VK_ENTER) {
+                if (GamePanel.pauseNum == 0) {
+                    GamePanel.isPause = false;
+                    GamePanel.exPause = true;
+                }
+                if (GamePanel.pauseNum == 1) {
+                    GamePanel.isPause = false;
+                    GamePanel.exPause = true;
+                    GamePanel.pauseNum = 0;
+                    GamePanel.titleState = true;
+                }
+            }
+        }
+        if (GamePanel.deathState) {
+            if (keyCode == KeyEvent.VK_W || keyCode == KeyEvent.VK_UP) {
+                GamePanel.comandNum--;
+                if (GamePanel.deathNum < 0) {
+                    GamePanel.deathNum = 1;
+                }
+            }
+            if (keyCode == KeyEvent.VK_S || keyCode == KeyEvent.VK_DOWN) {
+                GamePanel.comandNum++;
+                if (GamePanel.deathNum > 1) {
+                    GamePanel.deathNum = 0;
+                }
+            }
+            if (keyCode == KeyEvent.VK_ENTER) {
+                if (GamePanel.deathNum == 0) {
+                    GamePanel.deathState = false;
+                    GamePanel.gameOver();
+                }
+                if (GamePanel.deathNum == 1) {
+                    GamePanel.deathState = false;
+                    GamePanel.deathNum = 0;
+                    GamePanel.titleState = true;
+                }
+            }
+        }
+
+
 
         // Dev tools
         if(keyCode == KeyEvent.VK_0)
