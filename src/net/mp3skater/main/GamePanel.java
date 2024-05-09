@@ -35,7 +35,9 @@ public class GamePanel extends JPanel implements Runnable {
 
 	// Game State Screens
 	public static boolean titleState, deathState;
-	public static int comandNum =0, deathNum =0;
+	public static int comandNum =0,titleNum =0, deathNum =0, pauseNum =0;
+	public static int framesCounter =0;
+
 
 	// Booleans for the pause-function
 	public static boolean isPause = true, exPause = true; // To see if Pause has been changed
