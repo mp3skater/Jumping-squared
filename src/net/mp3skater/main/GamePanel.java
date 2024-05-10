@@ -183,8 +183,9 @@ public class GamePanel extends JPanel implements Runnable {
 	 */
 	public static void gameWon() {
 		won = true;
+		playSE(6);
 		if(highscore == -1 || time < highscore) {
-			playSE(6);
+
 			System.out.println("NEW HIGHSCORE: "+time);
 			highscore = time;
 		}

@@ -62,6 +62,8 @@ public class Obj_player extends Obj_moving {
             GamePanel.loadLevel(3);
         else if(KeyHandler.fourPressed)
             GamePanel.loadLevel(4);
+        else if(KeyHandler.fivePressed)
+            GamePanel.loadLevel(5);
 
         // Collision with left side of the screen
         if(pos[0]+vec[0]-(int)GamePanel.offset < 0)

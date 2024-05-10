@@ -13,7 +13,7 @@ public class KeyHandler implements KeyListener {
      */
 
     public static boolean pausePressed, aPressed, dPressed, spacePressed, zeroPressed, onePressed,
-            twoPressed, threePressed, fourPressed, upPressed, downPressed, leftPressed, rightPressed;
+            twoPressed, threePressed, fourPressed,fivePressed, upPressed, downPressed, leftPressed, rightPressed;
 
     @Override
     public void keyPressed(KeyEvent e) {
@@ -111,6 +111,8 @@ public class KeyHandler implements KeyListener {
             threePressed = true;
         if(keyCode == KeyEvent.VK_4)
             fourPressed = true;
+        if(keyCode == KeyEvent.VK_5)
+            fivePressed = true;
         if(keyCode == KeyEvent.VK_UP)
             upPressed = true;
         if(keyCode == KeyEvent.VK_DOWN)
@@ -149,6 +151,8 @@ public class KeyHandler implements KeyListener {
             threePressed = false;
         if(keyCode == KeyEvent.VK_4)
             fourPressed = false;
+        if(keyCode == KeyEvent.VK_5)
+            fivePressed = false;
         if(keyCode == KeyEvent.VK_UP)
             upPressed = false;
         if(keyCode == KeyEvent.VK_DOWN)
