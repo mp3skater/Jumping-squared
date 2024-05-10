@@ -27,7 +27,7 @@ public abstract class Obj {
     public boolean collides(Obj obj) {
         return collides((int)obj.pos[0], (int)obj.pos[1], obj.size[0], obj.size[1]);
     }
-    public boolean collides(int x, int y, int sX, int sY) {
+    public boolean collides(double x, double y, int sX, int sY) {
         return x > pos[0] - sX && x < pos[0] + size[0] && y > pos[1] - sY && y < pos[1] + size[1];
     }
 

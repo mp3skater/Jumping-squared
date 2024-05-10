@@ -51,7 +51,7 @@ public class Obj_enemy extends Obj_moving {
     }
 
     @Override
-    public boolean collides(int x, int y, int sX, int sY) {
+    public boolean collides(double x, double y, int sX, int sY) {
         //if(type == 4) {
         //    Really strange math to calculate different collision
         //}
