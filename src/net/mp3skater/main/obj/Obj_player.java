@@ -24,14 +24,16 @@ public class Obj_player extends Obj_moving {
     /*
     Gives the player movement vectors according to the key's pressed
     */
+    //movement
     public void movement() {
         if(KeyHandler.aPressed)
             this.addVec(-0.5, 0);
         if(KeyHandler.dPressed)
             this.addVec(0.5, 0);
-        if(KeyHandler.spacePressed && onGround)
+        //jump
+        if(KeyHandler.spacePressed && onGround) {
             this.addVec(0, -15);
-
+        }
         // Gravity (positive value because the up-left corner is x:0,y:0)
         this.addVec(0, 0.6);
     }
