@@ -22,12 +22,14 @@ public class KeyHandler implements KeyListener {
         if(GamePanel.titleState){
             if(keyCode == KeyEvent.VK_W||keyCode == KeyEvent.VK_UP) {
                 GamePanel.titleNum--;
+                playSE(8);
                 if (GamePanel.titleNum < 0) {
                     GamePanel.titleNum = 2;
                 }
             }
             if(keyCode == KeyEvent.VK_S||keyCode == KeyEvent.VK_DOWN) {
                 GamePanel.titleNum++;
+                playSE(8);
                 if (GamePanel.titleNum > 2) {
                     GamePanel.titleNum = 0;
                 }

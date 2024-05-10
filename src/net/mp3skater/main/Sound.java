@@ -11,13 +11,18 @@ import javax.sound.sampled.Clip;
         URL[] soundURL = new URL[30];
 
         public Sound() {
-            soundURL[0] = getClass().getResource("/sound/backgroundmusic1.wav");
-            soundURL[1] = getClass().getResource("/sound/backgroundmusic2.wav");
-            soundURL[2] = getClass().getResource("/sound/backgroundmusic3.wav");
+            soundURL[0] = getClass().getResource("/sound/bgmusic1_leise.wav");
+            soundURL[1] = getClass().getResource("/sound/bgmusic2_leise.wav");
+            soundURL[2] = getClass().getResource("/sound/bgmusic3_leise.wav");
             soundURL[3] = getClass().getResource("/sound/gameStart.wav");
             soundURL[4] = getClass().getResource("/sound/jump.wav");
             soundURL[5] = getClass().getResource("/sound/lose.wav");
             soundURL[6] = getClass().getResource("/sound/fanfare.wav");
+            soundURL[7] = getClass().getResource("/sound/placing.wav");
+            soundURL[8] = getClass().getResource("/sound/menuChange.wav");
+
+
+
 
         }
 
