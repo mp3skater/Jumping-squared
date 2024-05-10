@@ -3,6 +3,7 @@ package net.mp3skater.main.obj;
 import net.mp3skater.main.GamePanel;
 import net.mp3skater.main.utils.Draw_Utils;
 import net.mp3skater.main.io.KeyHandler;
+import net.mp3skater.main.utils.Sound_Utils;
 
 import java.awt.*;
 
@@ -33,6 +34,7 @@ public class Obj_player extends Obj_moving {
         //jump
         if(KeyHandler.spacePressed && onGround) {
             this.addVec(0, -15);
+            Sound_Utils.playSE(4);
         }
         // Gravity (positive value because the up-left corner is x:0,y:0)
         this.addVec(0, 0.6);

@@ -1,4 +1,4 @@
-package net.mp3skater.main;
+package net.mp3skater.main.io;
 
 import java.net.URL;
 
@@ -20,10 +20,6 @@ import javax.sound.sampled.Clip;
             soundURL[6] = getClass().getResource("/sound/fanfare.wav");
             soundURL[7] = getClass().getResource("/sound/placing.wav");
             soundURL[8] = getClass().getResource("/sound/menuChange.wav");
-
-
-
-
         }
 
         public void setFile(int i) {
@@ -32,11 +28,9 @@ import javax.sound.sampled.Clip;
                 AudioInputStream ais = AudioSystem.getAudioInputStream(soundURL[i]);
                 clip = AudioSystem.getClip();
                 clip.open(ais);
-
             } catch (Exception e) {
-
+                e.printStackTrace();
             }
-
         }
 
         public void play() {
@@ -48,7 +42,8 @@ import javax.sound.sampled.Clip;
         }
 
         public void stop() {
-            clip.stop();
+            if(clip != null)
+                clip.stop();
         }
     }
 

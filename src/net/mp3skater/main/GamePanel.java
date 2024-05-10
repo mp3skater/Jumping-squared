@@ -1,11 +1,13 @@
 package net.mp3skater.main;
 
+import net.mp3skater.main.io.Sound;
 import net.mp3skater.main.obj.*;
 import net.mp3skater.main.io.Board;
 import net.mp3skater.main.io.KeyHandler;
 import net.mp3skater.main.io.Mouse;
 import net.mp3skater.main.utils.Draw_Utils;
 import net.mp3skater.main.utils.Level_Utils;
+import net.mp3skater.main.utils.Sound_Utils;
 
 
 import javax.swing.*;
@@ -16,6 +18,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 import static net.mp3skater.main.utils.Draw_Utils.drawTitleScreen;
+import static net.mp3skater.main.utils.Sound_Utils.*;
 
 public class GamePanel extends JPanel implements Runnable {
 
@@ -27,8 +30,9 @@ public class GamePanel extends JPanel implements Runnable {
 	Mouse mouse = new Mouse();
 
 	//SOUND
-    static Sound music = new Sound();
-	static Sound se = new Sound();
+    public static Sound music = new Sound();
+	public static Sound se = new Sound();
+	private static int currentMusic = -1;
 
 	// Font Styles
 	Font maruMonica;
@@ -93,8 +97,6 @@ public class GamePanel extends JPanel implements Runnable {
 	Method that gets called from <main.Main>
 	 */
 	public void launchGame() {
-
-		playMusic(0);
 		// Get the first level, spawn the player and all other <Obj>'s in <objs>
 		loadLevel(level);
 		// Start the thread to start the Game loop
@@ -104,7 +106,6 @@ public class GamePanel extends JPanel implements Runnable {
 
 	@Override
 	public void run() {
-		playMusic(0);
 		// GAME LOOP
 		double drawInterval = 1_000_000_000d/FPS;
 		double delta = 0;
@@ -146,6 +147,24 @@ public class GamePanel extends JPanel implements Runnable {
 			currentLevel = Level_Utils.getLevel(level);
 			player = currentLevel.getPlayer();
 			currentLevel.loadLevelObjs(walls, enemies, texts, arrows);
+			musicUpdate();
+		}
+	}
+
+	/*
+	Starts to play the new music of the level, if it's the same then not
+	 */
+	private static void musicUpdate() {
+		// If the current level has different music: change music
+		if(currentLevel.getMusic() != currentMusic) {
+			music.stop();
+			Sound_Utils.playMusic(currentLevel.getMusic());
+			currentMusic = currentLevel.getMusic();
+			return;
+		}
+		if(currentMusic == -1) {
+			Sound_Utils.playMusic(currentLevel.getMusic());
+			currentMusic = currentLevel.getMusic();
 		}
 	}
 
@@ -174,6 +193,7 @@ public class GamePanel extends JPanel implements Runnable {
 		activatePause = true;
 		time = -1; // It updates the time once, so this sets it to 0 essentially
 		level = 1;
+		currentMusic = -1;
 		loadLevel(level);
 	}
 
@@ -373,18 +393,5 @@ public class GamePanel extends JPanel implements Runnable {
 //			g2.setFont(font);
 //			g2.drawString("Press ENTER to Start", 140, 300);
 //		}
-	}
-	public static void playMusic(int i ) {
-		music.setFile(i);
-		music.play();
-		music.loop();
-	}
-	public static void stopMusic() {
-		music.stop();
-	}
-	public static void playSE(int i) {
-
-		se.setFile(i);
-		se.play();
 	}
 }

@@ -5,7 +5,7 @@ import net.mp3skater.main.GamePanel;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
-import static net.mp3skater.main.GamePanel.playSE;
+import static net.mp3skater.main.utils.Sound_Utils.playSE;
 
 public class KeyHandler implements KeyListener {
     /*
@@ -130,10 +130,8 @@ public class KeyHandler implements KeyListener {
         // Allow also H instead of d because of workman compatibility
         if(keyCode == KeyEvent.VK_D || keyCode == KeyEvent.VK_H)
             dPressed = true;
-        if(keyCode == KeyEvent.VK_SPACE) {
+        if(keyCode == KeyEvent.VK_SPACE)
             spacePressed = true;
-            playSE(4);
-        }
     }
 
     @Override
