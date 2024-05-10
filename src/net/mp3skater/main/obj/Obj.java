@@ -9,7 +9,7 @@ public abstract class Obj {
     Superclass of all objects you can see on the screen
      */
 
-    // Size and position of <this>
+    // Size and position of this
     protected final int[] size;
     protected final double[] pos;
 
