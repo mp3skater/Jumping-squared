@@ -2,6 +2,7 @@ package net.mp3skater.main.obj;
 
 import net.mp3skater.main.GamePanel;
 import net.mp3skater.main.utils.Draw_Utils;
+import net.mp3skater.main.utils.Sound_Utils;
 
 import java.awt.*;
 
@@ -27,7 +28,7 @@ public class Obj_platform extends Obj_wall {
     Cloning method
      */
     public Obj_platform neu() {
-       GamePanel.playSE(7);
+       Sound_Utils.playSE(7);
         return new Obj_platform(pos[0], pos[1]);
 
     }
