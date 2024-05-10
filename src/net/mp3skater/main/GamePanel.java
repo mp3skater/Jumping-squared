@@ -94,7 +94,7 @@ public class GamePanel extends JPanel implements Runnable {
 	 */
 	public void launchGame() {
 
-		playMusic(0);
+		playMusic(1);
 		// Get the first level, spawn the player and all other <Obj>'s in <objs>
 		loadLevel(level);
 		// Start the thread to start the Game loop
@@ -104,7 +104,7 @@ public class GamePanel extends JPanel implements Runnable {
 
 	@Override
 	public void run() {
-		playMusic(0);
+		playMusic(1);
 		// GAME LOOP
 		double drawInterval = 1_000_000_000d/FPS;
 		double delta = 0;
