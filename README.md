@@ -1,9 +1,14 @@
 <h1 align="center">
-  <img src="res/image/logo.png" width="80" height="80" style="image-rendering: pixelated"><br/>
-  Jumping²
+  <img src="res/images/Logo.png" width="1024" height="285" style="image-rendering: pixelated"><br/>
 </h1>
 
 > A simple desktop 2D platform game built in **JAVA** with **javax.swing** as a school project in collaboration with three classmates to work on different aspects of development. This isis aiming to be a complete video game but should only be considerate as a simple side project, made for fun.
+
+## Screenshots
+<p align="center">
+  <img src="res/images/Screenshot_0.png" width="45%" style="image-rendering: pixelated">
+  <img src="res/images/Screenshot_1.png" width="45%" style="image-rendering: pixelated">
+</p>
 
 ## Features
 This project uses JSON files to store the different levels, look at the detailed dokumentation to create your own and play them.
@@ -41,8 +46,6 @@ This project was developed using the following frameworks and tools:
  - [IntellIJ idea as IDE and build system](https://www.jetbrains.com/idea/)
  - [Music and Sound Effects](pleaseputinthelink)
 
-----------
-
 ## Controls
 
 * You can move the player around by using the `W`, `A`, `S`, `D` keys
@@ -51,21 +54,12 @@ This project was developed using the following frameworks and tools:
 * Finish each level and aim for the highscore
 * If you fall down or get hit by an enemy, you must restart from the beginning of the level
 
-------
-
-Screenshots
------------
-
-Screenshot 1                                                                                              |  Screenshot 2
-:--------------------------------------------------------------------------------------------------------:|:-------------------------:
-<img src="res/images/Screenshot_0.png" width="370" height="356" style="image-rendering: pixelated"><br/>  |  <img src="res/images/Screenshot_1.png" width="370" height="356" style="image-rendering: pixelated"><br/>
-
 ## The Jumping² team
 
-- [mp3skater](https://github.com/mp3skater) - Project Manager and lead developer
-- [Johnny1857](https://github.com/Johnny1857) - The Co-founder, Head of Design, and Head of Building
-- Ifen7 - Builder
-- denno4511 - Builder
+- [mp3skater](https://github.com/mp3skater) - Project Manager, lead developer and level builder
+- [Herwang](https://github.com/Herwang) - Head of design and level builder
+- [23paudav](https://github.com/23paudav) - UI developer and level builder
+- [Pomipommes](https://github.com/Pomipommes) - Enemy developer and level builder
 
 ## License
 
