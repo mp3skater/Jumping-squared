@@ -13,7 +13,7 @@ public class Level {
 
     public Level(int[] colPlayer, int[] colEnemies, int[]colWalls, int[] colPlatforms,
                  int[] colText, int[] colArrow, int[] colBG, int length, int[] colEnd,
-                 int[] player_pos, int[][] walls, int[][] enemies,
+                 int[] player_pos, int music, int[][] walls, int[][] enemies,
                  int[][] text_pos, String[] text_string, int[][] arrow_pos) {
         this.colPlayer = colPlayer;
         this.colEnemies = colEnemies;
@@ -25,6 +25,7 @@ public class Level {
         this.length = length;
         this.colEnd = colEnd;
         this.player_pos = player_pos;
+        this.music = music;
         this.walls = walls;
         this.enemies = enemies;
         this.text_pos = text_pos;
@@ -45,6 +46,9 @@ public class Level {
 
     // Player starting position [x, y]
     private final int[] player_pos;
+
+    // Music of the level
+    private final int music;
 
     // Walls (max. 20 walls) [x, y, sX, sY]
     private final int[][] walls;
@@ -115,5 +119,9 @@ public class Level {
 
         // Spawn the "End-Bar"
         walls.add(new Obj_endBar(length));
+    }
+
+    public int getMusic() {
+        return music;
     }
 }
