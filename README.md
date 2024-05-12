@@ -26,12 +26,9 @@ This project uses JSON files to store the different levels, look at the detailed
 - Maybe level-edit-modus...
 
 ## Youtube showcase
-<details>
-<summary>YouTube showcase</summary>
 <a href="http://www.youtube.com/watch?v=sruFdJCgIDo">
 <img alt="GetOP showcase thumbnail" width=50% src="https://tschipcraft.ddns.net/mod_resources/youtube_preview.php?id=sruFdJCgIDo" title="Watch on YouTube">
 </a>
-</details>
 
 ## Running the game
 For now you should be able to run the game on any device supporting **IntellIJ Idea**, by running the set run configuration in with **JAVA** 22+ installed or also by running the class **main/Main**. Later I will try to convert it into a gradle project so it'll become easier.
