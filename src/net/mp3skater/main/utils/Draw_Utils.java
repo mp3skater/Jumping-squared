@@ -83,62 +83,84 @@ public class Draw_Utils {
 //            GamePanel.framesCounter=0;
 
 
-        //TITLE PAUSED
-        g2.setFont(g2.getFont().deriveFont(Font.BOLD,70F));
+        //TITLE OPTION
+        Draw_Utils.drawSubWindow(g2,250,75,300,450);
+        g2.setFont(g2.getFont().deriveFont(Font.BOLD,30F));
         g2.setColor(new Color(255, 255, 255, 255));
-        g2.drawRoundRect(250,75,300,450,40,40);
-        String text = "Paused";
+        String text = "Options";
         int x =Draw_Utils.getXforCenteredText(g2,text);
-        int y =155;
-
-        g2.setColor(new Color(78, 88, 78));
-        g2.drawString(text,x+2,y+2);
-
-
-        g2.setColor(new Color(145, 208, 129));
+        int y =120;
         g2.drawString(text,x,y);
 
+        //Music
+        x =Draw_Utils.getXforCenteredText(g2,text)-75;
+        y +=100;
+        g2.drawString("Music",x,y);
 
-        //RESUME
-        g2.setFont(g2.getFont().deriveFont(Font.BOLD,35F));
-        text = "Resume";
-        x=Draw_Utils.getXforCenteredText(g2,text);
-        y =300;
-        g2.setColor(new Color(78, 88, 78));
-        g2.drawString(text,x+3,y+2);
+        //SE
+        x =Draw_Utils.getXforCenteredText(g2,text)-75;
+        y +=55;
+        g2.drawString("SE",x,y);
 
-        g2.setColor(new Color(145, 208, 129));
-        g2.drawString(text,x,y);
+        //Control
+        x =Draw_Utils.getXforCenteredText(g2,text)-75;
+        y +=55;
+        g2.drawString("Control",x,y);
 
-        if(pauseNum==0){
-//            if(GamePanel.framesCounter<=15) {
-                g2.drawString(">", x - 25, y);
-                g2.setColor(new Color(255, 255, 255));
-                g2.drawString(">", x - 21, y);
-                g2.drawString(text, x, y);
-//            }
-        }
+        //End Game
+        x =Draw_Utils.getXforCenteredText(g2,text)-75;
+        y +=55;
+        g2.drawString("End Game",x,y);
+
+        //End Game
+        x =Draw_Utils.getXforCenteredText(g2,text)-75;
+        y +=95;
+        g2.drawString("Back",x,y);
 
 
-        //EXIT LEVEL
-        g2.setFont(g2.getFont().deriveFont(Font.BOLD,35F));
-        text = "Quit Level";
-        x=Draw_Utils.getXforCenteredText(g2,text);
-        y =375;
-        g2.setColor(new Color(78, 88, 78));
-        g2.drawString(text,x+3,y+2);
 
-        g2.setColor(new Color(145, 208, 129));
-        g2.drawString(text,x,y);
 
-        if(pauseNum==1){
-//            if(GamePanel.framesCounter<=15) {
-                g2.drawString(">", x - 25, y);
-                g2.setColor(new Color(255, 255, 255));
-                g2.drawString(">", x - 21, y);
-                g2.drawString(text, x, y);
-//            }
-        }
+
+//        //RESUME
+//        g2.setFont(g2.getFont().deriveFont(Font.BOLD,35F));
+//        text = "Resume";
+//        x=Draw_Utils.getXforCenteredText(g2,text);
+//        y =300;
+//        g2.setColor(new Color(78, 88, 78));
+//        g2.drawString(text,x+3,y+2);
+//
+//        g2.setColor(new Color(145, 208, 129));
+//        g2.drawString(text,x,y);
+//
+//        if(pauseNum==0){
+////            if(GamePanel.framesCounter<=15) {
+//                g2.drawString(">", x - 25, y);
+//                g2.setColor(new Color(255, 255, 255));
+//                g2.drawString(">", x - 21, y);
+//                g2.drawString(text, x, y);
+////            }
+//        }
+//
+//
+//        //EXIT LEVEL
+//        g2.setFont(g2.getFont().deriveFont(Font.BOLD,35F));
+//        text = "Quit Level";
+//        x=Draw_Utils.getXforCenteredText(g2,text);
+//        y =375;
+//        g2.setColor(new Color(78, 88, 78));
+//        g2.drawString(text,x+3,y+2);
+//
+//        g2.setColor(new Color(145, 208, 129));
+//        g2.drawString(text,x,y);
+//
+//        if(pauseNum==1){
+////            if(GamePanel.framesCounter<=15) {
+//                g2.drawString(">", x - 25, y);
+//                g2.setColor(new Color(255, 255, 255));
+//                g2.drawString(">", x - 21, y);
+//                g2.drawString(text, x, y);
+////            }
+//        }
 
     }
 
@@ -299,5 +321,17 @@ public class Draw_Utils {
         //Gets the perfect X.Coordinates for the Text position
         int textLength = (int)g2.getFontMetrics().getStringBounds(text,g2).getWidth();
         return GamePanel.WIDTH/2 - textLength/2;
+    }
+
+    public  static void drawSubWindow(Graphics2D g2, int x, int y, int with, int height){
+
+        Color c = new Color(0,0,0,220);
+        g2.setColor(c);
+        g2.fillRoundRect(x,y,with,height,35,35);
+
+        c = new Color(255,255,200);
+        g2.setColor(c);
+        g2.setStroke(new BasicStroke(5));
+        g2.drawRoundRect(x+5,y+5,with-10,height-10,35,35);
     }
 }
