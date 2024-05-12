@@ -41,7 +41,8 @@ This project was developed using the following frameworks and tools:
  - [Java Swing](https://www.java-tutorial.org/swing.html)
  - [GSON (google's JSON library)](https://google.github.io/gson/)
  - [IntellIJ idea as IDE and build system](https://www.jetbrains.com/idea/)
- - [Music and Sound Effects](pleaseputinthelink)
+ - [Music and Sound Effects (to be done)](pleaseputinthelink)
+ - [Logo creator (to be done)](pleaseputinthelink)
 
 ## Controls
 
