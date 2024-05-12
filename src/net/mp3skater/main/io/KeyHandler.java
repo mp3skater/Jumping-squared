@@ -67,32 +67,26 @@ public class KeyHandler implements KeyListener {
                 if(keyCode == KeyEvent.VK_A&&GamePanel.music.volumeScale>0){
                     GamePanel.music.volumeScale--;
                     GamePanel.music.checkVolume();
-                    GamePanel.playSE(8);
+                    playSE(8);
                 }
                 if(keyCode == KeyEvent.VK_D&&GamePanel.music.volumeScale<5){
                     GamePanel.music.volumeScale++;
                     GamePanel.music.checkVolume();
-                    GamePanel.playSE(8);
+                    playSE(8);
                 }
             }
             //SE VOLUME
             if(GamePanel.pauseNum==1){
                 if(keyCode == KeyEvent.VK_A&&GamePanel.se.volumeScale>0){
                     GamePanel.se.volumeScale--;
-                    GamePanel.playSE(8);
+                    playSE(8);
                 }
                 if(keyCode == KeyEvent.VK_D&&GamePanel.se.volumeScale<5){
                     GamePanel.se.volumeScale++;
-                    GamePanel.playSE(8);
+                    playSE(8);
                 }
             }
             if (keyCode == KeyEvent.VK_ENTER) {
-//                if (GamePanel.pauseNum == 0) {
-//
-//                }
-//                if (GamePanel.pauseNum == 1) {
-//
-//                }
                 if (GamePanel.pauseNum == 2) {
 
                 }
