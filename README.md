@@ -1,5 +1,5 @@
 <h1 align="center">
-  <img src="res/images/Logo.png" width="1024" height="285" style="image-rendering: pixelated"><br/>
+  <img src="res/images/Logo.png" width="100%" style="image-rendering: pixelated"><br/>
 </h1>
 
 > A simple desktop 2D platform game built in **JAVA** with **javax.swing** as a school project in collaboration with three classmates to work on different aspects of development. This isis aiming to be a complete video game but should only be considerate as a simple side project, made for fun.
