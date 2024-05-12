@@ -4,6 +4,7 @@ import net.mp3skater.main.GamePanel;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.security.Key;
 
 import static net.mp3skater.main.utils.Sound_Utils.playSE;
 
@@ -49,26 +50,57 @@ public class KeyHandler implements KeyListener {
         if(GamePanel.isPause) {
             if (keyCode == KeyEvent.VK_W || keyCode == KeyEvent.VK_UP) {
                 GamePanel.pauseNum--;
+                playSE(8);
                 if (GamePanel.pauseNum < 0) {
-                    GamePanel.pauseNum = 1;
+                    GamePanel.pauseNum = 4;
                 }
             }
             if (keyCode == KeyEvent.VK_S || keyCode == KeyEvent.VK_DOWN) {
                 GamePanel.pauseNum++;
-                if (GamePanel.pauseNum > 1) {
+                playSE(8);
+                if (GamePanel.pauseNum > 4) {
                     GamePanel.pauseNum = 0;
                 }
             }
-            if (keyCode == KeyEvent.VK_ENTER) {
-                if (GamePanel.pauseNum == 0) {
-                    GamePanel.isPause = false;
-                    GamePanel.exPause = true;
+            //MUSIC VOLUME
+            if(GamePanel.pauseNum==0){
+                if(keyCode == KeyEvent.VK_A&&GamePanel.music.volumeScale>0){
+                    GamePanel.music.volumeScale--;
+                    GamePanel.music.checkVolume();
+                    GamePanel.playSE(8);
                 }
-                if (GamePanel.pauseNum == 1) {
-                    GamePanel.isPause = false;
-                    GamePanel.exPause = true;
-                    GamePanel.pauseNum = 0;
-                    GamePanel.titleState = true;
+                if(keyCode == KeyEvent.VK_D&&GamePanel.music.volumeScale<5){
+                    GamePanel.music.volumeScale++;
+                    GamePanel.music.checkVolume();
+                    GamePanel.playSE(8);
+                }
+            }
+            //SE VOLUME
+            if(GamePanel.pauseNum==1){
+                if(keyCode == KeyEvent.VK_A&&GamePanel.se.volumeScale>0){
+                    GamePanel.se.volumeScale--;
+                    GamePanel.playSE(8);
+                }
+                if(keyCode == KeyEvent.VK_D&&GamePanel.se.volumeScale<5){
+                    GamePanel.se.volumeScale++;
+                    GamePanel.playSE(8);
+                }
+            }
+            if (keyCode == KeyEvent.VK_ENTER) {
+//                if (GamePanel.pauseNum == 0) {
+//
+//                }
+//                if (GamePanel.pauseNum == 1) {
+//
+//                }
+                if (GamePanel.pauseNum == 2) {
+
+                }
+                if (GamePanel.pauseNum == 3) {
+
+                }
+                if (GamePanel.pauseNum == 4) {
+
                 }
             }
         }
