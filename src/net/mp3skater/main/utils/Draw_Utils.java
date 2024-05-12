@@ -96,26 +96,52 @@ public class Draw_Utils {
         x =Draw_Utils.getXforCenteredText(g2,text)-75;
         y +=100;
         g2.drawString("Music",x,y);
+        if(pauseNum==0){
+            g2.drawString(">",x-15,y);
+        }
+        //Music-Bar
+        g2.setStroke(new BasicStroke(3));
+        g2.drawRect(x+100,y-25,120,22);
+        int volumeWidth = 24*GamePanel.music.volumeScale;
+        g2.fillRect(x+100,y-25,volumeWidth,24);
+
 
         //SE
         x =Draw_Utils.getXforCenteredText(g2,text)-75;
         y +=55;
         g2.drawString("SE",x,y);
+        if(pauseNum==1){
+            g2.drawString(">",x-15,y);
+        }
+        //SE-Bar
+        g2.drawRect(x+100,y-25,120,22);//120/5=24
+        volumeWidth = 24*GamePanel.se.volumeScale;
+        g2.fillRect(x+100,y-25,volumeWidth,24);
+
 
         //Control
         x =Draw_Utils.getXforCenteredText(g2,text)-75;
         y +=55;
         g2.drawString("Control",x,y);
+        if(pauseNum==2){
+            g2.drawString(">",x-15,y);
+        }
 
         //End Game
         x =Draw_Utils.getXforCenteredText(g2,text)-75;
         y +=55;
         g2.drawString("End Game",x,y);
+        if(pauseNum==3){
+            g2.drawString(">",x-15,y);
+        }
 
-        //End Game
+        //Back
         x =Draw_Utils.getXforCenteredText(g2,text)-75;
         y +=95;
         g2.drawString("Back",x,y);
+        if(pauseNum==4){
+            g2.drawString(">",x-15,y);
+        }
 
 
 
