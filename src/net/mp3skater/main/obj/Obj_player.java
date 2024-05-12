@@ -12,6 +12,7 @@ public class Obj_player extends Obj_moving {
     This is the player which you can control through the level.
     */
 
+
     public Obj_player(double x, double y) {
         super(x, y, 50, 80, 0, 0, 8, 15);
     }
@@ -35,6 +36,9 @@ public class Obj_player extends Obj_moving {
         if(KeyHandler.spacePressed && onGround) {
             this.addVec(0, -15);
             Sound_Utils.playSE(4);
+
+
+
         }
         // Gravity (positive value because the up-left corner is x:0,y:0)
         this.addVec(0, 0.6);
