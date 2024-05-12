@@ -88,13 +88,14 @@ public class KeyHandler implements KeyListener {
             }
             if (keyCode == KeyEvent.VK_ENTER) {
                 if (GamePanel.pauseNum == 2) {
-
+                    //ControlScreen
                 }
                 if (GamePanel.pauseNum == 3) {
-
+                    //End Game
                 }
                 if (GamePanel.pauseNum == 4) {
-
+                    GamePanel.isPause=false;
+                    GamePanel.exPause=true;
                 }
             }
         }
