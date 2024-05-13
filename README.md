@@ -2,7 +2,7 @@
   <img src="res/images/Logo.png" width="100%" style="image-rendering: pixelated"><br/>
 </h1>
 
-> A simple desktop 2D platform game built in **JAVA** with **javax.swing** as a school project in collaboration with three classmates to work on different aspects of development. This isis aiming to be a complete video game but should only be considerate as a simple side project, made for fun.
+> A simple desktop 2D platform game built in **JAVA** using the **javax.swing** library. It's a school project in collaboration with three classmates, where everyone works on different aspects of development. This project aims to be a complete video game but should only be considered as a simple side project, made for fun.
 
 ## Screenshots
 <p align="center">
@@ -11,7 +11,7 @@
 </p>
 
 ## Features
-This project uses JSON files to store the different levels, look at the detailed dokumentation to create your own and play them.
+This project uses JSON files to store the different levels, look at the detailed explenation in the **src/net/mp3skater/main/Level**-class to create your own and play them.
 
 ### Added features
 - Oldschool platformer with clean graphics
@@ -19,9 +19,10 @@ This project uses JSON files to store the different levels, look at the detailed
 - Sound effects and music
 - Start & pause menu
 - Highscore system that stores the highscores inside of a text file
+- Options to regulate and turn off/on the sound effects/music
 
 ### In future
-- Options to regulate and turn off/on the sound effects/music
+- Detailed explenation of how to create your own levels
 - Usage of gradle or maven for easier execution
 - Maybe level-edit-modus...
 
@@ -61,6 +62,6 @@ This project was developed using the following frameworks and tools:
 
 ## License
 
-This project is open source and licensed under the [MIT](/LICENSE) License.
+This project is open source and licensed under the [MIT License](/LICENSE).
 
 <div align="center"><h4>© Copyright √16 2024</h4></div>
