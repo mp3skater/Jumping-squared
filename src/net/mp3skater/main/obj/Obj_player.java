@@ -128,16 +128,6 @@ public class Obj_player extends Obj_moving {
                         onGround = true;
                     nearY = nearY==null? w : getNearestY(nearY, w, vec[1] > 0);
                 }
-            // Both
-            //if(vec[0] != 0 && vec[1] != 0)
-            //    if(collides((int)(w.getX()-vec[0]), (int)(w.getY()-vec[1]), (int)w.getSX(), (int)w.getSY())) {
-            //        System.out.println("colXY");
-            //        // To avoid player from getting stuck
-            //        if(!(!collides((int)(w.getX()-vec[0]), (int)w.getY(), (int)w.getSX(), (int)w.getSY()) &&
-            //                !collides((int)w.getX(), w.getY()-vec[1], (int)w.getSX(), (int)w.getSY())))
-            //            nearX = nearX==null? w : getNearestX(nearX, w, vec[0] > 0);
-            //        nearY = nearY==null? w : getNearestY(nearY, w, vec[1] > 0);
-            //    }
         }
         // For all elements you could collide with in platforms
         for(Obj p : GamePanel.platforms) {
@@ -157,21 +147,16 @@ public class Obj_player extends Obj_moving {
                         onGround = true;
                     nearY = nearY==null? p : getNearestY(nearY, p, vec[1] > 0);
                 }
-            // Both
-            //if(vec[0] != 0 && vec[1] != 0)
-            //    if(collides((int)(p.getX()-vec[0]), (int)(p.getY()-vec[1]), (int)p.getSX(), (int)p.getSY())) {
-            //        // To avoid player from getting stuck
-            //        if(!(!collides((int)(p.getX()-vec[0]), (int)p.getY(), (int)p.getSX(), (int)p.getSY()) &&
-            //                !collides((int)p.getX(), p.getY()-vec[1], (int)p.getSX(), (int)p.getSY())))
-            //            nearX = nearX==null? p : getNearestX(nearX, p, vec[0] > 0);
-            //        nearY = nearY==null? p : getNearestY(nearY, p, vec[1] > 0);
-            //    }
         }
-        //if(nearX != null)
-        //    System.out.printf("x: "+(int)nearX.getX()+" ");
-        //if(nearY != null)
-        //    System.out.printf("y: "+nearY.getY());
-        // Actual collision
+        // Actual collision:
+
+        // To avoid players from getting stuck
+        if (nearX != null)
+            if (nearY != null && nearX == nearY && (int) nearX.getX() == nearX.getX() && (int) nearY.getY() == nearY.getY()) {
+                yCollision((int) nearY.getY(), vec[1] < 0/*going up*/ ? nearY.size[1] : 0);
+                return;
+            }
+
         if(nearX!=null) {
             xCollision((int)nearX.getX(), vec[0]<0/*going left*/? nearX.size[0] : 0);
         }
