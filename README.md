@@ -31,7 +31,7 @@ This project uses JSON files to store the different levels, look at the detailed
 </a>
 
 ## Running the game
-For now you should be able to run the game on any device supporting **IntellIJ Idea**, by running the set run configuration in with **JAVA** 22+ installed or also by running the class **main/Main**. Later I will try to convert it into a gradle project so it'll become easier.
+For now you should be able to run the game on any device supporting **IntellIJ Idea** with **JAVA** 22+ installed, by running the set run configuration **launch Game** or also by running the class **main/Main**. Later I will try to convert it into a gradle project so it'll become easier.
 
 ## Technologies
 Huge thanks to [RyiSnow](https://www.youtube.com/@RyiSnow) for his amazing tutorials that helped this project massively!
