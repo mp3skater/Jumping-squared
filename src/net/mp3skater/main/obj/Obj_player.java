@@ -121,13 +121,11 @@ public class Obj_player extends Obj_moving {
             // Horizontally
             if(vec[0] != 0)
                 if(collides(w.getX()-Col_Utils.absRound(vec[0]), w.getY(), (int)w.getSX(), (int)w.getSY())) {
-                    System.out.println("colX");
                     nearX = nearX==null? w : getNearestX(nearX, w, vec[0] > 0);
                 }
             // Vertically
             if(vec[1] != 0)
                 if(collides(w.getX(), w.getY()-Col_Utils.absRound(vec[1]), (int)w.getSX(), (int)w.getSY())) {
-                    System.out.println("colY");
                     if(vec[1]>0)
                         onGround = true;
                     nearY = nearY==null? w : getNearestY(nearY, w, vec[1] > 0);
