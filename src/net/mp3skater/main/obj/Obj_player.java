@@ -63,10 +63,22 @@ public class Obj_player extends Obj_moving {
         // Reset camera
         if(KeyHandler.zeroPressed) GamePanel.offset = pos[0] - GamePanel.WIDTH/2.0;
         // Change level
-        if(KeyHandler.onePressed) GamePanel.loadLevel(1);
-        else if(KeyHandler.twoPressed) GamePanel.loadLevel(2);
-        else if(KeyHandler.threePressed) GamePanel.loadLevel(3);
-        else if(KeyHandler.fourPressed) GamePanel.loadLevel(4);
+        if(KeyHandler.onePressed) {
+            GamePanel.level = 1;
+            GamePanel.loadLevel(1);
+        }
+        else if(KeyHandler.twoPressed) {
+            GamePanel.level = 2;
+            GamePanel.loadLevel(2);
+        }
+        else if(KeyHandler.threePressed) {
+            GamePanel.level = 3;
+            GamePanel.loadLevel(3);
+        }
+        else if(KeyHandler.fourPressed) {
+            GamePanel.level = 4;
+            GamePanel.loadLevel(4);
+        }
         else if(KeyHandler.fivePressed)
             GamePanel.loadLevel(5);
 
@@ -233,6 +245,10 @@ public class Obj_player extends Obj_moving {
     public void draw(Graphics2D g2, Color color) {
         if(GamePanel.won)
             drawAmogus(g2, vec[0]==0? left : vec[0] < 0);
+        else if(GamePanel.level==3) {
+            g2.setColor(Color.black);
+            g2.drawRect(getDrawX(), (int) pos[1], size[0], size[1]);
+        }
         else
             Draw_Utils.fillRect(g2, this, color);
     }

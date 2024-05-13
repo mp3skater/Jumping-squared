@@ -69,7 +69,7 @@ public class GamePanel extends JPanel implements Runnable {
 
 	// Levels 1-5
 	public static int level = 1;
-	private static Level currentLevel;
+	public static Level currentLevel;
 	public static int newGame = 2;
 
 	// Time (in frames, 60 = 1 sec)
