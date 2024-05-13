@@ -167,11 +167,15 @@ public class Obj_player extends Obj_moving {
             //        nearY = nearY==null? p : getNearestY(nearY, p, vec[1] > 0);
             //    }
         }
-        //if(nearX != null)
-        //    System.out.printf("x: "+(int)nearX.getX()+" ");
-        //if(nearY != null)
-        //    System.out.printf("y: "+nearY.getY());
-        // Actual collision
+        // Actual collision:
+
+        // To avoid players from getting stuck
+        if (nearX != null)
+            if (nearY != null && nearX == nearY && (int) nearX.getX() == nearX.getX() && (int) nearY.getY() == nearY.getY()) {
+                yCollision((int) nearY.getY(), vec[1] < 0/*going up*/ ? nearY.size[1] : 0);
+                return;
+            }
+
         if(nearX!=null) {
             xCollision((int)nearX.getX(), vec[0]<0/*going left*/? nearX.size[0] : 0);
         }
