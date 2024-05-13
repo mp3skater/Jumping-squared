@@ -109,8 +109,6 @@ public class Obj_player extends Obj_moving {
         // Variables to check nearest collision
         Obj nearX = null, nearY = null;
 
-        System.out.println("-->"+pos[0]+", "+pos[1]);
-
         // For all elements you could collide with in walls
         for(Obj w : GamePanel.walls) {
             // Return if endbar to allow the player to finish the level
@@ -121,13 +119,11 @@ public class Obj_player extends Obj_moving {
             // Horizontally
             if(vec[0] != 0)
                 if(collides(w.getX()-Col_Utils.absRound(vec[0]), w.getY(), (int)w.getSX(), (int)w.getSY())) {
-                    System.out.println("colX");
                     nearX = nearX==null? w : getNearestX(nearX, w, vec[0] > 0);
                 }
             // Vertically
             if(vec[1] != 0)
                 if(collides(w.getX(), w.getY()-Col_Utils.absRound(vec[1]), (int)w.getSX(), (int)w.getSY())) {
-                    System.out.println("colY");
                     if(vec[1]>0)
                         onGround = true;
                     nearY = nearY==null? w : getNearestY(nearY, w, vec[1] > 0);
