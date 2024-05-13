@@ -69,12 +69,12 @@ public abstract class Obj_moving extends Obj {
     Activate collision boolean and reset the <vec[]> in that direction
     If <colSize> is 0, the player is colliding from up or left respectively
      */
-    protected void xCollision(int collisionX, int colSize) {
+    protected void xCollision(double collisionX, int colSize) {
         xColl = true;
         vec[0] = 0;
         pos[0] = colSize==0? collisionX-size[0] : collisionX+colSize;
     }
-    protected void yCollision(int collisionY, int colSize) {
+    protected void yCollision(double collisionY, int colSize) {
         yColl = true;
         vec[1] = 0;
         pos[1] = colSize==0? collisionY-size[1] : collisionY+colSize;

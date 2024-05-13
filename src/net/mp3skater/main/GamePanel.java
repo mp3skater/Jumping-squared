@@ -127,13 +127,6 @@ public class GamePanel extends JPanel implements Runnable {
 	}
 
 	/*
-	Returns the color from the current level
-	 */
-	public static Color getColor(String name) {
-		return currentLevel.getColor(name);
-	}
-
-	/*
 	Loads the next level, incrementing <level>
 	If it was the last level the game is over
 	 */
@@ -187,7 +180,8 @@ public class GamePanel extends JPanel implements Runnable {
 	Sets pause to true and loads the first level
 	 */
 	public static void gameOver() {
-		playSE(5);
+		if(!won)
+			playSE(5);
 		stopMusic();
 		newGame = 2;
 		activatePause = true;
@@ -252,7 +246,7 @@ public class GamePanel extends JPanel implements Runnable {
 
 		// Uncode this to get a log of your game...
 		//System.out.println((int)player.getX()+", "+(int)player.getY()+
-				//", nG = "+newGame+", vec: "+player.getVX()+", "+player.getVY());
+		//		", level = "+level+", vec: "+player.getVX()+", "+player.getVY());
 
 		// Devtool
 		// Move when paused
