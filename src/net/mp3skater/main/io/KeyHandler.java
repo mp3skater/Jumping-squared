@@ -14,7 +14,8 @@ public class KeyHandler implements KeyListener {
      */
 
     public static boolean pausePressed, aPressed, dPressed, spacePressed, zeroPressed, onePressed,
-            twoPressed, threePressed, fourPressed,fivePressed, upPressed, downPressed, leftPressed, rightPressed;
+            twoPressed, threePressed, fourPressed,fivePressed, upPressed, downPressed, leftPressed, rightPressed,
+            backPressed,backControlPressed;
 
     @Override
     public void keyPressed(KeyEvent e) {
@@ -48,6 +49,11 @@ public class KeyHandler implements KeyListener {
             }
         }
         if(GamePanel.isPause) {
+            if(GamePanel.controlState){
+                if (keyCode==KeyEvent.VK_ENTER){
+                    GamePanel.controlState=false;
+                }
+            }
             if (keyCode == KeyEvent.VK_W || keyCode == KeyEvent.VK_UP) {
                 GamePanel.pauseNum--;
                 playSE(8);
@@ -86,11 +92,16 @@ public class KeyHandler implements KeyListener {
                     playSE(8);
                 }
             }
+            //Controls
             if (keyCode == KeyEvent.VK_ENTER) {
                 if (GamePanel.pauseNum == 2) {
-                    //ControlScreen
+
+                    if (keyCode==KeyEvent.VK_ENTER){
+                        GamePanel.controlState=true;
+                    }
                 }
                 if (GamePanel.pauseNum == 3) {
+
                     //End Game
                 }
                 if (GamePanel.pauseNum == 4) {
