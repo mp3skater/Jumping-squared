@@ -38,7 +38,7 @@ public class GamePanel extends JPanel implements Runnable {
 	Font maruMonica;
 
 	// Game State Screens
-	public static boolean titleState, deathState;
+	public static boolean titleState, deathState,controlState;
 	public static int comandNum =0,titleNum =0, deathNum =0, pauseNum =0;
 	public static int framesCounter =0;
 
@@ -372,19 +372,13 @@ public class GamePanel extends JPanel implements Runnable {
 		g2.drawString("Time: "+time, 5, 20);
 		g2.setFont(g2.getFont().deriveFont(Font.BOLD,48f));
 		// Pause (needs to be arranged to the center if you change WIDTH or HEIGHT)
+
 		if(isPause) {
+            if (controlState)
+				Draw_Utils.drawOptionControl(g2);
+            else
 			Draw_Utils.drawPauseScreen(g2);
 		}
 
-//		if(newGame > 0) {
-//			// Background
-//			g2.setColor(Color.black);
-//			g2.fillRect(0,0,WIDTH,HEIGHT);
-//
-//			g2.setColor(Color.white);
-//			font = new Font ("Century", Font.BOLD, 50);
-//			g2.setFont(font);
-//			g2.drawString("Press ENTER to Start", 140, 300);
-//		}
 	}
 }
