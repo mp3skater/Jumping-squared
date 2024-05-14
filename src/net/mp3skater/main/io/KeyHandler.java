@@ -37,6 +37,7 @@ public class KeyHandler implements KeyListener {
                 }
             }
             if(keyCode ==KeyEvent.VK_ENTER){
+                playSE(9);
                 if(GamePanel.comandNum==0){
                     GamePanel.titleState=false;
                 }
