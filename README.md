@@ -2,7 +2,7 @@
   <img src="res/images/Logo.png" width="100%" style="image-rendering: pixelated"><br/>
 </h1>
 
-> A simple desktop 2D platform game built in **JAVA** with **javax.swing** as a school project in collaboration with three classmates to work on different aspects of development. This isis aiming to be a complete video game but should only be considerate as a simple side project, made for fun.
+> A simple desktop 2D platform game built in **JAVA** using the **javax.swing** library. It's a school project in collaboration with three classmates, where everyone works on different aspects of development. This project aims to be a complete video game but should only be considered as a simple side project, made for fun.
 
 ## Screenshots
 <p align="center">
@@ -11,7 +11,7 @@
 </p>
 
 ## Features
-This project uses JSON files to store the different levels, look at the detailed dokumentation to create your own and play them.
+This project uses JSON files to store the different levels, look at the detailed explenation in the **src/net/mp3skater/main/Level**-class to create your own and play them.
 
 ### Added features
 - Oldschool platformer with clean graphics
@@ -19,9 +19,10 @@ This project uses JSON files to store the different levels, look at the detailed
 - Sound effects and music
 - Start & pause menu
 - Highscore system that stores the highscores inside of a text file
+- Options to regulate and turn off/on the sound effects/music
 
 ### In future
-- Options to regulate and turn off/on the sound effects/music
+- Detailed explenation of how to create your own levels
 - Usage of gradle or maven for easier execution
 - Maybe level-edit-modus...
 
@@ -31,7 +32,7 @@ This project uses JSON files to store the different levels, look at the detailed
 </a>
 
 ## Running the game
-For now you should be able to run the game on any device supporting **IntellIJ Idea**, by running the set run configuration in with **JAVA** 22+ installed or also by running the class **main/Main**. Later I will try to convert it into a gradle project so it'll become easier.
+For now you should be able to run the game on any device supporting **IntellIJ Idea** with **JAVA** 22+ installed, by running the set run configuration **launch Game** or also by running the class **main/Main**. Later I will try to convert it into a gradle project so it'll become easier.
 
 ## Technologies
 Huge thanks to [RyiSnow](https://www.youtube.com/@RyiSnow) for his amazing tutorials that helped this project massively!
@@ -61,6 +62,6 @@ This project was developed using the following frameworks and tools:
 
 ## License
 
-This project is open source and licensed under the [MIT](/LICENSE) License.
+This project is open source and licensed under the [MIT License](/LICENSE).
 
 <div align="center"><h4>© Copyright √16 2024</h4></div>
