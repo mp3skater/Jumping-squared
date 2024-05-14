@@ -10,7 +10,7 @@ public class Obj_enemy extends Obj_moving {
      */
 
     public Obj_enemy(double x, double y, int sX, int sY, int type) {
-        super(x, y, sX, sY, 5,0,0,0);
+        super(x, y, sX, sY, 0,0,0,0);
         this.type = type;
         this.startPos = new int[]{(int)x, (int)y};
     }
@@ -39,13 +39,29 @@ public class Obj_enemy extends Obj_moving {
          */
             case 0: return;
 
-            case 1: return;
-            case 2: {
-                // The max. distance an enemy should(doesn't need to) go away from <startPos>
-                int maxDist = 70;
+            case 1://Level 4; up/down movement
+                int maxDist1 = 160;
+                if(vec[1]==0)
+                    vec[1]=7;
                 // If the enemy goes too much away from spawn, he goes to the other direction
-                if(Math.abs(pos[0] - startPos[0]) > maxDist)
+                if(Math.abs(pos[1] - startPos[1]) > maxDist1)
+                    vec[1] *= -1;
+                break;
+            case 2: {//Level 4; left/right movement
+                int maxDist2 = 350;
+                if(vec[0]==0)
+                    vec[0]=10;
+                if(Math.abs(pos[0] - startPos[0]) > maxDist2)
                     vec[0] *= -1;
+                break;
+            }
+            case 3: {//Level 4; up/down movement
+                int maxDist3 = 160;
+                if(vec[1]==0)
+                    vec[1]=-11;
+                if(Math.abs(pos[1] - startPos[1]) > maxDist3)
+                    vec[1] *= -1;
+                break;
             }
         }
     }
