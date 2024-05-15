@@ -7,6 +7,7 @@ import net.mp3skater.main.io.KeyHandler;
 import net.mp3skater.main.io.Mouse;
 import net.mp3skater.main.utils.Draw_Utils;
 import net.mp3skater.main.utils.Level_Utils;
+import net.mp3skater.main.utils.Menu_Utils;
 import net.mp3skater.main.utils.Sound_Utils;
 
 
@@ -178,9 +179,10 @@ public class GamePanel extends JPanel implements Runnable {
 	/*
 	Gets called when the player dies
 	Sets pause to true and loads the first level
+	Only plays the "game over"-se if <se> = true
 	 */
-	public static void gameOver() {
-		playSE(5);
+	public static void gameOver(boolean se) {
+		if(se) playSE(5);
 		stopMusic();
 		deathState = true;
 		time = -1; // It updates the time once, so this sets it to 0 essentially
@@ -191,6 +193,8 @@ public class GamePanel extends JPanel implements Runnable {
 
 	/*
 	Gets called when the player finishes all levels
+	If it's a new highscore the highscore gets saved in a text file
+	That file will be created the first time the game gets played through
 	 */
 	public static void gameWon() {
 		won = true;
@@ -230,7 +234,7 @@ public class GamePanel extends JPanel implements Runnable {
 			System.out.println("Problems while reading/creating the file \"res/info/highscores.txt\"");
 			e.printStackTrace();
 		}
-		gameOver();
+		gameOver(false);
 	}
 
 	/*
@@ -280,14 +284,21 @@ public class GamePanel extends JPanel implements Runnable {
 			if(KeyHandler.downPressed) player.addY(10); focusCam();
 		}
 
+		// Menu updates
+		Menu_Utils.update();
+
 		// Pause, when pause is being pressed
-		if(KeyHandler.pausePressed && !exPause) changePauseState();
-		exPause = KeyHandler.pausePressed;
+		if(KeyHandler.escPressed && !exPause) changePauseState();
+		exPause = KeyHandler.escPressed;
+
 		// Don't continue if Game paused
 		if(isPause) return;
 
-		if(activatePause) { isPause = true; activatePause = false; } // Change Pause
-		if(newGame > 0) newGame--; // Change newGame
+		// Activate pause
+		if(activatePause) { changePauseState(); activatePause = false; }
+
+		// Change newGame, other updates
+		if(newGame > 0) newGame--;
 		time++;
 		framesCounter++;
 

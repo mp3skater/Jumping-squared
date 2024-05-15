@@ -51,7 +51,7 @@ public class Obj_player extends Obj_moving {
 
         // Kill Player if he falls down
         if(reverseGravity? pos[1]<0 :pos[1] > GamePanel.HEIGHT) {
-            GamePanel.gameOver();
+            GamePanel.gameOver(true);
             return;
         }
 
@@ -76,7 +76,7 @@ public class Obj_player extends Obj_moving {
         // Kill player if he hits an enemy
         for(Obj e : GamePanel.enemies)
             if(collides(e)) {
-                GamePanel.gameOver();
+                GamePanel.gameOver(true);
                 return;
             }
 
