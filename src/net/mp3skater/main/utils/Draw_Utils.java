@@ -16,9 +16,7 @@ public class Draw_Utils {
     Globally available Draw-Methods
      */
 
-    /*
-    Draws the Titlescreen
-     */
+
     public static void drawTitleScreen(Graphics2D g2) throws IOException, Draw_Utils.BufferedImageGetException {
         // Title Image
         Draw_Utils.drawImage(g2, "/images/Logo.png", new double[]{125,75}, new int[]{575,150});
@@ -42,7 +40,7 @@ public class Draw_Utils {
             g2.drawString(text,x,350);
         }
 
-        text = "Highscore";
+        text = "Highscore(Comming Soon)";
         x = Draw_Utils.getXforCenteredText(g2,text);
 
         g2.setColor(new Color(78, 88, 78));
@@ -76,11 +74,6 @@ public class Draw_Utils {
     }
 
     public static void drawPauseScreen(Graphics2D g2) {
-
-//        if(GamePanel.framesCounter<=60)
-//            GamePanel.framesCounter++;
-//        else
-//            GamePanel.framesCounter=0;
 
 
         //TITLE OPTION
@@ -124,6 +117,7 @@ public class Draw_Utils {
         y +=55;
         g2.drawString("Control",x,y);
         if(pauseNum==2){
+
             g2.drawString(">",x-15,y);
         }
 
@@ -144,56 +138,50 @@ public class Draw_Utils {
         }
 
 
+    }
+
+    public static void drawOptionControl(Graphics2D g2){
+        //TITLE OPTION
+        Draw_Utils.drawSubWindow(g2,250,75,300,450);
+        g2.setFont(g2.getFont().deriveFont(Font.BOLD,30F));
+        g2.setColor(new Color(255, 255, 255, 255));
+        String text = "Controls";
+        int x =Draw_Utils.getXforCenteredText(g2,text);
+        int y =120;
+        g2.drawString(text,x,y);
+
+
+        //Move
+        x =Draw_Utils.getXforCenteredText(g2,text)-75;
+        y +=100;
+        g2.drawString("Move",x,y);
+
+        //Jump
+        x =Draw_Utils.getXforCenteredText(g2,text)-75;
+        y +=55;
+        g2.drawString("Jump",x,y);
+
+        //Place
+        x =Draw_Utils.getXforCenteredText(g2,text)-75;
+        y +=55;
+        g2.drawString("Place",x,y);
+
+        //Pause/Options
+        x =Draw_Utils.getXforCenteredText(g2,text)-75;
+        y +=55;
+        g2.drawString("Pause/Options",x,y);
 
 
 
-//        //RESUME
-//        g2.setFont(g2.getFont().deriveFont(Font.BOLD,35F));
-//        text = "Resume";
-//        x=Draw_Utils.getXforCenteredText(g2,text);
-//        y =300;
-//        g2.setColor(new Color(78, 88, 78));
-//        g2.drawString(text,x+3,y+2);
-//
-//        g2.setColor(new Color(145, 208, 129));
-//        g2.drawString(text,x,y);
-//
-//        if(pauseNum==0){
-////            if(GamePanel.framesCounter<=15) {
-//                g2.drawString(">", x - 25, y);
-//                g2.setColor(new Color(255, 255, 255));
-//                g2.drawString(">", x - 21, y);
-//                g2.drawString(text, x, y);
-////            }
-//        }
-//
-//
-//        //EXIT LEVEL
-//        g2.setFont(g2.getFont().deriveFont(Font.BOLD,35F));
-//        text = "Quit Level";
-//        x=Draw_Utils.getXforCenteredText(g2,text);
-//        y =375;
-//        g2.setColor(new Color(78, 88, 78));
-//        g2.drawString(text,x+3,y+2);
-//
-//        g2.setColor(new Color(145, 208, 129));
-//        g2.drawString(text,x,y);
-//
-//        if(pauseNum==1){
-////            if(GamePanel.framesCounter<=15) {
-//                g2.drawString(">", x - 25, y);
-//                g2.setColor(new Color(255, 255, 255));
-//                g2.drawString(">", x - 21, y);
-//                g2.drawString(text, x, y);
-////            }
-//        }
+        //Back
+        x =Draw_Utils.getXforCenteredText(g2,text)-75;
+        y +=95;
+        g2.drawString("Back",x,y);
+
+            g2.drawString(">",x-15,y);
 
     }
 
-
-    /*
-    Draws...
-     */
     public static void drawDeathScreen(Graphics2D g2){
 
 //        if(GamePanel.framesCounter<=60)
@@ -205,7 +193,7 @@ public class Draw_Utils {
         g2.fillRect(0,0,GamePanel.WIDTH,GamePanel.HEIGHT);
         g2.setColor(new Color(44, 1, 1, 255));
         g2.fillRect(10,10,GamePanel.WIDTH-20,GamePanel.HEIGHT-20);
-        g2.setFont(g2.getFont().deriveFont(Font.BOLD,96F));
+        g2.setFont(g2.getFont().deriveFont(Font.BOLD,125F));
 
         //GAME OVER text
         String text ="Game Over";
@@ -222,7 +210,7 @@ public class Draw_Utils {
 
         //Retry
         g2.setFont(g2.getFont().deriveFont(Font.BOLD,50F));
-        text = "Retry";
+        text = "Press ENTER to RETRY!";
         x=Draw_Utils.getXforCenteredText(g2,text);
 
         g2.setColor(new Color(220, 86, 86));
@@ -232,36 +220,61 @@ public class Draw_Utils {
         g2.drawString(text,x,375);
 
 
-        if(deathNum==0){
-//            if(GamePanel.framesCounter<=15) {
-                g2.drawString(">", x - 25, 375);
-                g2.setColor(new Color(220, 154, 154));
-                g2.drawString(">", x - 21, 375);
-                g2.drawString(text, x, 375);
-//            }
-        }
+
+//        //Back to TitleScreen
+//        g2.setFont(g2.getFont().deriveFont(Font.BOLD,50F));
+//        text = "Quit";
+//        x=Draw_Utils.getXforCenteredText(g2,text);
+//        g2.setColor(new Color(220, 86, 86));
+//        g2.drawString(text,x+3,450+3);
+//
+//        g2.setColor(new Color(148, 4, 4));
+//        g2.drawString(text,x,450);
+//
+//
+//        if(deathNum==1){
+////            if(GamePanel.framesCounter<=15) {
+//                g2.drawString(">", x - 25, 450);
+//                g2.setColor(new Color(220, 154, 154));
+//                g2.drawString(">", x - 21, 450);
+//                g2.drawString(text, x, 450);
+////            }
+//        }
+
+    }
+
+    public static void drawWinScreen(Graphics2D g2){
 
 
+        g2.setColor(new Color(37, 112, 0, 255));
+        g2.fillRect(0,0,GamePanel.WIDTH,GamePanel.HEIGHT);
+        g2.setColor(new Color(10, 44, 1, 255));
+        g2.fillRect(10,10,GamePanel.WIDTH-20,GamePanel.HEIGHT-20);
+        g2.setFont(g2.getFont().deriveFont(Font.BOLD,125F));
 
-        //Back to TitleScreen
+        //GAME OVER text
+        String text ="Game Over";
+        int x = Draw_Utils.getXforCenteredText(g2,text);
+
+        //Main
+        g2.setColor(Color.darkGray);
+        g2.drawString(text,x+3,197);
+
+        //Shadow
+        g2.setColor(Color.WHITE);
+        g2.drawString(text,x,200);
+
+
+        //Retry
         g2.setFont(g2.getFont().deriveFont(Font.BOLD,50F));
-        text = "Quit";
+        text = "Press ENTER for HomeScreen";
         x=Draw_Utils.getXforCenteredText(g2,text);
-        g2.setColor(new Color(220, 86, 86));
-        g2.drawString(text,x+3,450+3);
 
-        g2.setColor(new Color(148, 4, 4));
-        g2.drawString(text,x,450);
+        g2.setColor(new Color(124, 220, 86));
+        g2.drawString(text,x+3,375+3);
 
-
-        if(deathNum==1){
-//            if(GamePanel.framesCounter<=15) {
-                g2.drawString(">", x - 25, 450);
-                g2.setColor(new Color(220, 154, 154));
-                g2.drawString(">", x - 21, 450);
-                g2.drawString(text, x, 450);
-//            }
-        }
+        g2.setColor(new Color(45, 148, 4));
+        g2.drawString(text,x,375);
 
     }
 

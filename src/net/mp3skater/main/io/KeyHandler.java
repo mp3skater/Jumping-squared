@@ -6,7 +6,9 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.security.Key;
 
+import static net.mp3skater.main.GamePanel.loadLevel;
 import static net.mp3skater.main.utils.Sound_Utils.playSE;
+import static net.mp3skater.main.utils.Sound_Utils.stopMusic;
 
 public class KeyHandler implements KeyListener {
     /*
@@ -14,7 +16,8 @@ public class KeyHandler implements KeyListener {
      */
 
     public static boolean pausePressed, aPressed, dPressed, spacePressed, zeroPressed, onePressed,
-            twoPressed, threePressed, fourPressed,fivePressed, upPressed, downPressed, leftPressed, rightPressed;
+            twoPressed, threePressed, fourPressed,fivePressed, upPressed, downPressed, leftPressed, rightPressed,
+            backPressed,backControlPressed;
 
     @Override
     public void keyPressed(KeyEvent e) {
@@ -48,7 +51,16 @@ public class KeyHandler implements KeyListener {
                     System.exit(0);
             }
         }
+
+
+        if(GamePanel.controlState) {
+            if (keyCode == KeyEvent.VK_ENTER) {
+                GamePanel.controlState = false;
+            }
+        }
+
         if(GamePanel.isPause) {
+
             if (keyCode == KeyEvent.VK_W || keyCode == KeyEvent.VK_UP) {
                 GamePanel.pauseNum--;
                 playSE(8);
@@ -87,12 +99,20 @@ public class KeyHandler implements KeyListener {
                     playSE(8);
                 }
             }
+            //Controls
             if (keyCode == KeyEvent.VK_ENTER) {
                 if (GamePanel.pauseNum == 2) {
-                    //ControlScreen
+                        GamePanel.controlState=true;
                 }
                 if (GamePanel.pauseNum == 3) {
-                    //End Game
+                    stopMusic();
+                    GamePanel.newGame = 2;
+                    GamePanel.deathState = true;
+                    GamePanel.time = -1;
+                    GamePanel.level = 1;
+                    GamePanel.currentMusic = -1;
+                    loadLevel(GamePanel.level);
+                    GamePanel.titleState=true;
                 }
                 if (GamePanel.pauseNum == 4) {
                     GamePanel.isPause=false;
@@ -100,29 +120,24 @@ public class KeyHandler implements KeyListener {
                 }
             }
         }
+
+
+
         if (GamePanel.deathState) {
-            if (keyCode == KeyEvent.VK_W || keyCode == KeyEvent.VK_UP) {
-                GamePanel.comandNum--;
-                if (GamePanel.deathNum < 0) {
-                    GamePanel.deathNum = 1;
-                }
-            }
-            if (keyCode == KeyEvent.VK_S || keyCode == KeyEvent.VK_DOWN) {
-                GamePanel.comandNum++;
-                if (GamePanel.deathNum > 1) {
-                    GamePanel.deathNum = 0;
-                }
-            }
+//            if (keyCode == KeyEvent.VK_W || keyCode == KeyEvent.VK_UP) {
+//                GamePanel.comandNum--;
+//                if (GamePanel.deathNum < 0) {
+//                    GamePanel.deathNum = 1;
+//                }
+//            }
+//            if (keyCode == KeyEvent.VK_S || keyCode == KeyEvent.VK_DOWN) {
+//                GamePanel.comandNum++;
+//                if (GamePanel.deathNum > 1) {
+//                    GamePanel.deathNum = 0;
+//                }
+//            }
             if (keyCode == KeyEvent.VK_ENTER) {
-                if (GamePanel.deathNum == 0) {
                     GamePanel.deathState = false;
-                    GamePanel.gameOver();
-                }
-                if (GamePanel.deathNum == 1) {
-                    GamePanel.deathState = false;
-                    GamePanel.deathNum = 0;
-                    GamePanel.titleState = true;
-                }
             }
         }
 
