@@ -35,7 +35,7 @@ public class Obj_player extends Obj_moving {
         // Jump
         if(KeyHandler.spacePressed && onGround) {
             if(GamePanel.level == 3) reverseGravity = !reverseGravity;
-            this.addVec(0, GamePanel.level==3? 15 : -15);
+            else this.addVec(0, -15);
             Sound_Utils.playSE(4);
         }
 
@@ -57,19 +57,13 @@ public class Obj_player extends Obj_moving {
 
         // Dev tools:
         // Reset camera
-        if(KeyHandler.zeroPressed)
-            GamePanel.offset = pos[0] - GamePanel.WIDTH/2.0;
+        if(KeyHandler.zeroPressed) GamePanel.offset = pos[0] - GamePanel.WIDTH/2.0;
         // Change level
-        if(KeyHandler.onePressed)
-            GamePanel.loadLevel(1);
-        else if(KeyHandler.twoPressed)
-            GamePanel.loadLevel(2);
-        else if(KeyHandler.threePressed)
-            GamePanel.loadLevel(3);
-        else if(KeyHandler.fourPressed)
-            GamePanel.loadLevel(4);
-        else if(KeyHandler.fivePressed)
-            GamePanel.loadLevel(5);
+        if(KeyHandler.onePressed) GamePanel.loadLevel(1);
+        else if(KeyHandler.twoPressed) GamePanel.loadLevel(2);
+        else if(KeyHandler.threePressed) GamePanel.loadLevel(3);
+        else if(KeyHandler.fourPressed) GamePanel.loadLevel(4);
+        else if(KeyHandler.fivePressed) GamePanel.loadLevel(5);
 
         // Collision with left side of the screen
         if(pos[0]+vec[0]-(int)GamePanel.offset < 0)
