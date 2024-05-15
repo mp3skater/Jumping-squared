@@ -195,13 +195,41 @@ public class GamePanel extends JPanel implements Runnable {
 	public static void gameWon() {
 		won = true;
 		playSE(6);
-		if(highscore == -1 || time < highscore) {
 
-			System.out.println("NEW HIGHSCORE: "+time);
-			highscore = time;
+		System.out.println("Game won, time: " + time);
+
+		String path = "res/info/highscores.txt";
+		File scores = new File(path);
+		try {
+			// Creating file, if necessary
+			if (scores.createNewFile()) System.out.println("Creating new file: " + path);
+
+			// Getting the current highscore
+			try (BufferedReader reader = new BufferedReader(new FileReader(path))) {
+				String firstLine = reader.readLine();
+				if (firstLine != null) {
+					highscore = Integer.parseInt(firstLine);
+				}
+			} catch (IOException e) {
+				System.out.println("An error occurred while reading the file.");
+				e.printStackTrace();
+			}
+
+			// Storing highscore
+			if(highscore == -1 || time < highscore) {
+				System.out.println("Highscore is being stored in " + path);
+				try (BufferedWriter writer = new BufferedWriter(new FileWriter(path))) {
+					writer.write(time+"\n");
+					writer.close();
+				} catch (IOException e) {
+					System.out.println("An error occurred while writing to the file " + path);
+					e.printStackTrace();
+				}
+			}
+		} catch (IOException e) {
+			System.out.println("Problems while reading/creating the file \"res/info/highscores.txt\"");
+			e.printStackTrace();
 		}
-		System.out.println("Game won, time = "+time/60+" sec. / "+time+" frames");
-		// Insert code
 		gameOver();
 	}
 
