@@ -12,8 +12,7 @@ import net.mp3skater.main.utils.Sound_Utils;
 
 import javax.swing.*;
 import java.awt.*;
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -86,7 +85,7 @@ public class GamePanel extends JPanel implements Runnable {
 
 		InputStream is = getClass().getResourceAsStream("/font/x12y16pxMaruMonica.ttf");
         assert is != null;
-        maruMonica = Font.createFont(Font.TRUETYPE_FONT, is);
+		maruMonica = Font.createFont(Font.TRUETYPE_FONT, is);
 
 		// Implement KeyListener:
 		this.addKeyListener(new KeyHandler());
@@ -137,6 +136,7 @@ public class GamePanel extends JPanel implements Runnable {
 			clearPlatforms();
 			delay = -50;
 			offset = 0;
+			GamePanel.level = level;
 			currentLevel = Level_Utils.getLevel(level);
 			player = currentLevel.getPlayer();
 			currentLevel.loadLevelObjs(walls, enemies, texts, arrows);
@@ -180,10 +180,8 @@ public class GamePanel extends JPanel implements Runnable {
 	Sets pause to true and loads the first level
 	 */
 	public static void gameOver() {
-		if(!won)
-			playSE(5);
+		playSE(5);
 		stopMusic();
-		newGame = 2;
 		deathState = true;
 		time = -1; // It updates the time once, so this sets it to 0 essentially
 		level = 1;
@@ -192,8 +190,7 @@ public class GamePanel extends JPanel implements Runnable {
 	}
 
 	/*
-	Gets called when the player dies
-	Sets pause to true and loads the first level
+	Gets called when the player finishes all levels
 	 */
 	public static void gameWon() {
 		won = true;
@@ -219,15 +216,14 @@ public class GamePanel extends JPanel implements Runnable {
 	Spawn new Platforms and update the pos of <aimPlatform>
 	 */
 	private void checkPlatforms() {
+		// Update the preview platform
+		aimPlatform.setPos((int)(mouse.x-(aimPlatform.getSX()/2)+offset), (int)(mouse.y-(aimPlatform.getSY()/2)));
 
-		aimPlatform.setPos((int)(mouse.x-(aimPlatform.getSX()/2)+offset),
-				(int)(mouse.y-(aimPlatform.getSY()/2)));
+		// Clear platforms
+		if(newGame>0) clearPlatforms();
 
-		if(newGame>0)
-			clearPlatforms();
-
+		// New platform
 		if(mouse.pressed && !exMClicked && delay+20<time && !player.collides(aimPlatform)) {
-
 			platforms[1] = platforms[0];
 			platforms[0] = aimPlatform.neu();
 			delay = time;
@@ -243,7 +239,6 @@ public class GamePanel extends JPanel implements Runnable {
 	Update method for player, enemies...
 	 */
 	private void update() {
-
 		// Uncode this to get a log of your game...
 		//System.out.println((int)player.getX()+", "+(int)player.getY()+
 		//		", level = "+level+", vec: "+player.getVX()+", "+player.getVY());
@@ -258,28 +253,14 @@ public class GamePanel extends JPanel implements Runnable {
 		}
 
 		// Pause, when pause is being pressed
-		if(KeyHandler.pausePressed && !exPause)
-			changePauseState();
+		if(KeyHandler.pausePressed && !exPause) changePauseState();
 		exPause = KeyHandler.pausePressed;
-
 		// Don't continue if Game paused
-		if(isPause)
-			return;
+		if(isPause) return;
 
-		// Change Pause
-		if(activatePause) {
-			isPause = true;
-			activatePause = false;
-		}
-
-		// Change newGame
-		if(newGame > 0)
-			newGame--;
-
-		// Update time
+		if(activatePause) { isPause = true; activatePause = false; } // Change Pause
+		if(newGame > 0) newGame--; // Change newGame
 		time++;
-
-		//Arows Print
 		framesCounter++;
 
 		// Update Player position
@@ -289,8 +270,7 @@ public class GamePanel extends JPanel implements Runnable {
 		checkPlatforms();
 
 		// Update the Enemy AI
-		for(Obj_enemy e : enemies)
-			e.update();
+		for(Obj_enemy e : enemies) e.update();
 	}
 
 	/*
@@ -302,11 +282,9 @@ public class GamePanel extends JPanel implements Runnable {
 			return;
 
 		// Arrows and texts
-		for(Obj_arrow a : arrows)
-			a.draw(g2, currentLevel.getColor("arrow"));
+		for(Obj_arrow a : arrows) a.draw(g2, currentLevel.getColor("arrow"));
 		g2.setFont(g2.getFont().deriveFont(Font.BOLD,48F));
-		for(Obj_text t : texts)
-			t.draw(g2, currentLevel.getColor("text"));
+		for(Obj_text t : texts) t.draw(g2, currentLevel.getColor("text"));
 
 		// Walls and Endbar
 		for(Obj o : walls) {
@@ -315,9 +293,7 @@ public class GamePanel extends JPanel implements Runnable {
 		}
 
 		// Platforms
-		for(Obj_platform p : platforms)
-			if(p != null)
-				p.draw(g2, currentLevel.getColor("platform"));
+		for(Obj_platform p : platforms) if(p != null) p.draw(g2, currentLevel.getColor("platform"));
 		if(!isPause) {
 			g2.setStroke(new BasicStroke(5));
 			if(aimPlatform != null)
@@ -338,8 +314,7 @@ public class GamePanel extends JPanel implements Runnable {
 	Draws the background using the <board>-class
 	 */
 	private void drawBoard(Graphics2D g2) {
-		if(currentLevel != null)
-			board.draw(g2, currentLevel);
+		if(currentLevel != null) board.draw(g2, currentLevel);
 	}
 
 	/*
@@ -354,7 +329,7 @@ public class GamePanel extends JPanel implements Runnable {
 		g2.setColor(Color.white);
 		g2.setFont(maruMonica);
 
-		//TITLE SCREEN View
+		// TITLE SCREEN View
 		if(titleState){
             try {
                 drawTitleScreen(g2);
@@ -374,17 +349,9 @@ public class GamePanel extends JPanel implements Runnable {
 		g2.setFont(g2.getFont().deriveFont(Font.BOLD,20f));
 		g2.drawString("Time: "+time, 5, 20);
 		g2.setFont(g2.getFont().deriveFont(Font.BOLD,48f));
-		// Pause (needs to be arranged to the center if you change WIDTH or HEIGHT)
 
-		if(deathState){
-			Draw_Utils.drawDeathScreen(g2);
-		}
-
-		if (controlState)
-			Draw_Utils.drawOptionControl(g2);
-		else if(isPause) {
-			Draw_Utils.drawPauseScreen(g2);
-		}
-
+		if(deathState) Draw_Utils.drawDeathScreen(g2);
+		if(controlState) Draw_Utils.drawOptionControl(g2);
+		else if(isPause) Draw_Utils.drawPauseScreen(g2);
 	}
 }
