@@ -32,14 +32,14 @@ public class GamePanel extends JPanel implements Runnable {
 	//SOUND
     public static Sound music = new Sound();
 	public static Sound se = new Sound();
-	private static int currentMusic = -1;
+	public static int currentMusic = -1;
 
 	// Font Styles
 	Font maruMonica;
 
 	// Game State Screens
 	public static boolean titleState, deathState,controlState;
-	public static int comandNum =0,titleNum =0, deathNum =0, pauseNum =0;
+	public static int comandNum =0,titleNum =0,pauseNum =0;
 	public static int framesCounter =0;
 
 
@@ -73,7 +73,7 @@ public class GamePanel extends JPanel implements Runnable {
 	public static int newGame = 2;
 
 	// Time (in frames, 60 = 1 sec)
-	private static int time = 0;
+	public static int time = 0;
 
 	// Offset (moves horizontally with the player)
 	public static double offset = 0;
@@ -184,7 +184,7 @@ public class GamePanel extends JPanel implements Runnable {
 			playSE(5);
 		stopMusic();
 		newGame = 2;
-		activatePause = true;
+		deathState = true;
 		time = -1; // It updates the time once, so this sets it to 0 essentially
 		level = 1;
 		currentMusic = -1;
@@ -278,6 +278,9 @@ public class GamePanel extends JPanel implements Runnable {
 
 		// Update time
 		time++;
+
+		//Arows Print
+		framesCounter++;
 
 		// Update Player position
 		player.update();
@@ -373,10 +376,13 @@ public class GamePanel extends JPanel implements Runnable {
 		g2.setFont(g2.getFont().deriveFont(Font.BOLD,48f));
 		// Pause (needs to be arranged to the center if you change WIDTH or HEIGHT)
 
-		if(isPause) {
-            if (controlState)
-				Draw_Utils.drawOptionControl(g2);
-            else
+		if(deathState){
+			Draw_Utils.drawDeathScreen(g2);
+		}
+
+		if (controlState)
+			Draw_Utils.drawOptionControl(g2);
+		else if(isPause) {
 			Draw_Utils.drawPauseScreen(g2);
 		}
 
