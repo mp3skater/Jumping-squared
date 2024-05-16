@@ -36,10 +36,12 @@ public class Obj_enemy extends Obj_moving {
         switch(type) {
         /*
         Name: Block (no movement, size: 50*50)
+        Spike: Nr.4 (no movement, triangle)
+        Moving Catch Platform: Nr.5 (Size: 800*600, moves only forward)
          */
             case 0: return;
 
-            case 1://Level 4; up/down movement
+            case 1://Level 4; up/down movement / hallo domenik
                 int maxDist1 = 160;
                 if(vec[1]==0)
                     vec[1]=7;
@@ -63,6 +65,10 @@ public class Obj_enemy extends Obj_moving {
                     vec[1] *= -1;
                 break;
             }
+            case 4: break;
+            case 5: // Level 3; infinite movement forwards
+                if(vec[0]==0)
+                    vec[0]=5;
         }
     }
 
@@ -76,6 +82,9 @@ public class Obj_enemy extends Obj_moving {
 
     @Override
     public void draw(Graphics2D g2, Color color) {
+        //if(type == 4) {
+            //g2.draw();
+        //}
         Draw_Utils.fillRect(g2, this, color);
     }
 }
