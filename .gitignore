@@ -30,3 +30,4 @@ bin/
 
 ### Custom ###
 res/info/highscores.txt
+.idea/misc.xml
