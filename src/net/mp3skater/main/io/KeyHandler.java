@@ -1,13 +1,7 @@
 package net.mp3skater.main.io;
 
-import net.mp3skater.main.GamePanel;
-
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-
-import static net.mp3skater.main.GamePanel.loadLevel;
-import static net.mp3skater.main.utils.Sound_Utils.playSE;
-import static net.mp3skater.main.utils.Sound_Utils.stopMusic;
 
 public class KeyHandler implements KeyListener {
     /*
@@ -39,6 +33,8 @@ public class KeyHandler implements KeyListener {
         if(keyCode == KeyEvent.VK_ENTER) enterPressed = true;
         if(keyCode == KeyEvent.VK_A) aPressed = true;
         if(keyCode == KeyEvent.VK_D || keyCode == KeyEvent.VK_H) dPressed = true;
+        if(keyCode == KeyEvent.VK_W) wPressed = true;
+        if(keyCode == KeyEvent.VK_S) sPressed = true;
         if(keyCode == KeyEvent.VK_SPACE) spacePressed = true;
     }
 
@@ -62,6 +58,8 @@ public class KeyHandler implements KeyListener {
         if(keyCode == KeyEvent.VK_ENTER) enterPressed = false;
         if(keyCode == KeyEvent.VK_A) aPressed = false;
         if(keyCode == KeyEvent.VK_D || keyCode == KeyEvent.VK_H) dPressed = false;
+        if(keyCode == KeyEvent.VK_W) wPressed = false;
+        if(keyCode == KeyEvent.VK_S) sPressed = false;
         if(keyCode == KeyEvent.VK_SPACE) spacePressed = false;
     }
     @Override

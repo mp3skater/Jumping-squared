@@ -19,12 +19,14 @@ public class Menu_Utils {
         if(GamePanel.titleState){
             // Up
             if(wPressed || upPressed) {
+                wPressed = false; upPressed = false;
                 GamePanel.titleNum--;
                 playSE(8);
                 if(GamePanel.titleNum < 0) GamePanel.titleNum = 2;
             }
             // Down
             if(sPressed || downPressed) {
+                sPressed = false; downPressed = false;
                 GamePanel.titleNum++;
                 playSE(8);
                 if(GamePanel.titleNum > 2) GamePanel.titleNum = 0;

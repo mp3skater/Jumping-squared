@@ -196,10 +196,13 @@ public class Obj_player extends Obj_moving {
 
     @Override
     public void draw(Graphics2D g2, Color color) {
-        if(GamePanel.won)
-            drawAmogus(g2, vec[0]==0? left : vec[0] < 0);
-        else
-            Draw_Utils.fillRect(g2, this, color);
+        if(GamePanel.won) drawAmogus(g2, vec[0]==0? left : vec[0] < 0);
+        else if(GamePanel.level == 3) {
+            g2.setStroke(new BasicStroke(5));
+            g2.setColor(color);
+            g2.drawRect(getDrawX()+5, (int)pos[1]+5, size[0]-10, size[1]-10);
+        }
+        else Draw_Utils.fillRect(g2, this, color);
     }
 
     /*
