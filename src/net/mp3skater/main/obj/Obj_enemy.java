@@ -9,11 +9,15 @@ public class Obj_enemy extends Obj_moving {
     Enemy class for enemies with unique AI for each level
      */
 
-    public Obj_enemy(double x, double y, int sX, int sY, int type) {
+    public Obj_enemy(double x, double y, int sX, int sY, int type, int maxDistance, int maxDistance1) {
         super(x, y, sX, sY, 0,0,0,0);
         this.type = type;
+        this.maxDistance = maxDistance;
         this.startPos = new int[]{(int)x, (int)y};
     }
+
+    // The maximal distance the enemy will go away from spawn (doesn't need to be implemented)
+    private int maxDistance;
 
     // The spawning position
     private final int[] startPos;
@@ -42,26 +46,26 @@ public class Obj_enemy extends Obj_moving {
             case 0: return;
 
             case 1://Level 4; up/down movement / hallo domenik
-                int maxDist1 = 160;
+                maxDistance = 160;
                 if(vec[1]==0)
                     vec[1]=7;
                 // If the enemy goes too much away from spawn, he goes to the other direction
-                if(Math.abs(pos[1] - startPos[1]) > maxDist1)
+                if(Math.abs(pos[1] - startPos[1]) > maxDistance)
                     vec[1] *= -1;
                 break;
             case 2: {//Level 4; left/right movement
-                int maxDist2 = 350;
+                maxDistance = 350;
                 if(vec[0]==0)
                     vec[0]=10;
-                if(Math.abs(pos[0] - startPos[0]) > maxDist2)
+                if(Math.abs(pos[0] - startPos[0]) > maxDistance)
                     vec[0] *= -1;
                 break;
             }
             case 3: {//Level 4; up/down movement
-                int maxDist3 = 160;
+                maxDistance = 160;
                 if(vec[1]==0)
                     vec[1]=-11;
-                if(Math.abs(pos[1] - startPos[1]) > maxDist3)
+                if(Math.abs(pos[1] - startPos[1]) > maxDistance)
                     vec[1] *= -1;
                 break;
             }
