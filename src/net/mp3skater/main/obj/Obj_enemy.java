@@ -9,11 +9,19 @@ public class Obj_enemy extends Obj_moving {
     Enemy class for enemies with unique AI for each level
      */
 
-    public Obj_enemy(double x, double y, int sX, int sY, int type) {
+    public Obj_enemy(double x, double y, int sX, int sY, int type, int maxDistance, int maxSpeed) {
         super(x, y, sX, sY, 0,0,0,0);
         this.type = type;
+        this.maxDistance = maxDistance;
+        this.maxSpeed = maxSpeed;
         this.startPos = new int[]{(int)x, (int)y};
     }
+
+    //#
+    private final int maxSpeed;
+
+    // The maximal distance the enemy will go away from spawn (doesn't need to be implemented)
+    private final int maxDistance;
 
     // The spawning position
     private final int[] startPos;
@@ -42,33 +50,33 @@ public class Obj_enemy extends Obj_moving {
             case 0: return;
 
             case 1://Level 4; up/down movement / hallo domenik
-                int maxDist1 = 160;
+                //maxDistance = 160;
                 if(vec[1]==0)
-                    vec[1]=7;
+                    vec[1]=maxSpeed;
                 // If the enemy goes too much away from spawn, he goes to the other direction
-                if(Math.abs(pos[1] - startPos[1]) > maxDist1)
+                if(Math.abs(pos[1] - startPos[1]) > maxDistance)
                     vec[1] *= -1;
                 break;
             case 2: {//Level 4; left/right movement
-                int maxDist2 = 350;
+                //maxDistance = 350;
                 if(vec[0]==0)
-                    vec[0]=10;
-                if(Math.abs(pos[0] - startPos[0]) > maxDist2)
+                    vec[0]=maxSpeed;
+                if(Math.abs(pos[0] - startPos[0]) > maxDistance)
                     vec[0] *= -1;
                 break;
             }
             case 3: {//Level 4; up/down movement
-                int maxDist3 = 160;
+                //maxDistance = 160;
                 if(vec[1]==0)
-                    vec[1]=-11;
-                if(Math.abs(pos[1] - startPos[1]) > maxDist3)
+                    vec[1]=-maxSpeed;
+                if(Math.abs(pos[1] - startPos[1]) > maxDistance)
                     vec[1] *= -1;
                 break;
             }
             case 4: break;
             case 5: // Level 3; infinite movement forwards
                 if(vec[0]==0)
-                    vec[0]=5;
+                    vec[0]=maxSpeed;
         }
     }
 
