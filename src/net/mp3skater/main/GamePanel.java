@@ -292,7 +292,7 @@ public class GamePanel extends JPanel implements Runnable {
 		exPause = KeyHandler.escPressed;
 
 		// Don't continue if Game paused
-		if(isPause) return;
+		if(isPause || titleState || deathState) return;
 
 		// Activate pause
 		if(activatePause) { changePauseState(); activatePause = false; }

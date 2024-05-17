@@ -1,15 +1,10 @@
 package net.mp3skater.main.utils;
 
 import net.mp3skater.main.GamePanel;
-import net.mp3skater.main.io.KeyHandler;
-
-import java.awt.event.KeyEvent;
 
 import static net.mp3skater.main.GamePanel.isPause;
-import static net.mp3skater.main.GamePanel.loadLevel;
 import static net.mp3skater.main.io.KeyHandler.*;
 import static net.mp3skater.main.utils.Sound_Utils.playSE;
-import static net.mp3skater.main.utils.Sound_Utils.stopMusic;
 
 public class Menu_Utils {
     public static void update() {
@@ -38,6 +33,7 @@ public class Menu_Utils {
             }
             // Confirm choice
             if (enterPressed) {
+                enterPressed = false;
                 playSE(9);
                 if (GamePanel.comandNum == 0) GamePanel.titleState = false; // Start game
                 if (GamePanel.titleNum == 1) GamePanel.comandNum = 0; // In future: open highscore file
@@ -48,7 +44,8 @@ public class Menu_Utils {
         /*
         View Controls
          */
-        else if (GamePanel.controlState) if (enterPressed) {
+        else if (GamePanel.controlState && enterPressed) {
+            enterPressed = false;
             GamePanel.controlState = false;
             return;
         }
@@ -56,71 +53,77 @@ public class Menu_Utils {
         /*
         When Player dies
          */
-        else if (GamePanel.deathState) {
-            if (enterPressed) {
-                GamePanel.deathState = false;
-                return;
-            }
+        else if (GamePanel.deathState && enterPressed) {
+            enterPressed = false;
+            GamePanel.deathState = false;
+            return;
         }
 
          /*
         Pause screen
          */
-
+        // Up
+        if (wPressed || upPressed) {
+            wPressed = false;
+            upPressed = false;
+            GamePanel.pauseNum--;
+            playSE(8);
+            if (GamePanel.pauseNum < 0) GamePanel.pauseNum = 4;
+        }
+        // Down
+        if (sPressed || downPressed) {
+            sPressed = false;
+            downPressed = false;
+            GamePanel.pauseNum++;
+            playSE(8);
+            if (GamePanel.pauseNum > 4) GamePanel.pauseNum = 0;
+        }
+        // Music volume
+        if (GamePanel.pauseNum == 0) {
             // Up
-            if (wPressed || upPressed) {
-                GamePanel.pauseNum--;
+            if (aPressed && GamePanel.music.volumeScale > 0) {
+                aPressed = false;
+                GamePanel.music.volumeScale--;
+                GamePanel.music.checkVolume();
                 playSE(8);
-                if (GamePanel.pauseNum < 0) GamePanel.pauseNum = 4;
             }
             // Down
-            if (sPressed || downPressed) {
-                GamePanel.pauseNum++;
+            if (dPressed && GamePanel.music.volumeScale < 5) {
+                dPressed = false;
+                GamePanel.music.volumeScale++;
+                GamePanel.music.checkVolume();
                 playSE(8);
-                if (GamePanel.pauseNum > 4) GamePanel.pauseNum = 0;
             }
-            // Music volume
-            if (GamePanel.pauseNum == 0) {
-                // Up
-                if (aPressed && GamePanel.music.volumeScale > 0) {
-                    GamePanel.music.volumeScale--;
-                    GamePanel.music.checkVolume();
-                    playSE(8);
-                }
-                // Down
-                if (dPressed && GamePanel.music.volumeScale < 5) {
-                    GamePanel.music.volumeScale++;
-                    GamePanel.music.checkVolume();
-                    playSE(8);
-                }
+        }
+        // SE volume
+        if (GamePanel.pauseNum == 1) {
+            // Up
+            if (aPressed && GamePanel.se.volumeScale > 0) {
+                aPressed = false;
+                GamePanel.se.volumeScale--;
+                playSE(8);
             }
-            // SE volume
-            if (GamePanel.pauseNum == 1) {
-                // Up
-                if (aPressed && GamePanel.se.volumeScale > 0) {
-                    GamePanel.se.volumeScale--;
-                    playSE(8);
-                }
-                // Down
-                if (dPressed && GamePanel.se.volumeScale < 5) {
-                    GamePanel.se.volumeScale++;
-                    playSE(8);
-                }
+            // Down
+            if (dPressed && GamePanel.se.volumeScale < 5) {
+                dPressed = false;
+                GamePanel.se.volumeScale++;
+                playSE(8);
             }
-            // Confirm choice
-            if (enterPressed) {
-                // Controls
-                if (GamePanel.pauseNum == 2) GamePanel.controlState = true;
-                //
-                if (GamePanel.pauseNum == 3) {
-                    GamePanel.gameOver(false);
-                    GamePanel.titleState = true;
-                }
-                if (GamePanel.pauseNum == 4) {
-                    GamePanel.isPause = false;
-                    GamePanel.exPause = true;
-                }
+        }
+        // Confirm choice
+        if (enterPressed) {
+            enterPressed = false;
+            // Controls
+            if (GamePanel.pauseNum == 2) GamePanel.controlState = true;
+            //
+            if (GamePanel.pauseNum == 3) {
+                GamePanel.gameOver(false);
+                GamePanel.titleState = true;
             }
-
+            if (GamePanel.pauseNum == 4) {
+                GamePanel.isPause = false;
+                GamePanel.exPause = true;
+            }
         }
     }
+}
