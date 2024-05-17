@@ -367,11 +367,11 @@ public class GamePanel extends JPanel implements Runnable {
 		// Set a font (example)
 		g2.setColor(Color.white);
 		g2.setFont(maruMonica);
-
 		// TITLE SCREEN View
 		if(titleState){
             try {
                 drawTitleScreen(g2);
+				System.out.println("Titlestate");
             } catch (IOException | Draw_Utils.BufferedImageGetException e) {
                 throw new RuntimeException(e);
             }
@@ -389,8 +389,17 @@ public class GamePanel extends JPanel implements Runnable {
 		g2.drawString("Time: "+time, 5, 20);
 		g2.setFont(g2.getFont().deriveFont(Font.BOLD,48f));
 
-		if(deathState) Draw_Utils.drawDeathScreen(g2);
-		if(controlState) Draw_Utils.drawOptionControl(g2);
-		else if(isPause) Draw_Utils.drawPauseScreen(g2);
+		if(deathState) {
+			System.out.println("Deathscreen");
+			Draw_Utils.drawDeathScreen(g2);
+		}
+		if(controlState) {
+			System.out.println("Controlstate");
+			Draw_Utils.drawOptionControl(g2);
+		}
+		else if(isPause) {
+			System.out.println("isPause");
+			Draw_Utils.drawPauseScreen(g2);
+		}
 	}
 }
