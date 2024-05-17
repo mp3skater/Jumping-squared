@@ -263,6 +263,10 @@ public class GamePanel extends JPanel implements Runnable {
 		exMClicked = mouse.pressed;
 	}
 
+	public static Obj_player getPlayer() {
+		return (player);
+	}
+
 	private void focusCam() {
 		offset = player.getX()-GamePanel.WIDTH/2.0;
 	}

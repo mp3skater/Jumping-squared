@@ -341,6 +341,15 @@ public class Draw_Utils {
         g2.fillPolygon(xpoints, ypoints, 3);
     }
 
+    public static void drawSpike(Graphics2D g2, int x, int y, int sX, int sY, Color color) {
+
+        int[] xpoints = {(int)x, (int)x+(sX/2), (int)x};
+        int[] ypoints = {(int) (double)y+sY, (int)y, (int) (double)y+sY};
+
+        g2.setColor(color);
+        g2.fillPolygon(xpoints, ypoints, 3);
+    }
+
     /*
     Draws the <text>-value of a text inside the game
     Don't forget to set the font/size
