@@ -288,6 +288,9 @@ public class GamePanel extends JPanel implements Runnable {
 			if(KeyHandler.downPressed) player.addY(10); focusCam();
 		}
 
+		// Avoid starting with pause menu
+		if(newGame>0) isPause = false;
+
 		// Menu updates
 		Menu_Utils.update();
 

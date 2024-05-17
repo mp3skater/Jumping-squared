@@ -34,6 +34,7 @@ public class Obj_player extends Obj_moving {
         if(KeyHandler.dPressed) this.addVec(0.5, 0);
         // Jump
         if(KeyHandler.spacePressed && onGround) {
+            KeyHandler.spacePressed = false;
             if(GamePanel.level == 3) reverseGravity = !reverseGravity;
             else this.addVec(0, -15);
             Sound_Utils.playSE(4);
