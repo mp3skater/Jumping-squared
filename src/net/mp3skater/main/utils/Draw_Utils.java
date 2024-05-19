@@ -19,7 +19,7 @@ public class Draw_Utils {
 
     public static void drawTitleScreen(Graphics2D g2) throws IOException, Draw_Utils.BufferedImageGetException {
         // Title Image
-        Draw_Utils.drawImage(g2, "/images/Logo.png", new double[]{125,75}, new int[]{575,150});
+        Draw_Utils.drawImage(g2, "/images/Logo.png", new double[]{50,50}, new int[]{750,200});
 
         // Menu
         g2.setFont(g2.getFont().deriveFont(Font.BOLD,48F));
@@ -40,7 +40,7 @@ public class Draw_Utils {
             g2.drawString(text,x,350);
         }
 
-        text = "Highscore(Comming Soon)";
+        text = "Highscore(Coming Soon)";
         x = Draw_Utils.getXforCenteredText(g2,text);
 
         g2.setColor(new Color(78, 88, 78));
@@ -74,7 +74,6 @@ public class Draw_Utils {
     }
 
     public static void drawPauseScreen(Graphics2D g2) {
-
 
         //TITLE OPTION
         Draw_Utils.drawSubWindow(g2,250,75,300,450);
@@ -124,7 +123,7 @@ public class Draw_Utils {
         //End Game
         x =Draw_Utils.getXforCenteredText(g2,text)-75;
         y +=55;
-        g2.drawString("End Game",x,y);
+        g2.drawString("End Game (coming soon)",x,y);
         if(pauseNum==3){
             g2.drawString(">",x-15,y);
         }
@@ -278,7 +277,7 @@ public class Draw_Utils {
         g2.drawString(text,x,250);
 
         g2.setFont(g2.getFont().deriveFont(Font.BOLD,40F));
-        g2.drawString("Your time was: ",x+20,300);
+        g2.drawString("Your time was: "+GamePanel.timeTemp,x+20,300);
 
 
         //Back to HomeScreen

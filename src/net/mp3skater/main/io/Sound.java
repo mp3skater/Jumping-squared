@@ -1,11 +1,9 @@
 package net.mp3skater.main.io;
 
+import java.io.ByteArrayInputStream;
 import java.net.URL;
 
-import javax.sound.sampled.AudioInputStream;
-import javax.sound.sampled.AudioSystem;
-import javax.sound.sampled.Clip;
-import javax.sound.sampled.FloatControl;
+import javax.sound.sampled.*;
 
 public class Sound {
         Clip clip;
@@ -30,8 +28,20 @@ public class Sound {
         public void setFile(int i) {
 
             try {
+                //Clip clip = AudioSystem.getClip();
+                //ByteArrayInputStream audioBytes = new ByteArrayInputStream(SOUNDS.get(file));
+                //AudioInputStream inputStream = AudioSystem.getAudioInputStream(audioBytes);
+                //clip.open(inputStream);
+                //clip.start();
+
                 AudioInputStream ais = AudioSystem.getAudioInputStream(soundURL[i]);
                 clip = AudioSystem.getClip();
+                Clip finalClip = clip;
+                clip.addLineListener(event -> {
+                    if(LineEvent.Type.STOP.equals(event.getType())) {
+                        finalClip.close();
+                    }
+                });
                 clip.open(ais);
                 fc = (FloatControl)clip.getControl(FloatControl.Type.MASTER_GAIN);
                 checkVolume();
@@ -60,7 +70,7 @@ public class Sound {
                 case 2: volume = -12f; break;
                 case 3: volume = -5f; break;
                 case 4: volume = 1f; break;
-                case 5: volume = 6f; break;
+                default: volume = 6f; break;
             }
             fc.setValue(volume);
         }

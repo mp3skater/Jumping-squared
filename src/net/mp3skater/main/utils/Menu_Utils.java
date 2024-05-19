@@ -1,8 +1,6 @@
 package net.mp3skater.main.utils;
 
-import net.mp3skater.main.GamePanel;
-
-import static net.mp3skater.main.GamePanel.isPause;
+import static net.mp3skater.main.GamePanel.*;
 import static net.mp3skater.main.io.KeyHandler.*;
 import static net.mp3skater.main.utils.Sound_Utils.playSE;
 
@@ -12,102 +10,114 @@ public class Menu_Utils {
         /*
         Start of the Game, Titlescreen
          */
-        if (GamePanel.titleState) {
+        if (titleState) {
             // Up
             if (wPressed || upPressed) {
                 wPressed = false;
                 upPressed = false;
-                GamePanel.titleNum--;
+                titleNum--;
                 playSE(8);
-                if (GamePanel.titleNum < 0) GamePanel.titleNum = 2;
+                if (titleNum < 0) titleNum = 2;
             }
             // Down
             if (sPressed || downPressed) {
                 sPressed = false;
                 downPressed = false;
-                GamePanel.titleNum++;
+                titleNum++;
                 playSE(8);
-                if (GamePanel.titleNum > 2) GamePanel.titleNum = 0;
+                if (titleNum > 2) titleNum = 0;
             }
             // Confirm choice
             if (enterPressed) {
                 enterPressed = false;
                 playSE(9);
-                if (GamePanel.comandNum == 0) GamePanel.titleState = false; // Start game
-                if (GamePanel.titleNum == 1) GamePanel.comandNum = 0; // In future: open highscore file
-                if (GamePanel.titleNum == 2) System.exit(0); // Close Game
+                if (comandNum == 0) titleState = false; // Start game
+                if (titleNum == 1) comandNum = 0; // In future: open highscore file
+                if (titleNum == 2) System.exit(0); // Close Game
             }
         }
 
         /*
         View Controls
          */
-        else if (GamePanel.controlState && enterPressed) {
+        else if (controlState && enterPressed) {
             enterPressed = false;
-            GamePanel.controlState = false;
+            controlState = false;
+            pauseState = true;
             return;
         }
 
         /*
         When Player dies
          */
-        else if (GamePanel.deathState && enterPressed) {
-            System.out.println("lolol");
+        else if (deathState && enterPressed) {
             enterPressed = false;
-            GamePanel.deathState = false;
-            GamePanel.titleState=true;
+            deathState = false;
+            titleState = true;
             return;
         }
 
-         /*
+        /*
+        When Player dies
+         */
+        else if (winState && enterPressed) {
+            enterPressed = false;
+            winState = false;
+            titleState = true;
+            return;
+        }
+
+        /*
         Pause screen
          */
-        if (isPause){
+        if (pauseState){
             // Up
             if (wPressed || upPressed) {
                 wPressed = false;
                 upPressed = false;
-                GamePanel.pauseNum--;
+                pauseNum--;
                 playSE(8);
-                if (GamePanel.pauseNum < 0) GamePanel.pauseNum = 4;
+                if (pauseNum < 0) pauseNum = 4;
             }
             // Down
             if (sPressed || downPressed) {
                 sPressed = false;
                 downPressed = false;
-                GamePanel.pauseNum++;
+                pauseNum++;
                 playSE(8);
-                if (GamePanel.pauseNum > 4) GamePanel.pauseNum = 0;
+                if (pauseNum > 4) pauseNum = 0;
             }
             // Music volume
-            if (GamePanel.pauseNum == 0) {
+            if (pauseNum == 0) {
                 // Up
-                if (aPressed && GamePanel.music.volumeScale > 0) {
+                if ((aPressed || leftPressed) && music.volumeScale > 0) {
                     aPressed = false;
-                    GamePanel.music.volumeScale--;
-                    GamePanel.music.checkVolume();
+                    music.volumeScale--;
+                    music.checkVolume();
                     playSE(8);
                 }
                 // Down
-                if (dPressed && GamePanel.music.volumeScale < 5) {
+                if ((dPressed || rightPressed) && music.volumeScale < 5) {
                     dPressed = false;
-                    GamePanel.music.volumeScale++;
-                    GamePanel.music.checkVolume();
+                    music.volumeScale++;
+                    music.checkVolume();
                     playSE(8);
                 }
             }
             // SE volume
-            if (GamePanel.pauseNum == 1) {
+            if (pauseNum == 1) {
                 // Up
-                if (aPressed && GamePanel.se.volumeScale > 0) {
+                if ((aPressed || leftPressed)  && se.volumeScale > 0) {
                     aPressed = false;
-                    GamePanel.se.volumeScale--;
+                    leftPressed = false;
+                    se.volumeScale--;
                     playSE(8);
                 }
                 // Down
-                if (dPressed && GamePanel.se.volumeScale < 5) {
+                if ((dPressed || rightPressed) && se.volumeScale < 5) {
                     dPressed = false;
-                    GamePanel.se.volumeScale++;
+                    rightPressed = false;
+                    se.volumeScale++;
                     playSE(8);
                 }
             }
@@ -115,15 +125,18 @@ public class Menu_Utils {
             if (enterPressed) {
                 enterPressed = false;
                 // Controls
-                if (GamePanel.pauseNum == 2) GamePanel.controlState = true;
-                //
-                if (GamePanel.pauseNum == 3) {
-                    GamePanel.gameOver(false);
-                    GamePanel.titleState = true;
+                if (pauseNum == 2) {
+                    controlState = true;
+                    pauseState = false;
                 }
-                if (GamePanel.pauseNum == 4) {
-                    GamePanel.isPause = false;
-                    GamePanel.exPause = true;
+                // Endgame
+                //if (pauseNum == 3) {
+                //    gameOver(false);
+                //    titleState=true;
+                //}
+                if (pauseNum == 4) {
+                    pauseState = false;
+                    exPause = true;
                 }
             }
         }

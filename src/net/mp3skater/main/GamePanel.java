@@ -14,10 +14,16 @@ import net.mp3skater.main.utils.Sound_Utils;
 import javax.swing.*;
 import java.awt.*;
 import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Objects;
 
 import static net.mp3skater.main.utils.Draw_Utils.drawTitleScreen;
+import static net.mp3skater.main.utils.Misc_Utils.gameWon;
 import static net.mp3skater.main.utils.Sound_Utils.*;
 
 public class GamePanel extends JPanel implements Runnable {
@@ -38,17 +44,14 @@ public class GamePanel extends JPanel implements Runnable {
 	Font maruMonica;
 
 	// Game State Screens
-	public static boolean titleState, deathState,controlState;
+	public static boolean titleState, deathState, controlState, winState;
 	public static int comandNum =0,titleNum =0,pauseNum =0;
 	public static int framesCounter =0;
 
 
 	// Booleans for the pause-function
-	public static boolean isPause = true, exPause = true; // To see if Pause has been changed
+	public static boolean pauseState = true, exPause = true; // To see if Pause has been changed
 	private static boolean activatePause = false;
-
-	// High-score
-	private static int highscore = -1;
 
 	// Won (Amogus skin)
 	public static boolean won = false;
@@ -74,6 +77,7 @@ public class GamePanel extends JPanel implements Runnable {
 
 	// Time (in frames, 60 = 1 sec)
 	public static int time = 0;
+	public static int timeTemp;
 
 	// Offset (moves horizontally with the player)
 	public static double offset = 0;
@@ -184,7 +188,7 @@ public class GamePanel extends JPanel implements Runnable {
 	public static void gameOver(boolean se) {
 		if(se) playSE(5);
 		stopMusic();
-		deathState = true;
+		if(!winState) deathState = true;
 		time = -1; // It updates the time once, so this sets it to 0 essentially
 		level = 1;
 		currentMusic = -1;
@@ -192,56 +196,10 @@ public class GamePanel extends JPanel implements Runnable {
 	}
 
 	/*
-	Gets called when the player finishes all levels
-	If it's a new highscore the highscore gets saved in a text file
-	That file will be created the first time the game gets played through
-	 */
-	public static void gameWon() {
-		won = true;
-		playSE(6);
-
-		System.out.println("Game won, time: " + time);
-
-		String path = "res/info/highscores.txt";
-		File scores = new File(path);
-		try {
-			// Creating file, if necessary
-			if (scores.createNewFile()) System.out.println("Creating new file: " + path);
-
-			// Getting the current highscore
-			try (BufferedReader reader = new BufferedReader(new FileReader(path))) {
-				String firstLine = reader.readLine();
-				if (firstLine != null) {
-					highscore = Integer.parseInt(firstLine);
-				}
-			} catch (IOException e) {
-				System.out.println("An error occurred while reading the file.");
-				e.printStackTrace();
-			}
-
-			// Storing highscore
-			if(highscore == -1 || time < highscore) {
-				System.out.println("Highscore is being stored in " + path);
-				try (BufferedWriter writer = new BufferedWriter(new FileWriter(path))) {
-					writer.write(time+"\n");
-					writer.close();
-				} catch (IOException e) {
-					System.out.println("An error occurred while writing to the file " + path);
-					e.printStackTrace();
-				}
-			}
-		} catch (IOException e) {
-			System.out.println("Problems while reading/creating the file \"res/info/highscores.txt\"");
-			e.printStackTrace();
-		}
-		gameOver(false);
-	}
-
-	/*
 	Changes the current pause state
 	 */
 	private void changePauseState() {
-		isPause = !isPause;
+		pauseState = !pauseState;
 	}
 
 	/*
@@ -281,15 +239,16 @@ public class GamePanel extends JPanel implements Runnable {
 
 		// Devtool
 		// Move when paused
-		if(GamePanel.isPause && newGame == 0) {
-			if(KeyHandler.aPressed || KeyHandler.leftPressed) player.addX(-10); focusCam();
-			if(KeyHandler.dPressed || KeyHandler.rightPressed) player.addX(10); focusCam();
-			if(KeyHandler.upPressed) player.addY(-10); focusCam();
-			if(KeyHandler.downPressed) player.addY(10); focusCam();
-		}
+		if(KeyHandler.zeroPressed) gameWon();
+		//if(GamePanel.pauseState && newGame == 0) {
+		//	if(KeyHandler.aPressed || KeyHandler.leftPressed) player.addX(-10); focusCam();
+		//	if(KeyHandler.dPressed || KeyHandler.rightPressed) player.addX(10); focusCam();
+		//	if(KeyHandler.upPressed) player.addY(-10); focusCam();
+		//	if(KeyHandler.downPressed) player.addY(10); focusCam();
+		//}
 
 		// Avoid starting with pause menu
-		if(newGame>0) isPause = false;
+		if(newGame>0) pauseState = false;
 
 		// Menu updates
 		Menu_Utils.update();
@@ -299,7 +258,7 @@ public class GamePanel extends JPanel implements Runnable {
 		exPause = KeyHandler.escPressed;
 
 		// Don't continue if Game paused
-		if(isPause || titleState || deathState) return;
+		if(pauseState || titleState || deathState || winState || controlState) return;
 
 		// Activate pause
 		if(activatePause) { changePauseState(); activatePause = false; }
@@ -339,12 +298,12 @@ public class GamePanel extends JPanel implements Runnable {
 		}
 
 		// Platforms
-		for(Obj_platform p : platforms) if(p != null) p.draw(g2, currentLevel.getColor("platform"));
-		if(!isPause) {
+		for(Obj_platform p : platforms)
+			if(p != null) p.draw(g2, currentLevel.getColor("platform"));
+		if(!pauseState) {
 			g2.setStroke(new BasicStroke(5));
-			if(aimPlatform != null)
-				if(!player.collides(aimPlatform))
-					aimPlatform.drawAim(g2, currentLevel.getColor("platform"));
+			if(aimPlatform != null && !player.collides(aimPlatform))
+				aimPlatform.drawAim(g2, currentLevel.getColor("platform"));
 		}
 
 		// Enemies
@@ -371,21 +330,23 @@ public class GamePanel extends JPanel implements Runnable {
 
 		Graphics2D g2 = (Graphics2D)g;
 
-		// Set a font (example)
+		// Less lag for some OS
+		Toolkit.getDefaultToolkit().sync();
+
+		// Set the font
 		g2.setColor(Color.white);
 		g2.setFont(maruMonica);
+
 		// TITLE SCREEN View
 		if(titleState){
             try {
                 drawTitleScreen(g2);
-				System.out.println("Titlestate");
             } catch (IOException | Draw_Utils.BufferedImageGetException e) {
                 throw new RuntimeException(e);
             }
 			return;
         }
 
-		// Game not paused:
 		// Board
 		drawBoard(g2);
 		// <Obj>'s
@@ -396,17 +357,10 @@ public class GamePanel extends JPanel implements Runnable {
 		g2.drawString("Time: "+time, 5, 20);
 		g2.setFont(g2.getFont().deriveFont(Font.BOLD,48f));
 
-		if(deathState) {
-			System.out.println("Deathscreen");
-			Draw_Utils.drawDeathScreen(g2);
-		}
-		if(controlState) {
-			System.out.println("Controlstate");
-			Draw_Utils.drawOptionControl(g2);
-		}
-		else if(isPause) {
-			System.out.println("isPause");
-			Draw_Utils.drawPauseScreen(g2);
-		}
+		// Menu's
+		if(winState) Draw_Utils.drawWinScreen(g2);
+		if(deathState) Draw_Utils.drawDeathScreen(g2);
+		if(controlState) Draw_Utils.drawOptionControl(g2);
+		if(pauseState) Draw_Utils.drawPauseScreen(g2);
 	}
 }

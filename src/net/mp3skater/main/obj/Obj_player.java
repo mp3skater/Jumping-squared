@@ -1,9 +1,10 @@
 package net.mp3skater.main.obj;
 
 import net.mp3skater.main.GamePanel;
-import net.mp3skater.main.utils.Col_Utils;
+import net.mp3skater.main.utils.Misc_Utils;
 import net.mp3skater.main.utils.Draw_Utils;
 import net.mp3skater.main.io.KeyHandler;
+import net.mp3skater.main.utils.Misc_Utils;
 import net.mp3skater.main.utils.Sound_Utils;
 
 import java.awt.*;
@@ -97,12 +98,12 @@ public class Obj_player extends Obj_moving {
             // Test weather going vertically, horizontally or both would make you collide with something
             // Horizontally
             if(vec[0] != 0)
-                if(collides(w.getX()-Col_Utils.absRound(vec[0]), w.getY(), (int)w.getSX(), (int)w.getSY())) {
+                if(collides(w.getX()- Misc_Utils.absRound(vec[0]), w.getY(), (int)w.getSX(), (int)w.getSY())) {
                     nearX = nearX==null? w : getNearestX(nearX, w, vec[0] > 0);
                 }
             // Vertically
             if(vec[1] != 0)
-                if(collides(w.getX(), w.getY()-Col_Utils.absRound(vec[1]), (int)w.getSX(), (int)w.getSY())) {
+                if(collides(w.getX(), w.getY()-Misc_Utils.absRound(vec[1]), (int)w.getSX(), (int)w.getSY())) {
                     if(vec[1]>0)
                         onGround = true;
                     nearY = nearY==null? w : getNearestY(nearY, w, vec[1] > 0);
@@ -125,12 +126,12 @@ public class Obj_player extends Obj_moving {
             // Test weather going vertically, horizontally or both would make you collide with something
             // Horizontally
             if(vec[0] != 0)
-                if(collides(p.getX()- Col_Utils.absRound(vec[0]), p.getY(), (int)p.getSX(), (int)p.getSY())) {
+                if(collides(p.getX()- Misc_Utils.absRound(vec[0]), p.getY(), (int)p.getSX(), (int)p.getSY())) {
                     nearX = nearX==null? p : getNearestX(nearX, p, vec[0] > 0);
                 }
             // Vertically
             if(vec[1] != 0)
-                if(collides(p.getX(), p.getY()-Col_Utils.absRound(vec[1]), (int)p.getSX(), (int)p.getSY())) {
+                if(collides(p.getX(), p.getY()-Misc_Utils.absRound(vec[1]), (int)p.getSX(), (int)p.getSY())) {
                     if(vec[1]>0)
                         onGround = true;
                     nearY = nearY==null? p : getNearestY(nearY, p, vec[1] > 0);
