@@ -36,7 +36,7 @@ public class Obj_player extends Obj_moving {
         if(KeyHandler.dPressed) this.addVec(0.5, 0);
         // Jump
         if(KeyHandler.spacePressed && onGround) {
-            KeyHandler.spacePressed = false;
+            if(GamePanel.level == 3) KeyHandler.spacePressed = false;
             if(GamePanel.level == 3) reverseGravity = !reverseGravity;
             else this.addVec(0, -15);
             Sound_Utils.playSE(4);
@@ -104,8 +104,7 @@ public class Obj_player extends Obj_moving {
             // Vertically
             if(vec[1] != 0)
                 if(collides(w.getX(), w.getY()-Misc_Utils.absRound(vec[1]), (int)w.getSX(), (int)w.getSY())) {
-                    if(vec[1]>0)
-                        onGround = true;
+                    if(GamePanel.level==3? reverseGravity? vec[1]<0 : vec[1]>0 : vec[1]>0) onGround = true;
                     nearY = nearY==null? w : getNearestY(nearY, w, vec[1] > 0);
                 }
             // Both
@@ -132,8 +131,7 @@ public class Obj_player extends Obj_moving {
             // Vertically
             if(vec[1] != 0)
                 if(collides(p.getX(), p.getY()-Misc_Utils.absRound(vec[1]), (int)p.getSX(), (int)p.getSY())) {
-                    if(vec[1]>0)
-                        onGround = true;
+                    if(GamePanel.level==3? reverseGravity? vec[1]<0 : vec[1]>0 : vec[1]>0) onGround = true;
                     nearY = nearY==null? p : getNearestY(nearY, p, vec[1] > 0);
                 }
             // Both

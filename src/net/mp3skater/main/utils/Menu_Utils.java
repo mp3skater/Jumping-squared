@@ -30,10 +30,10 @@ public class Menu_Utils {
             // Confirm choice
             if (enterPressed) {
                 enterPressed = false;
-                playSE(9);
-                if (comandNum == 0) titleState = false; // Start game
-                if (titleNum == 1) comandNum = 0; // In future: open highscore file
                 if (titleNum == 2) System.exit(0); // Close Game
+                playSE(9);
+                if (titleNum == 0) titleState = false; // Start game
+                //else if (titleNum == 1) // In future: open highscore file
             }
         }
 
