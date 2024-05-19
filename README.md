@@ -11,19 +11,19 @@
 </p>
 
 ## Features
-This project uses JSON files to store the different levels, look at the detailed explenation in the **src/net/mp3skater/main/Level**-class to create your own and play them.
+This project uses JSON files to store the different levels, look at the detailed explenation (coming soon) in the **src/net/mp3skater/main/Level**-class to create your own and play them.
 
 ### Added features
 - Oldschool platformer with clean graphics
 - Efficient and resource-friendly program
 - Sound effects and music
-- Start & pause menu
+- Start, death and pause menu
 - Highscore system that stores the highscores inside of a text file
 - Options to regulate and turn off/on the sound effects/music
 
 ### In future
-- Detailed explenation of how to create your own levels
-- Usage of gradle or maven for easier execution
+- Detailed explenation and way of how to create your own levels
+- Highscore page in-game
 - Maybe level-edit-modus...
 
 ## Youtube showcase
@@ -32,7 +32,7 @@ This project uses JSON files to store the different levels, look at the detailed
 </a>
 
 ## Running the game
-For now you should be able to run the game on any device supporting **IntellIJ Idea** with **JAVA** 22+ installed, by running the set run configuration **launch Game** or also by running the class **main/Main**. Later I will try to convert it into a gradle project so it'll become easier.
+To run this project you must have **JAVA** installed (preferably [java 22.0.1](https://jdk.java.net/22/) or more). For now you should be able to run the game on any device supporting **IntellIJ Idea**, by running the set run configuration **launch Game** or also by running the class **src/net/mp3skater/main/Main**. Or you can download the [latest release](https://github.com/mp3skater/GetOP-mod-data/releases)(coming soon) and execute it by doubleclicking it on the desktop or inside of the file explorer.
 
 ## Technologies
 Huge thanks to [RyiSnow](https://www.youtube.com/@RyiSnow) for his amazing tutorials that helped this project massively!
