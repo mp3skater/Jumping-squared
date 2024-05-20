@@ -1,5 +1,5 @@
 {
-  "colPlayer":[240, 240, 225],
+  "colPlayer":[0, 0, 0],
   "colEnemies":[],
   "colWalls":[0, 0, 0],
   "colPlatforms":[0,0,0],
