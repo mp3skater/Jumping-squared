@@ -234,7 +234,9 @@ public class Obj_player extends Obj_moving {
         if(e.getType() == 4) {
             return collidesPoint(e.getX(),e.getY() + e.getSY()) ||
                    collidesPoint(e.getX() + e.getSX()/2.0,e.getY()) ||
-                   collidesPoint(e.getX() + e.getSX(), e.getY() + e.getSY());
+                   collidesPoint(e.getX() + e.getSX(), e.getY() + e.getSY()) ||
+                   collidesPoint(e.getX() + e.getSX() / 4, e.getY() + e.getSY() / 2) ||
+                   collidesPoint(e.getX() + (e.getSX() / 4) * 3, e.getY() + e.getSY() / 2) ;
         }
         else return super.collides(e.getX(), e.getY(), (int)e.getSX(), (int)e.getSY());
     }
