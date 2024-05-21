@@ -39,7 +39,7 @@ public class Obj_player extends Obj_moving {
             if(GamePanel.level == 3) KeyHandler.spacePressed = false;
             if(GamePanel.level == 3) reverseGravity = !reverseGravity;
             else this.addVec(0, -15);
-            Sound_Utils.playSE(4);
+            Sound_Utils.playSE(GamePanel.level==4?11:4);
         }
 
         // Gravity (positive value because the up-left corner is x:0,y:0)

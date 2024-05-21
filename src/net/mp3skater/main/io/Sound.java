@@ -1,6 +1,5 @@
 package net.mp3skater.main.io;
 
-import java.io.ByteArrayInputStream;
 import java.net.URL;
 
 import javax.sound.sampled.*;
@@ -23,6 +22,9 @@ public class Sound {
             soundURL[7] = getClass().getResource("/sound/placing.wav");
             soundURL[8] = getClass().getResource("/sound/menuChange.wav");
             soundURL[9] = getClass().getResource("/sound/enter.wav");
+            soundURL[10] = getClass().getResource("/sound/underwater-ambient.wav");
+            soundURL[11] = getClass().getResource("/sound/swim.wav");
+
         }
 
         public void setFile(int i) {
