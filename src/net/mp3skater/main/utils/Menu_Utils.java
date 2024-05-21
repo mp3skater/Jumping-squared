@@ -90,15 +90,17 @@ public class Menu_Utils {
             // Music volume
             if (pauseNum == 0) {
                 // Up
-                if ((aPressed) && music.volumeScale > 0) {
+                if ((aPressed || leftPressed) && music.volumeScale > 0) {
                     aPressed = false;
+                    leftPressed = false;
                     music.volumeScale--;
                     music.checkVolume();
                     playSE(8);
                 }
                 // Down
-                if ((dPressed) && music.volumeScale < 5) {
+                if ((dPressed || rightPressed) && music.volumeScale < 5) {
                     dPressed = false;
+                    rightPressed = false;
                     music.volumeScale++;
                     music.checkVolume();
                     playSE(8);

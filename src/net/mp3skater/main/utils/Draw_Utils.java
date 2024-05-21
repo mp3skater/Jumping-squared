@@ -5,6 +5,7 @@ import net.mp3skater.main.obj.Obj;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
+import java.awt.geom.Path2D;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.Objects;
@@ -341,12 +342,16 @@ public class Draw_Utils {
     }
 
     public static void drawSpike(Graphics2D g2, int x, int y, int sX, int sY, Color color) {
+        Path2D path = new Path2D.Double();
 
-        int[] xpoints = {(int)x, (int)x+(sX/2), (int)x};
-        int[] ypoints = {(int) (double)y+sY, (int)y, (int) (double)y+sY};
+        path.moveTo(x,y+sY); // first point
+        path.lineTo(x+sX/2.0, y); // top
+        path.lineTo(x+sX, y+sY); // third point
+        path.closePath();
 
         g2.setColor(color);
-        g2.fillPolygon(xpoints, ypoints, 3);
+        g2.fill(path);
+        //g2.fillPolygon(new int[]{x, x+(sX/2), x}, new int[]{y+sY, y, y+sY}, 3);
     }
 
     /*

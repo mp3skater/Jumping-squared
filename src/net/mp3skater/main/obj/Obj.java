@@ -32,6 +32,13 @@ public abstract class Obj {
     }
 
     /*
+    Checks collision with a point
+     */
+    public boolean collidesPoint(double x, double y) {
+        return pos[0] <= x && pos[0] + size[0] >= x && pos[1] <= y && pos[1] + size[1] >= y;
+    }
+
+    /*
     Only draw an <Obj> if it is visible in the screen
      */
     public boolean is_drawable() {

@@ -4,7 +4,6 @@ import net.mp3skater.main.GamePanel;
 import net.mp3skater.main.utils.Misc_Utils;
 import net.mp3skater.main.utils.Draw_Utils;
 import net.mp3skater.main.io.KeyHandler;
-import net.mp3skater.main.utils.Misc_Utils;
 import net.mp3skater.main.utils.Sound_Utils;
 
 import java.awt.*;
@@ -77,8 +76,8 @@ public class Obj_player extends Obj_moving {
             GamePanel.offset += vec[0];//pos[0]+size[0]-GamePanel.WIDTH/2.0;
 
         // Kill player if he hits an enemy
-        for(Obj e : GamePanel.enemies)
-            if(collides(e)) {
+        for(Obj_enemy e : GamePanel.enemies)
+            if(collidesSpecial(e)) {
                 GamePanel.gameOver(true);
                 return;
             }
@@ -229,6 +228,15 @@ public class Obj_player extends Obj_moving {
     }
     public int getVY() {
         return (int)vec[1];
+    }
+
+    public boolean collidesSpecial(Obj_enemy e) {
+        if(e.getType() == 4) {
+            return collidesPoint(e.getX(),e.getY() + e.getSY()) ||
+                   collidesPoint(e.getX() + e.getSX()/2.0,e.getY()) ||
+                   collidesPoint(e.getX() + e.getSX(), e.getY() + e.getSY());
+        }
+        else return super.collides(e.getX(), e.getY(), (int)e.getSX(), (int)e.getSY());
     }
 
     @Override
