@@ -85,9 +85,9 @@ public class Obj_enemy extends Obj_moving {
     public boolean collides(double x, double y, int sX, int sY) {
         if(type == 4) {
             Obj_player p = GamePanel.getPlayer();
-            return p.collides(pos[0],pos[1] + size[1],0,0) ||
-                   p.collides(pos[0] + (int)(size[0]/2),pos[1],0,0) ||
-                   p.collides(pos[0] + size[0], pos[1] + size[1],0,0);
+            return p.collidesPoint(pos[0],pos[1] + size[1]) ||
+                   p.collidesPoint(pos[0] + (int)(size[0]/2),pos[1]) ||
+                   p.collidesPoint(pos[0] + size[0], pos[1] + size[1]);
         }
         return super.collides(x, y, sX, sY);
     }
