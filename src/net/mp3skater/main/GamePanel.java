@@ -139,6 +139,7 @@ public class GamePanel extends JPanel implements Runnable {
 			clearPlatforms();
 			delay = -50;
 			offset = 0;
+			pauseNum=0;
 			GamePanel.level = level;
 			currentLevel = Level_Utils.getLevel(level);
 			player = currentLevel.getPlayer();

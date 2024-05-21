@@ -130,8 +130,10 @@ public class Draw_Utils {
 
         //End Game
         y +=55;
-        g2.drawString("End Game (coming soon)",x,y);
+        g2.setColor(new Color(255,0,0,100));
+        g2.drawString("End Game",x,y);
         if(pauseNum==3){g2.drawString(">",x-15,y);}
+        g2.setColor(new Color(255, 255, 255, 255));
 
 
         //Back
