@@ -92,6 +92,7 @@ public class Menu_Utils {
                 // Up
                 if ((aPressed || leftPressed) && music.volumeScale > 0) {
                     aPressed = false;
+                    leftPressed = false;
                     music.volumeScale--;
                     music.checkVolume();
                     playSE(8);
@@ -99,6 +100,7 @@ public class Menu_Utils {
                 // Down
                 if ((dPressed || rightPressed) && music.volumeScale < 5) {
                     dPressed = false;
+                    rightPressed = false;
                     music.volumeScale++;
                     music.checkVolume();
                     playSE(8);
@@ -107,14 +109,14 @@ public class Menu_Utils {
             // SE volume
             if (pauseNum == 1) {
                 // Up
-                if ((aPressed || leftPressed)  && se.volumeScale > 0) {
+                if ((aPressed)  && se.volumeScale > 0) {
                     aPressed = false;
                     leftPressed = false;
                     se.volumeScale--;
                     playSE(8);
                 }
                 // Down
-                if ((dPressed || rightPressed) && se.volumeScale < 5) {
+                if ((dPressed) && se.volumeScale < 5) {
                     dPressed = false;
                     rightPressed = false;
                     se.volumeScale++;

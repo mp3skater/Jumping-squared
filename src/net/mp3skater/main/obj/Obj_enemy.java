@@ -81,22 +81,17 @@ public class Obj_enemy extends Obj_moving {
         }
     }
 
-    @Override
-    public boolean collides(double x, double y, int sX, int sY) {
-        if(type == 4) {
-            Obj_player p = GamePanel.getPlayer();
-            return p.collides(pos[0],pos[1] + size[1],0,0) ||
-                   p.collides(pos[0] + (int)(size[0]/2),pos[1],0,0) ||
-                   p.collides(pos[0] + size[0], pos[1] + size[1],0,0);
-        }
-        return super.collides(x, y, sX, sY);
+    /*
+    Returns the type of the enemy
+     */
+    public int getType() {
+        return type;
     }
 
     @Override
     public void draw(Graphics2D g2, Color color) {
         if(type == 4) { // Spike
             Draw_Utils.drawSpike(g2, getDrawX(), (int)pos[1], size[0], size[1], color);
-            Draw_Utils.fillRect(g2, this, color);
         }
         else Draw_Utils.fillRect(g2, this, color);
     }
