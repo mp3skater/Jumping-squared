@@ -219,28 +219,6 @@ public class Draw_Utils {
         g2.setColor(new Color(148, 4, 4));
         g2.drawString(text,x,375);
 
-
-
-//        //Back to TitleScreen
-//        g2.setFont(g2.getFont().deriveFont(Font.BOLD,50F));
-//        text = "Quit";
-//        x=Draw_Utils.getXforCenteredText(g2,text);
-//        g2.setColor(new Color(220, 86, 86));
-//        g2.drawString(text,x+3,450+3);
-//
-//        g2.setColor(new Color(148, 4, 4));
-//        g2.drawString(text,x,450);
-//
-//
-//        if(deathNum==1){
-////            if(GamePanel.framesCounter<=15) {
-//                g2.drawString(">", x - 25, 450);
-//                g2.setColor(new Color(220, 154, 154));
-//                g2.drawString(">", x - 21, 450);
-//                g2.drawString(text, x, 450);
-////            }
-//        }
-
     }
 
     public static void drawWinScreen(Graphics2D g2){
@@ -278,7 +256,9 @@ public class Draw_Utils {
         g2.drawString(text,x,250);
 
         g2.setFont(g2.getFont().deriveFont(Font.BOLD,40F));
-        g2.drawString("Your time was: "+GamePanel.timeTemp,x+20,300);
+        text = "Your time was: "+GamePanel.timeTemp;
+        x= Draw_Utils.getXforCenteredText(g2,text);
+        g2.drawString(text,x,350);
 
 
         //Back to HomeScreen
@@ -287,10 +267,10 @@ public class Draw_Utils {
         x=Draw_Utils.getXforCenteredText(g2,text);
 
         g2.setColor(new Color(124, 220, 86));
-        g2.drawString(text,x+3,450+3);
+        g2.drawString(text,x+3,500+3);
 
         g2.setColor(new Color(45, 148, 4));
-        g2.drawString(text,x,450);
+        g2.drawString(text,x,500);
 
     }
 
