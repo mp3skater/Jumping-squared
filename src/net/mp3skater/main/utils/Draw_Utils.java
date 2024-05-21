@@ -85,57 +85,59 @@ public class Draw_Utils {
         int y =120;
         g2.drawString(text,x,y);
 
+
         //Music
-        x =Draw_Utils.getXforCenteredText(g2,text)-75;
+        x= 280;
         y +=100;
         g2.drawString("Music",x,y);
-        if(pauseNum==0){
-            g2.drawString(">",x-15,y);
-        }
+        if(pauseNum==0){g2.drawString(">",x-15,y);}
+
+
         //Music-Bar
         g2.setStroke(new BasicStroke(3));
-        g2.drawRect(x+100,y-25,120,22);
+        if (level==3)
+            g2.setColor(Color.white);
+        else {
+            g2.setColor(currentLevel.getColor("wall"));
+        }        g2.drawRect(x+100,y-25,120,22);
         int volumeWidth = 24*GamePanel.music.volumeScale;
         g2.fillRect(x+100,y-25,volumeWidth,24);
+        g2.setColor(new Color(255, 255, 255, 255));
+
 
 
         //SE
-        x =Draw_Utils.getXforCenteredText(g2,text)-75;
         y +=55;
         g2.drawString("SE",x,y);
-        if(pauseNum==1){
-            g2.drawString(">",x-15,y);
-        }
+        if(pauseNum==1){g2.drawString(">",x-15,y);}
         //SE-Bar
+        if (level==3)
+            g2.setColor(Color.white);
+        else {
+            g2.setColor(currentLevel.getColor("wall"));
+        }
         g2.drawRect(x+100,y-25,120,22);//120/5=24
         volumeWidth = 24*GamePanel.se.volumeScale;
         g2.fillRect(x+100,y-25,volumeWidth,24);
+        g2.setColor(new Color(255, 255, 255, 255));
 
 
         //Control
-        x =Draw_Utils.getXforCenteredText(g2,text)-75;
         y +=55;
         g2.drawString("Control",x,y);
-        if(pauseNum==2){
+        if(pauseNum==2){g2.drawString(">",x-15,y);}
 
-            g2.drawString(">",x-15,y);
-        }
 
         //End Game
-        x =Draw_Utils.getXforCenteredText(g2,text)-75;
         y +=55;
         g2.drawString("End Game (coming soon)",x,y);
-        if(pauseNum==3){
-            g2.drawString(">",x-15,y);
-        }
+        if(pauseNum==3){g2.drawString(">",x-15,y);}
+
 
         //Back
-        x =Draw_Utils.getXforCenteredText(g2,text)-75;
         y +=95;
         g2.drawString("Back",x,y);
-        if(pauseNum==4){
-            g2.drawString(">",x-15,y);
-        }
+        if(pauseNum==4){g2.drawString(">",x-15,y);}
 
 
     }
@@ -151,30 +153,47 @@ public class Draw_Utils {
         g2.drawString(text,x,y);
 
 
+
         //Move
-        x =Draw_Utils.getXforCenteredText(g2,text)-75;
+        x= 280;
         y +=100;
         g2.drawString("Move",x,y);
+        g2.setFont(g2.getFont().deriveFont(Font.BOLD,20F));
+        g2.drawString("WASD",x+145,y);
+        g2.setFont(g2.getFont().deriveFont(Font.BOLD,30F));
+
 
         //Jump
-        x =Draw_Utils.getXforCenteredText(g2,text)-75;
         y +=55;
         g2.drawString("Jump",x,y);
+        g2.setFont(g2.getFont().deriveFont(Font.BOLD,20F));
+        g2.drawString("Space",x+145,y);
+        g2.setFont(g2.getFont().deriveFont(Font.BOLD,30F));
+
+
 
         //Place
-        x =Draw_Utils.getXforCenteredText(g2,text)-75;
         y +=55;
         g2.drawString("Place",x,y);
+        g2.setFont(g2.getFont().deriveFont(Font.BOLD,20F));
+        g2.drawString("Left Click",x+145,y);
+        g2.setFont(g2.getFont().deriveFont(Font.BOLD,30F));
+
+
+
 
         //Pause/Options
-        x =Draw_Utils.getXforCenteredText(g2,text)-75;
         y +=55;
-        g2.drawString("Pause/Options",x,y);
+        g2.drawString("Pause",x,y);
+        g2.setFont(g2.getFont().deriveFont(Font.BOLD,20F));
+        g2.drawString("Esc",x+145,y);
+        g2.setFont(g2.getFont().deriveFont(Font.BOLD,30F));
+
+
 
 
 
         //Back
-        x =Draw_Utils.getXforCenteredText(g2,text)-75;
         y +=95;
         g2.drawString("Back",x,y);
 
@@ -263,7 +282,7 @@ public class Draw_Utils {
 
         //Back to HomeScreen
         g2.setFont(g2.getFont().deriveFont(Font.BOLD,50F));
-        text = "Press ENTER for HomeScreen";
+        text = "Press ENTER for Home";
         x=Draw_Utils.getXforCenteredText(g2,text);
 
         g2.setColor(new Color(124, 220, 86));
@@ -274,6 +293,22 @@ public class Draw_Utils {
 
     }
 
+    public  static void drawSubWindow(Graphics2D g2, int x, int y, int with, int height){
+
+        Color c = new Color(0,0,0,220);
+        g2.setColor(c);
+        g2.fillRoundRect(x,y,with,height,35,35);
+
+        if (level==3){
+            c= Color.white;
+        }else {
+            c = (currentLevel.getColor("wall"));
+        }
+
+        g2.setColor(c);
+        g2.setStroke(new BasicStroke(5));
+        g2.drawRoundRect(x+5,y+5,with-10,height-10,35,35);
+    }
 
     /*
     Draws a rectangle with the given dimensions(<pos>, <size>) and <color>
@@ -371,15 +406,5 @@ public class Draw_Utils {
         return GamePanel.WIDTH/2 - textLength/2;
     }
 
-    public  static void drawSubWindow(Graphics2D g2, int x, int y, int with, int height){
 
-        Color c = new Color(0,0,0,220);
-        g2.setColor(c);
-        g2.fillRoundRect(x,y,with,height,35,35);
-
-        c = new Color(255,255,200);
-        g2.setColor(c);
-        g2.setStroke(new BasicStroke(5));
-        g2.drawRoundRect(x+5,y+5,with-10,height-10,35,35);
-    }
 }
