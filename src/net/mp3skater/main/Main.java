@@ -10,6 +10,10 @@ public class Main {
         JFrame window = new JFrame("Jumping²");
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         window.setResizable(false);
+        ImageIcon img = new ImageIcon("res/images/Icon.png");
+        window.setIconImage(img.getImage());
+
+
 
         // Add GamePanel to the window:
         GamePanel gp = new GamePanel();

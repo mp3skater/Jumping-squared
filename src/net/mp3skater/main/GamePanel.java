@@ -14,13 +14,8 @@ import net.mp3skater.main.utils.Sound_Utils;
 import javax.swing.*;
 import java.awt.*;
 import java.io.*;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Objects;
 
 import static net.mp3skater.main.utils.Draw_Utils.drawTitleScreen;
 import static net.mp3skater.main.utils.Misc_Utils.gameWon;
