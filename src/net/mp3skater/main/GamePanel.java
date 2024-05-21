@@ -45,9 +45,7 @@ public class GamePanel extends JPanel implements Runnable {
 
 	// Game State Screens
 	public static boolean titleState, deathState, controlState, winState;
-	public static int comandNum =0,titleNum =0,pauseNum =0;
-	public static int framesCounter =0;
-
+	public static int titleNum =0,pauseNum =0;
 
 	// Booleans for the pause-function
 	public static boolean pauseState = true, exPause = true; // To see if Pause has been changed
@@ -266,7 +264,6 @@ public class GamePanel extends JPanel implements Runnable {
 		// Change newGame, other updates
 		if(newGame > 0) newGame--;
 		time++;
-		framesCounter++;
 
 		// Update Player position
 		player.update();
