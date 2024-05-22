@@ -71,7 +71,7 @@ public class Menu_Utils {
         }
 
         /*
-        When Player dies
+        When Player completes all levels
          */
         else if (winState && enterPressed) {
             enterPressed = false;
@@ -152,6 +152,7 @@ public class Menu_Utils {
                     loadLevel(level);
                     titleState=true;
                     pauseState= false;
+                    leben = 3;
                 }
                 if (pauseNum == 4) {
                     pauseState = false;
