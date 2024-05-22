@@ -182,13 +182,13 @@ public class GamePanel extends JPanel implements Runnable {
 	Sets pause to true and loads the first level
 	Only plays the "game over"-se if <se> = true
 	 */
-	public static void gameOver(boolean se) {
+	public static void gameOver(boolean dead) {
 
-		leben--;
+		if(dead) leben--;
 		if(leben==0) {
 			time = -1; // It updates the time once, so this sets it to 0 essentially
 			if(!winState) deathState = true;
-			if(se) playSE(5);
+			if(dead) playSE(5);
 			stopMusic();
 			level = 1;
 			leben = 3;
