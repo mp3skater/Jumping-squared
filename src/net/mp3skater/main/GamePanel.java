@@ -193,7 +193,7 @@ public class GamePanel extends JPanel implements Runnable {
 			level = 1;
 			leben = 3;
 		}
-		else playSE(12);
+		else if(!winState) playSE(12);
 		currentMusic = -1;
 		loadLevel(level);
 
