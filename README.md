@@ -26,6 +26,11 @@ This project uses JSON files to store the different levels, look at the detailed
 - Highscore page in-game
 - Maybe level-edit-modus...
 
+<details>
+<summary>Statement to planning for school</summary>
+As reported in our initial documentation (not public), we planned to finish the project by May 25. We intended to add experimental features based on popular opinion and ultimately commit them once thoroughly tested. This approach ensures that we can always revert to previous versions if necessary. In the end, this workflow and the tools we used (Git/GitHub, Miro, IntelliJ, JSON files, Java Swing, sounds, etc.) worked surprisingly well, not confronting us with any major problems.
+</details>
+
 ## Youtube showcase
 <a href="http://www.youtube.com/watch?v=sruFdJCgIDo">
 <img alt="GetOP showcase thumbnail" width=50% src="https://tschipcraft.ddns.net/mod_resources/youtube_preview.php?id=sruFdJCgIDo" title="Watch on YouTube">
@@ -43,7 +48,7 @@ This project was developed using the following frameworks, tools and resources:
  - [GSON (google's JSON library)](https://google.github.io/gson/)
  - [IntellIJ idea as IDE and build system](https://www.jetbrains.com/idea/)
  - [Logo creator (to be done)](pleaseputinthelink)
- - <details><summary>Music and sound effect links:</summary></br>[Minecraft placing sounds](https://tuna.voicemod.net/sound/8632d8b2-c2af-4269-9937-87d2b84e9df1/)</br>[Other sounds](https://pixabay.com/sound-effects/)</details>
+ - <details><summary>Music and sound effect links:</summary>[Minecraft placing sounds](https://tuna.voicemod.net/sound/8632d8b2-c2af-4269-9937-87d2b84e9df1/)</br>[Other sounds](https://pixabay.com/sound-effects/)</details>
 
 ## Controls
 
