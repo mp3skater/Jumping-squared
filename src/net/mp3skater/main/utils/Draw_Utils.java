@@ -86,9 +86,9 @@ public class Draw_Utils {
 
         // Getting the 10 highest scores
         try (BufferedReader reader = new BufferedReader(new FileReader(path))) {
-            for(int i = 0; i<10; i++) {
+            for(int i = 0; i<10;) {
                 String text = reader.readLine(); // Read a new line
-                text = i+". "+(text==null? "----------" : text);
+                text = (++i)+". "+(text==null? i==10? "---------" : "----------" : text);
                 g2.drawString(text,297,150+39*i);
             }
         } catch (IOException e) {
