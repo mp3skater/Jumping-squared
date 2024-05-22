@@ -122,14 +122,14 @@ public class Menu_Utils {
             // SE volume
             if (pauseNum == 1) {
                 // Up
-                if ((aPressed)  && se.volumeScale > 0) {
+                if ((aPressed || leftPressed)  && se.volumeScale > 0) {
                     aPressed = false;
                     leftPressed = false;
                     se.volumeScale--;
                     playSE(8);
                 }
                 // Down
-                if ((dPressed) && se.volumeScale < 5) {
+                if ((dPressed || rightPressed) && se.volumeScale < 5) {
                     dPressed = false;
                     rightPressed = false;
                     se.volumeScale++;
