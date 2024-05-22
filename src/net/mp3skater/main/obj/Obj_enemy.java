@@ -76,8 +76,10 @@ public class Obj_enemy extends Obj_moving {
 //            }
             case 4: break;
             case 5: // Level 3; infinite movement forwards
-                if(vec[0]==0)
-                    vec[0]=maxSpeed;
+                if (pos[0] + size[0] < GamePanel.offset) {
+                    pos[0] = GamePanel.offset - size[0] - vec[0];
+                }
+                vec[0]=maxSpeed;
         }
     }
 
