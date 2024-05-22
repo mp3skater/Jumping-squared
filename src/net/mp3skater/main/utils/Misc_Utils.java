@@ -25,7 +25,6 @@ public class Misc_Utils {
     That file will be created the first time the game gets played through
      */
     public static void gameWon() {
-        int highscore = 1000000000; // Takes 192+ days, pretty shit highscore huh
         if(winState) return; // To avoid multiple gameWon for whatever reason
         winState = true; // For the win screen
         GamePanel.won = true; // For amogus
@@ -70,7 +69,6 @@ public class Misc_Utils {
             System.out.println("Problems while reading/creating the file \"res/info/highscores.txt\"");
             e.printStackTrace();
         }
-
 
         try(PrintWriter writer = new PrintWriter(path)){
             writer.print(file);

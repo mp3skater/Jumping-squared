@@ -91,9 +91,9 @@ public class Draw_Utils {
                 text = (++i)+". "+(text==null? i==10? "---------" : "----------" : text);
                 g2.drawString(text,297,150+39*i);
             }
-        } catch (IOException e) {
-            System.out.println("An error occurred while reading the file \""+path+"\".");
-            e.printStackTrace();
+        } catch (IOException _) {
+            String s = "No scores yet";
+            g2.drawString(s, getXforCenteredText(g2, s), 200);
         }
 
         // Back and title
