@@ -7,7 +7,7 @@ import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.geom.Path2D;
 import java.awt.image.BufferedImage;
-import java.io.IOException;
+import java.io.*;
 import java.util.Objects;
 
 import static net.mp3skater.main.GamePanel.*;
@@ -41,7 +41,7 @@ public class Draw_Utils {
             g2.drawString(text,x,350);
         }
 
-        text = "Highscore(Coming Soon)";
+        text = "Highscores";
         x = Draw_Utils.getXforCenteredText(g2,text);
 
         g2.setColor(new Color(78, 88, 78));
@@ -72,6 +72,33 @@ public class Draw_Utils {
             g2.drawString(">",x-21,500);
             g2.drawString(text,x,500);
         }
+    }
+
+    /*
+    Displays the 10 highest scores
+     */
+    public static void drawHighscores(Graphics2D g2) {
+        String path = "res/highscores.txt";
+
+        // Font
+        g2.setColor(Color.white);
+        g2.setFont(g2.getFont().deriveFont(Font.BOLD,48F));
+
+        // Getting the 10 highest scores
+        try (BufferedReader reader = new BufferedReader(new FileReader(path))) {
+            for(int i = 0; i<10; i++) {
+                String text = reader.readLine(); // Read a new line
+                text = i+". "+(text==null? "----------" : text);
+                g2.drawString(text,297,150+39*i);
+            }
+        } catch (IOException e) {
+            System.out.println("An error occurred while reading the file \""+path+"\".");
+            e.printStackTrace();
+        }
+
+        // Back and title
+        g2.drawString("> back", 65, 520);
+        g2.drawString("Highscores", getXforCenteredText(g2, "Highscores"), 50);
     }
 
     public static void drawPauseScreen(Graphics2D g2) {

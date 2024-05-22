@@ -33,8 +33,21 @@ public class Menu_Utils {
                 if (titleNum == 2) System.exit(0); // Close Game
                 playSE(9);
                 if (titleNum == 0) titleState = false; // Start game
-                //else if (titleNum == 1) // In future: open highscore file
+                else if (titleNum == 1) {
+                    titleState = false;
+                    highscoreState = true;
+                }
             }
+        }
+
+        /*
+        Highscores
+         */
+        else if(highscoreState && enterPressed) {
+            enterPressed = false;
+            titleState = true;
+            highscoreState = false;
+            return;
         }
 
         /*

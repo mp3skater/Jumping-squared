@@ -17,7 +17,7 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-import static net.mp3skater.main.utils.Draw_Utils.drawTitleScreen;
+import static net.mp3skater.main.utils.Draw_Utils.*;
 import static net.mp3skater.main.utils.Misc_Utils.gameWon;
 import static net.mp3skater.main.utils.Sound_Utils.*;
 
@@ -39,11 +39,11 @@ public class GamePanel extends JPanel implements Runnable {
 	Font maruMonica;
 
 	// Game State Screens
-	public static boolean titleState, deathState, controlState, winState;
+	public static boolean pauseState, titleState, deathState, controlState, winState, highscoreState;
 	public static int titleNum =0,pauseNum =0;
 
 	// Booleans for the pause-function
-	public static boolean pauseState = true, exPause = true; // To see if Pause has been changed
+	public static boolean exPause = true; // To see if Pause has been changed
 	private static boolean activatePause = false;
 
 	// Won (Amogus skin)
@@ -262,7 +262,7 @@ public class GamePanel extends JPanel implements Runnable {
 		exPause = KeyHandler.escPressed;
 
 		// Don't continue if Game paused
-		if(pauseState || titleState || deathState || winState || controlState) return;
+		if(pauseState || titleState || deathState || winState || controlState || highscoreState) return;
 
 		// Activate pause
 		if(activatePause) { changePauseState(); activatePause = false; }
@@ -341,16 +341,21 @@ public class GamePanel extends JPanel implements Runnable {
 		g2.setColor(Color.white);
 		g2.setFont(maruMonica);
 
-		// TITLE SCREEN View
-		if(titleState){
-            try {
-                drawTitleScreen(g2);
-            } catch (IOException | Draw_Utils.BufferedImageGetException e) {
-                throw new RuntimeException(e);
-            }
+		if(titleState || deathState || winState || controlState || highscoreState || currentLevel==null) {
+			if(titleState) {
+				try {
+					drawTitleScreen(g2);
+				} catch (IOException | Draw_Utils.BufferedImageGetException e) {
+					throw new RuntimeException(e);
+				}
+			}
+			else if(deathState) drawDeathScreen(g2);
+			else if(winState) drawWinScreen(g2);
+			else if(controlState) drawOptionControl(g2);
+			else drawHighscores(g2);
 			return;
-        }
-
+		}
+		
 		// Board
 		drawBoard(g2);
 		// <Obj>'s
@@ -367,11 +372,8 @@ public class GamePanel extends JPanel implements Runnable {
             throw new RuntimeException(e);
         }
 
-        // Menu's
-		if(winState) Draw_Utils.drawWinScreen(g2);
-		if(deathState) Draw_Utils.drawDeathScreen(g2);
-		if(controlState) Draw_Utils.drawOptionControl(g2);
-		if(pauseState) Draw_Utils.drawPauseScreen(g2);
+		// Draw pause
+		if(pauseState) drawPauseScreen(g2);
 	}
 	private void drawHearts(Graphics2D g2) throws Draw_Utils.BufferedImageGetException {
 		if(leben == 3){
@@ -390,6 +392,4 @@ public class GamePanel extends JPanel implements Runnable {
 			Draw_Utils.drawImage(g2,"/images/heart_blank.png",new double[]{735,15},new int[]{45,45});
 		}
 	}
-
-
 }

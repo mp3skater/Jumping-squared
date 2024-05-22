@@ -67,7 +67,7 @@ public class Misc_Utils {
             if(timeTemp < highscore) {
                 System.out.println("Highscore is being stored in " + path);
                 try(PrintWriter writer = new PrintWriter(path)) {
-                    writer.println(timeTemp+"\n"+file);
+                    writer.print(timeTemp+"\n"+file);
                 } catch (IOException e) {
                     System.out.println("Could not write to file :"+path);
                     e.printStackTrace();
