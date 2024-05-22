@@ -14,13 +14,8 @@ import net.mp3skater.main.utils.Sound_Utils;
 import javax.swing.*;
 import java.awt.*;
 import java.io.*;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Objects;
 
 import static net.mp3skater.main.utils.Draw_Utils.drawTitleScreen;
 import static net.mp3skater.main.utils.Misc_Utils.gameWon;
@@ -45,9 +40,7 @@ public class GamePanel extends JPanel implements Runnable {
 
 	// Game State Screens
 	public static boolean titleState, deathState, controlState, winState;
-	public static int comandNum =0,titleNum =0,pauseNum =0;
-	public static int framesCounter =0;
-
+	public static int titleNum =0,pauseNum =0;
 
 	// Booleans for the pause-function
 	public static boolean pauseState = true, exPause = true; // To see if Pause has been changed
@@ -144,6 +137,7 @@ public class GamePanel extends JPanel implements Runnable {
 			clearPlatforms();
 			delay = -50;
 			offset = 0;
+			pauseNum=0;
 			GamePanel.level = level;
 			currentLevel = Level_Utils.getLevel(level);
 			player = currentLevel.getPlayer();
@@ -276,7 +270,6 @@ public class GamePanel extends JPanel implements Runnable {
 		// Change newGame, other updates
 		if(newGame > 0) newGame--;
 		time++;
-		framesCounter++;
 
 		// Update Player position
 		player.update();

@@ -132,10 +132,14 @@ public class Menu_Utils {
                     pauseState = false;
                 }
                 // Endgame
-                //if (pauseNum == 3) {
-                //    gameOver(false);
-                //    titleState=true;
-                //}
+                if (pauseNum == 3) {
+                    time = -1;
+                    level = 1;
+                    currentMusic = -1;
+                    loadLevel(level);
+                    titleState=true;
+                    pauseState= false;
+                }
                 if (pauseNum == 4) {
                     pauseState = false;
                     exPause = true;
