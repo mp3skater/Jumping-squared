@@ -82,6 +82,9 @@ public class GamePanel extends JPanel implements Runnable {
 	// Offset (moves horizontally with the player)
 	public static double offset = 0;
 
+	//HEARTS
+	public static int leben = 3;
+
 	public GamePanel() throws IOException, FontFormatException {
 		setPreferredSize(new Dimension(WIDTH, HEIGHT));
 		setBackground(Color.black);
@@ -186,13 +189,20 @@ public class GamePanel extends JPanel implements Runnable {
 	Only plays the "game over"-se if <se> = true
 	 */
 	public static void gameOver(boolean se) {
-		if(se) playSE(5);
-		stopMusic();
-		if(!winState) deathState = true;
 		time = -1; // It updates the time once, so this sets it to 0 essentially
-		level = 1;
+
+		System.out.println(leben);
+		leben--;
+		if(leben==0) {
+			if(!winState) deathState = true;
+			if(se) playSE(5);
+			stopMusic();
+			level = 1;
+			leben = 3;
+		}
 		currentMusic = -1;
 		loadLevel(level);
+
 	}
 
 	/*
@@ -320,7 +330,7 @@ public class GamePanel extends JPanel implements Runnable {
 	 */
 	private void drawBoard(Graphics2D g2) {
 		if(currentLevel != null) board.draw(g2, currentLevel);
-	}
+    }
 
 	/*
 	Gets activated with <repaint();>
@@ -358,10 +368,35 @@ public class GamePanel extends JPanel implements Runnable {
 		g2.drawString("Time: "+time, 5, 20);
 		g2.setFont(g2.getFont().deriveFont(Font.BOLD,48f));
 
-		// Menu's
+        try {
+            drawHearts(g2);
+        } catch (Draw_Utils.BufferedImageGetException e) {
+            throw new RuntimeException(e);
+        }
+
+        // Menu's
 		if(winState) Draw_Utils.drawWinScreen(g2);
 		if(deathState) Draw_Utils.drawDeathScreen(g2);
 		if(controlState) Draw_Utils.drawOptionControl(g2);
 		if(pauseState) Draw_Utils.drawPauseScreen(g2);
 	}
+	private void drawHearts(Graphics2D g2) throws Draw_Utils.BufferedImageGetException {
+		if(leben == 3){
+			Draw_Utils.drawImage(g2,"/images/heart_full.png",new double[]{645,15},new int[]{45,45});
+			Draw_Utils.drawImage(g2,"/images/heart_full.png",new double[]{690,15},new int[]{45,45});
+			Draw_Utils.drawImage(g2,"/images/heart_full.png",new double[]{735,15},new int[]{45,45});
+		}
+		if(leben == 2){
+			Draw_Utils.drawImage(g2,"/images/heart_full.png",new double[]{645,15},new int[]{45,45});
+			Draw_Utils.drawImage(g2,"/images/heart_full.png",new double[]{690,15},new int[]{45,45});
+			Draw_Utils.drawImage(g2,"/images/heart_blank.png",new double[]{735,15},new int[]{45,45});
+		}
+		if(leben == 1){
+			Draw_Utils.drawImage(g2,"/images/heart_full.png",new double[]{645,15},new int[]{45,45});
+			Draw_Utils.drawImage(g2,"/images/heart_blank.png",new double[]{690,15},new int[]{45,45});
+			Draw_Utils.drawImage(g2,"/images/heart_blank.png",new double[]{735,15},new int[]{45,45});
+		}
+	}
+
+
 }

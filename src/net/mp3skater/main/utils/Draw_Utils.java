@@ -379,8 +379,8 @@ public class Draw_Utils {
         }
     }
     private static void drawBufferedImage(Graphics2D g2, BufferedImage bImage, double[] pos, int[] size) {
-        g2.drawImage(bImage, (int)(pos[0]+ GamePanel.offset),
-                (int)(pos[1]+GamePanel.offset), size[0], size[1], null);
+        g2.drawImage(bImage, (int)(pos[0]),
+                (int)(pos[1]), size[0], size[1], null);
     }
 
     public static class BufferedImageGetException extends Exception { BufferedImageGetException(Throwable cause)  { super(cause); } }
