@@ -184,8 +184,6 @@ public class GamePanel extends JPanel implements Runnable {
 	 */
 	public static void gameOver(boolean se) {
 
-
-		System.out.println(leben);
 		leben--;
 		if(leben==0) {
 			time = -1; // It updates the time once, so this sets it to 0 essentially
