@@ -80,16 +80,13 @@ public class Draw_Utils {
     public static void drawHighscores(Graphics2D g2) {
         String path = "res/highscores.txt";
 
-        // Font
-        g2.setColor(Color.white);
-        g2.setFont(g2.getFont().deriveFont(Font.BOLD,48F));
 
         // Getting the 10 highest scores
         try (BufferedReader reader = new BufferedReader(new FileReader(path))) {
             for(int i = 0; i<10;) {
                 String text = reader.readLine(); // Read a new line
                 text = (++i)+". "+(text==null? i==10? "---------" : "----------" : text);
-                g2.drawString(text,297,150+39*i);
+                Draw_Utils.drawShadowString(g2,text,48F,297,150+39*i,new Color(144, 196, 144),new Color(78, 88, 78, 255));
             }
         } catch (IOException _) {
             String s = "No scores yet";
@@ -97,8 +94,10 @@ public class Draw_Utils {
         }
 
         // Back and title
+        Draw_Utils.drawShadowString(g2,"> back",48F,65,520,new Color(217, 236, 214),new Color(78, 88, 78, 255));
+
         g2.drawString("> back", 65, 520);
-        g2.drawString("Highscores", getXforCenteredText(g2, "Highscores"), 50);
+        Draw_Utils.drawShadowString(g2,"Highscores",48F,getXforCenteredText(g2, "Highscores"),50,new Color(144, 196, 144),new Color(78, 88, 78, 255));
     }
 
     public static void drawPauseScreen(Graphics2D g2) {
@@ -347,6 +346,14 @@ public class Draw_Utils {
         g2.setColor(c);
         g2.setStroke(new BasicStroke(5));
         g2.drawRoundRect(x+5,y+5,with-10,height-10,35,35);
+    }
+
+    public static void drawShadowString(Graphics2D g2, String text,float textSize, int x, int y, Color colorFront, Color colorShadow){
+        g2.setFont(g2.getFont().deriveFont(Font.BOLD,textSize));
+        g2.setColor(colorShadow);
+        g2.drawString(text,x+2,y+2);
+        g2.setColor(colorFront);
+        g2.drawString(text, x, y);
     }
 
     /*
