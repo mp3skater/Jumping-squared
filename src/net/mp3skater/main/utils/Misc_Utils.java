@@ -14,6 +14,7 @@ public class Misc_Utils {
 
     /*
     Returns an int that is rounded up away from 0
+    This method is used to ensure that the player doesn't "glitch" into a wall
      */
     public static int absRound(double number) {
         return number > 0 ? (int) Math.ceil(number) : (int) Math.floor(number);
@@ -49,8 +50,12 @@ public class Misc_Utils {
                 boolean written = false;
                 String line;
                 while((line = reader.readLine()) != null) {
+                    String subString;
+                    int iend = line.indexOf(" ");
+                    if(iend==-1) subString = line;
+                    else subString = line.substring(0, iend);
                     try {
-                        if(!written && timeTemp < Integer.parseInt(line)) {
+                        if(!written && timeTemp < Integer.parseInt(subString)) {
                             file.append(timeTemp).append("\n");
                             written = true;
                         }
