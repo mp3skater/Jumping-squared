@@ -341,7 +341,7 @@ public class GamePanel extends JPanel implements Runnable {
 		g2.setColor(Color.white);
 		g2.setFont(maruMonica);
 
-		if(titleState || deathState || winState || controlState || highscoreState || currentLevel==null) {
+		if(titleState || deathState || winState || highscoreState || currentLevel==null) {
 			if(titleState) {
 				try {
 					drawTitleScreen(g2);
@@ -351,7 +351,6 @@ public class GamePanel extends JPanel implements Runnable {
 			}
 			else if(deathState) drawDeathScreen(g2);
 			else if(winState) drawWinScreen(g2);
-			else if(controlState) drawOptionControl(g2);
 			else drawHighscores(g2);
 			return;
 		}
@@ -374,6 +373,7 @@ public class GamePanel extends JPanel implements Runnable {
 
 		// Draw pause
 		if(pauseState) drawPauseScreen(g2);
+		else if(controlState) drawOptionControl(g2);
 	}
 	private void drawHearts(Graphics2D g2) throws Draw_Utils.BufferedImageGetException {
 		if(leben == 3){
