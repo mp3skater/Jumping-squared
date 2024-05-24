@@ -351,8 +351,7 @@ public class GamePanel extends JPanel implements Runnable {
 		Graphics2D g2 = (Graphics2D)g;
 
 		// Less lag for unix OS's
-		String OS = System.getProperty("os.name").toLowerCase();
-		if(OS.contains("nix") || OS.contains("nux") || OS.contains("aix")) Toolkit.getDefaultToolkit().sync();
+		Toolkit.getDefaultToolkit().sync();
 
 		// Set the font
 		g2.setColor(Color.white);
