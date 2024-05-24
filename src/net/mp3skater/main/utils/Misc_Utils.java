@@ -14,6 +14,7 @@ public class Misc_Utils {
 
     /*
     Returns an int that is rounded up away from 0
+    This method is used to ensure that the player doesn't "glitch" into a wall
      */
     public static int absRound(double number) {
         return number > 0 ? (int) Math.ceil(number) : (int) Math.floor(number);
@@ -25,56 +26,59 @@ public class Misc_Utils {
     That file will be created the first time the game gets played through
      */
     public static void gameWon() {
-        int highscore = 1000000000; // Takes 192+ days, pretty shit highscore huh
         if(winState) return; // To avoid multiple gameWon for whatever reason
         winState = true; // For the win screen
         GamePanel.won = true; // For amogus
         playSE(6); // Won sound effect
 
         timeTemp = time; // To not lose the time
+        time = -1; // Reset the time (-1 because it works)
         System.out.println("Game won, time: " + timeTemp);
 
         String path = "res/highscores.txt";
-        Path stringP = Paths.get(path);
         File scores = new File(path);
+
+        // For the right order the highscores are written in
+        StringBuilder file = new StringBuilder();
+
         try {
             // Creating file, if necessary
             if(scores.createNewFile()) System.out.println("Creating new file: " + path);
 
-            // For the right order the highscores are written in
-            String file = "";
-
-            // Getting the current highscore
+            // Rewriting the file and inserting the current score
             try (BufferedReader reader = new BufferedReader(new FileReader(path))) {
-                // Get the file
-                try {
-                    file = String.join("\n", Files.lines(stringP).toArray(String[]::new));
-                } catch(Exception e) {
-                    e.printStackTrace();
+                boolean written = false;
+                String line;
+                while((line = reader.readLine()) != null) {
+                    String subString;
+                    int iend = line.indexOf(" ");
+                    if(iend==-1) subString = line;
+                    else subString = line.substring(0, iend);
+                    try {
+                        if(!written && timeTemp < Integer.parseInt(subString)) {
+                            file.append(timeTemp).append("\n");
+                            written = true;
+                        }
+                        file.append(line).append("\n");
+                    } catch(Exception e) {
+                        System.out.println("You shouldn't mess with the "+path+" file!\n"+
+                                "To solve this problem you can delete it and restart the game.");
+                        e.printStackTrace();
+                    }
                 }
-                String firstLine = reader.readLine(); // Read the first line
-                try {
-                    highscore = Integer.parseInt(firstLine);
-                } catch (Exception _) {
-                    highscore = 1000000000;
-                }
-            } catch (IOException e) {
-                System.out.println("An error occurred while reading the file.");
+                if(!written) file.append(timeTemp);
+            } catch (FileNotFoundException e) {
                 e.printStackTrace();
-            }
-
-            // Storing highscore
-            if(timeTemp < highscore) {
-                System.out.println("Highscore is being stored in " + path);
-                try(PrintWriter writer = new PrintWriter(path)) {
-                    writer.println(timeTemp+"\n"+file);
-                } catch (IOException e) {
-                    System.out.println("Could not write to file :"+path);
-                    e.printStackTrace();
-                }
             }
         } catch (IOException e) {
             System.out.println("Problems while reading/creating the file \"res/info/highscores.txt\"");
+            e.printStackTrace();
+        }
+
+        try(PrintWriter writer = new PrintWriter(path)){
+            writer.print(file);
+        } catch (IOException e) {
+            System.out.println("An error occurred while reading the file.");
             e.printStackTrace();
         }
         gameOver(false);

@@ -24,6 +24,7 @@ This project uses JSON files to store the different levels, look at the detailed
 ### In future
 - Detailed explenation and way of how to create your own levels
 - Highscore page in-game
+- Youtube showcase
 - Maybe level-edit-modus...
 
 <details>
@@ -31,9 +32,9 @@ This project uses JSON files to store the different levels, look at the detailed
 As reported in our initial documentation (not public), we planned to finish the project by May 25. We intended to add experimental features based on popular opinion and ultimately commit them once thoroughly tested. This approach ensures that we can always revert to previous versions if necessary. In the end, this workflow and the tools we used (Git/GitHub, Miro, IntelliJ, JSON files, Java Swing, sounds, etc.) worked surprisingly well, not confronting us with any major problems.
 </details>
 
-## Youtube showcase
-<a href="http://www.youtube.com/watch?v=sruFdJCgIDo">
-<img alt="GetOP showcase thumbnail" width=50% src="https://tschipcraft.ddns.net/mod_resources/youtube_preview.php?id=sruFdJCgIDo" title="Watch on YouTube">
+## Youtube showcase (in future)
+<a href="http://www.youtube.com/">
+<img alt="Jumping squared showcase thumbnail" width=50% src="https://dl-asset.cyberlink.com/web/prog/learning-center/html/4090/PDR19-YouTube-21_How_to_Name_Your_YouTube_Videos/img/No-Thumbnail.png" title="Watch on YouTube">
 </a>
 
 ## Running the game

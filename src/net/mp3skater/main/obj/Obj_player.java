@@ -85,6 +85,7 @@ public class Obj_player extends Obj_moving {
         // Load new level if player reaches the end-bar
         if(pos[0] >= GamePanel.getLength()-50) {
             GamePanel.level++;
+            if(GamePanel.leben<3) GamePanel.leben++;
             GamePanel.loadLevel(GamePanel.level);
         }
         // Variables to check nearest collision

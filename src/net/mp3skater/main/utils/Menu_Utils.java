@@ -33,8 +33,21 @@ public class Menu_Utils {
                 if (titleNum == 2) System.exit(0); // Close Game
                 playSE(9);
                 if (titleNum == 0) titleState = false; // Start game
-                //else if (titleNum == 1) // In future: open highscore file
+                else if (titleNum == 1) {
+                    titleState = false;
+                    highscoreState = true;
+                }
             }
+        }
+
+        /*
+        Highscores
+         */
+        else if(highscoreState && enterPressed) {
+            enterPressed = false;
+            titleState = true;
+            highscoreState = false;
+            return;
         }
 
         /*
@@ -58,7 +71,7 @@ public class Menu_Utils {
         }
 
         /*
-        When Player dies
+        When Player completes all levels
          */
         else if (winState && enterPressed) {
             enterPressed = false;
@@ -109,14 +122,14 @@ public class Menu_Utils {
             // SE volume
             if (pauseNum == 1) {
                 // Up
-                if ((aPressed)  && se.volumeScale > 0) {
+                if ((aPressed || leftPressed)  && se.volumeScale > 0) {
                     aPressed = false;
                     leftPressed = false;
                     se.volumeScale--;
                     playSE(8);
                 }
                 // Down
-                if ((dPressed) && se.volumeScale < 5) {
+                if ((dPressed || rightPressed) && se.volumeScale < 5) {
                     dPressed = false;
                     rightPressed = false;
                     se.volumeScale++;
@@ -139,6 +152,7 @@ public class Menu_Utils {
                     loadLevel(level);
                     titleState=true;
                     pauseState= false;
+                    leben = 3;
                 }
                 if (pauseNum == 4) {
                     pauseState = false;

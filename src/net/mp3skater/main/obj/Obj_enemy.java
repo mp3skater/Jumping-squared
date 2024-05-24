@@ -50,7 +50,7 @@ public class Obj_enemy extends Obj_moving {
          */
             case 0: return;
 
-            case 1://Level 4; up/down movement / hallo domenik
+            case 1://Level 4; up/down movement
                 //maxDistance = 160;
                 if(vec[1]==0)
                     vec[1]=maxSpeed;
@@ -66,14 +66,7 @@ public class Obj_enemy extends Obj_moving {
                     vec[0] *= -1;
                 break;
             }
-//            case 3: {//Level 4; up/down movement
-//                //maxDistance = 160;
-//                if(vec[1]==0)
-//                    vec[1]=-maxSpeed;
-//                if(Math.abs(pos[1] - startPos[1]) > maxDistance)
-//                    vec[1] *= -1;
-//                break;
-//            }
+            case 3: break;
             case 4: break;
             case 5: // Level 3; infinite movement forwards
                 if (pos[0] + size[0] < GamePanel.offset) {
@@ -82,6 +75,7 @@ public class Obj_enemy extends Obj_moving {
                 vec[0]=maxSpeed;
         }
     }
+
 
     /*
     Returns the type of the enemy

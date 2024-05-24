@@ -7,7 +7,7 @@ import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.geom.Path2D;
 import java.awt.image.BufferedImage;
-import java.io.IOException;
+import java.io.*;
 import java.util.Objects;
 
 import static net.mp3skater.main.GamePanel.*;
@@ -41,7 +41,7 @@ public class Draw_Utils {
             g2.drawString(text,x,350);
         }
 
-        text = "Highscore(Coming Soon)";
+        text = "Highscores";
         x = Draw_Utils.getXforCenteredText(g2,text);
 
         g2.setColor(new Color(78, 88, 78));
@@ -74,46 +74,80 @@ public class Draw_Utils {
         }
     }
 
+    /*
+    Displays the 10 highest scores
+     */
+    public static void drawHighscores(Graphics2D g2) {
+        String path = "res/highscores.txt";
+
+
+        // Getting the 10 highest scores
+        try (BufferedReader reader = new BufferedReader(new FileReader(path))) {
+            for(int i = 0; i<10;) {
+                String text = reader.readLine(); // Read a new line
+                text = (++i)+". "+(text==null? i==10? "---------" : "----------" : text);
+                Draw_Utils.drawShadowString(g2,text,48F,297,150+39*i,new Color(144, 196, 144),new Color(78, 88, 78, 255));
+            }
+        } catch (IOException _) {
+            String s = "No scores yet";
+            g2.drawString(s, getXforCenteredText(g2, s), 200);
+        }
+
+        // Back and title
+        Draw_Utils.drawShadowString(g2,"> back",48F,65,520,new Color(217, 236, 214),new Color(78, 88, 78, 255));
+
+        g2.drawString("> back", 65, 520);
+        Draw_Utils.drawShadowString(g2,"Highscores",48F,getXforCenteredText(g2, "Highscores"),50,new Color(144, 196, 144),new Color(78, 88, 78, 255));
+    }
+
     public static void drawPauseScreen(Graphics2D g2) {
 
         //TITLE OPTION
-        Draw_Utils.drawSubWindow(g2,250,75,300,450);
-        g2.setFont(g2.getFont().deriveFont(Font.BOLD,30F));
+        Draw_Utils.drawSubWindow(g2, 250, 75, 300, 450);
+        g2.setFont(g2.getFont().deriveFont(Font.BOLD, 30F));
         g2.setColor(new Color(255, 255, 255, 255));
         String text = "Options";
-        int x =Draw_Utils.getXforCenteredText(g2,text);
-        int y =120;
-        g2.drawString(text,x,y);
+        int x = Draw_Utils.getXforCenteredText(g2, text);
+        int y = 120;
+        g2.drawString(text, x, y);
 
 
         //Music
-        x= 280;
-        y +=100;
-        g2.drawString("Music",x,y);
-        if(pauseNum==0){g2.drawString(">",x-15,y);}
+        x = 280;
+        y += 100;
+        g2.drawString("Music", x, y);
+        if (pauseNum == 0) {
+            g2.drawString(">", x - 15, y);
+        }
 
 
         //Music-Bar
         g2.setStroke(new BasicStroke(3));
-        if (level==3)
+        if (level == 3) {
             g2.setColor(Color.white);
-        else {
+        }else if (level == 4){
+            g2.setColor(new Color(70, 98, 138, 255));
+        }else {
             g2.setColor(currentLevel.getColor("wall"));
-        }        g2.drawRect(x+100,y-25,120,22);
-        int volumeWidth = 24*GamePanel.music.volumeScale;
-        g2.fillRect(x+100,y-25,volumeWidth,24);
+        }
+        g2.drawRect(x + 100, y - 25, 120, 22);
+        int volumeWidth = 24 * GamePanel.music.volumeScale;
+        g2.fillRect(x + 100, y - 25, volumeWidth, 24);
         g2.setColor(new Color(255, 255, 255, 255));
 
 
-
         //SE
-        y +=55;
-        g2.drawString("SE",x,y);
-        if(pauseNum==1){g2.drawString(">",x-15,y);}
+        y += 55;
+        g2.drawString("SE", x, y);
+        if (pauseNum == 1) {
+            g2.drawString(">", x - 15, y);
+        }
         //SE-Bar
-        if (level==3)
+        if (level == 3) {
             g2.setColor(Color.white);
-        else {
+        }else if (level == 4){
+            g2.setColor(new Color(70, 98, 138, 255));
+        }else{
             g2.setColor(currentLevel.getColor("wall"));
         }
         g2.drawRect(x+100,y-25,120,22);//120/5=24
@@ -130,7 +164,7 @@ public class Draw_Utils {
 
         //End Game
         y +=55;
-        g2.setColor(new Color(255,0,0,100));
+        g2.setColor(new Color(245, 44, 44, 197));
         g2.drawString("End Game",x,y);
         if(pauseNum==3){g2.drawString(">",x-15,y);}
         g2.setColor(new Color(255, 255, 255, 255));
@@ -303,6 +337,8 @@ public class Draw_Utils {
 
         if (level==3){
             c= Color.white;
+        }else if (level == 4){
+            c=new Color(70, 98, 138, 255);
         }else {
             c = (currentLevel.getColor("wall"));
         }
@@ -310,6 +346,14 @@ public class Draw_Utils {
         g2.setColor(c);
         g2.setStroke(new BasicStroke(5));
         g2.drawRoundRect(x+5,y+5,with-10,height-10,35,35);
+    }
+
+    public static void drawShadowString(Graphics2D g2, String text,float textSize, int x, int y, Color colorFront, Color colorShadow){
+        g2.setFont(g2.getFont().deriveFont(Font.BOLD,textSize));
+        g2.setColor(colorShadow);
+        g2.drawString(text,x+2,y+2);
+        g2.setColor(colorFront);
+        g2.drawString(text, x, y);
     }
 
     /*
