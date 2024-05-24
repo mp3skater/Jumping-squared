@@ -48,7 +48,7 @@ This project was developed using the following frameworks, tools and resources:
  - [Java Swing](https://www.java-tutorial.org/swing.html)
  - [GSON (google's JSON library)](https://google.github.io/gson/)
  - [IntellIJ idea as IDE and build system](https://www.jetbrains.com/idea/)
- - [Logo creator (to be done)](pleaseputinthelink)
+ - [Logo creator](https://www.textstudio.com)
  - <details><summary>Music and sound effect links:</summary>[Minecraft placing sounds](https://tuna.voicemod.net/sound/8632d8b2-c2af-4269-9937-87d2b84e9df1/)</br>[Other sounds](https://pixabay.com/sound-effects/)</details>
 
 ## Controls
