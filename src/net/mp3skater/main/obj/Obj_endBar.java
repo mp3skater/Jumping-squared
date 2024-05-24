@@ -11,7 +11,7 @@ public class Obj_endBar extends Obj {
      */
 
     public Obj_endBar(int length) {
-        super(length, 0, GamePanel.WIDTH, GamePanel.HEIGHT);
+        super(length, 0, GamePanel.WIDTH, GamePanel.HEIGHT, false);
     }
 
     @Override

@@ -8,7 +8,7 @@ public abstract class Obj_moving extends Obj {
      */
 
     public Obj_moving(double x, double y, int sX, int sY, double vX, double vY, double mX, double mY) {
-        super(x, y, sX, sY);
+        super(x, y, sX, sY, false);
         this.max_speed = new double[]{mX, mY};
         this.vec = new double[]{vX, vY};
     }

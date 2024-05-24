@@ -67,7 +67,7 @@ public class Obj_player extends Obj_moving {
         //else if(KeyHandler.fourPressed) GamePanel.loadLevel(4);
         //else if(KeyHandler.fivePressed) GamePanel.loadLevel(5);
 
-        // Collision with left side of the screen
+        // Collision with the left side of the screen
         if(pos[0]+vec[0]-(int)GamePanel.offset < 0)
             xCollision((int) (size[0]+GamePanel.offset), 0);
 
@@ -92,6 +92,8 @@ public class Obj_player extends Obj_moving {
         Obj nearX = null, nearY = null;
         // For all elements you could collide with in walls
         for(Obj w : GamePanel.walls) {
+            if(w == null || !w.isImportant) continue;
+
             // Return if endbar to allow the player to finish the level
             if(w instanceof Obj_endBar)
                 continue;
@@ -120,8 +122,7 @@ public class Obj_player extends Obj_moving {
         }
         // For all elements you could collide with in platforms
         for(Obj p : GamePanel.platforms) {
-            if(p == null)
-                continue;
+            if(p == null || !p.isImportant) continue;
             // Test weather going vertically, horizontally or both would make you collide with something
             // Horizontally
             if(vec[0] != 0)
@@ -232,6 +233,7 @@ public class Obj_player extends Obj_moving {
     }
 
     public boolean collidesSpecial(Obj_enemy e) {
+        if(!e.isImportant) return false;
         if(e.getType() == 4) {
             return collidesPoint(e.getX(),e.getY() + e.getSY()) ||
                    collidesPoint(e.getX() + e.getSX()/2.0,e.getY()) ||

@@ -91,6 +91,8 @@ public class GamePanel extends JPanel implements Runnable {
 		// Implement KeyListener:
 		this.addKeyListener(new KeyHandler());
 		this.setFocusable(true);
+
+		aimPlatform.setImportance(true);
 	}
 
 	/*
@@ -128,7 +130,7 @@ public class GamePanel extends JPanel implements Runnable {
 
 	/*
 	Loads the next level, incrementing <level>
-	If it was the last level the game is over
+	If it was the last level, the game is over
 	 */
 	public static void loadLevel(int level) {
 		if(level == 5)
@@ -271,6 +273,8 @@ public class GamePanel extends JPanel implements Runnable {
 		if(newGame > 0) newGame--;
 		time++;
 
+		checkImportance();
+
 		// Update Player position
 		player.update();
 
@@ -279,6 +283,19 @@ public class GamePanel extends JPanel implements Runnable {
 
 		// Update the Enemy AI
 		for(Obj_enemy e : enemies) e.update();
+	}
+
+	private void checkImportance() {
+		for(Obj e : enemies)
+			e.setImportance(e.is_drawable());
+		for(Obj w : walls)
+			w.setImportance(w.is_drawable());
+		for(Obj t : texts)
+			t.setImportance(t.is_drawable());
+		for(Obj p : platforms)
+			if(p!=null) p.setImportance(p.is_drawable());
+		for(Obj a : arrows)
+			a.setImportance(a.is_drawable());
 	}
 
 	/*
@@ -290,19 +307,19 @@ public class GamePanel extends JPanel implements Runnable {
 			return;
 
 		// Arrows and texts
-		for(Obj_arrow a : arrows) a.draw(g2, currentLevel.getColor("arrow"));
+		for(Obj_arrow a : arrows) if(a.isImportant()) a.draw(g2, currentLevel.getColor("arrow"));
 		g2.setFont(g2.getFont().deriveFont(Font.BOLD,48F));
-		for(Obj_text t : texts) t.draw(g2, currentLevel.getColor("text"));
+		for(Obj_text t : texts) if(t.isImportant()) t.draw(g2, currentLevel.getColor("text"));
 
 		// Walls and Endbar
 		for(Obj o : walls) {
-			if (o instanceof Obj_wall w) w.draw(g2, currentLevel.getColor("wall"));
-			if (o instanceof Obj_endBar bar) bar.draw(g2, currentLevel.getColor("endbar"));
+			if (o instanceof Obj_wall w && o.isImportant()) w.draw(g2, currentLevel.getColor("wall"));
+			if (o instanceof Obj_endBar bar && o.isImportant()) bar.draw(g2, currentLevel.getColor("endbar"));
 		}
 
 		// Platforms
 		for(Obj_platform p : platforms)
-			if(p != null) p.draw(g2, currentLevel.getColor("platform"));
+			if(p != null && p.isImportant()) p.draw(g2, currentLevel.getColor("platform"));
 		if(!pauseState) {
 			g2.setStroke(new BasicStroke(5));
 			if(aimPlatform != null && !player.collides(aimPlatform))
@@ -311,7 +328,7 @@ public class GamePanel extends JPanel implements Runnable {
 
 		// Enemies
 		for(Obj_enemy e : enemies)
-			e.draw(g2, currentLevel.getColor("enemy"));
+			if(e.isImportant()) e.draw(g2, currentLevel.getColor("enemy"));
 
 		// Player
 		if(player != null && player.is_drawable())

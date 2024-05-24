@@ -10,7 +10,7 @@ public class Obj_arrow extends Obj {
      */
 
     public Obj_arrow(double x, double y) {
-        super(x, y, 0, 0);
+        super(x, y, 300, 0, false);
     }
 
     @Override

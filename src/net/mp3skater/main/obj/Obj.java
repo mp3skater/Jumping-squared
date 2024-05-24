@@ -13,12 +13,26 @@ public abstract class Obj {
     protected final int[] size;
     protected final double[] pos;
 
+    // If the collision is calculated and if it's going to be drawn this frame
+    protected boolean isImportant;
+
     /*
     Simple constructor
      */
-    public Obj(double x, double y, int sX, int sY) {
+    public Obj(double x, double y, int sX, int sY, boolean isImportant) {
+        this.isImportant = isImportant;
         this.size = new int[]{sX, sY};
         this.pos = new double[]{x, y};
+    }
+
+    /*
+    Decides whether <this> get's drawn/calculated
+     */
+    public void setImportance(boolean importance) {
+        this.isImportant = importance;
+    }
+    public boolean isImportant() {
+        return isImportant;
     }
 
     /*

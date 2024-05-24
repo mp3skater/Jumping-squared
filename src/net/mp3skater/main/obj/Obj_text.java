@@ -10,7 +10,7 @@ public class Obj_text extends Obj {
      */
 
     public Obj_text(double x, double y, String text) {
-        super(x, y, 0, 0);
+        super(x, y, 800, 0, false);
         this.text = text;
     }
 

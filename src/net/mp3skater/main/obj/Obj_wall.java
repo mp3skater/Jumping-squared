@@ -11,7 +11,7 @@ public class Obj_wall extends Obj {
      */
 
     public Obj_wall(double x, double y, int sX, int sY) {
-        super(x, y, sX, sY);
+        super(x, y, sX, sY, false);
     }
 
     @Override
