@@ -247,7 +247,7 @@ public class Obj_player extends Obj_moving {
         else if(GamePanel.level == 3) {
             g2.setStroke(new BasicStroke(5));
             g2.setColor(color);
-            g2.drawRect(getDrawX()+5, (int)pos[1]+5, size[0]-10, size[1]-10);
+            g2.drawRect(getDrawX(), (int)pos[1], size[0], size[1]);
         }
         else Draw_Utils.fillRect(g2, this, color);
     }
