@@ -63,7 +63,7 @@ This project was developed using the following frameworks, tools and resources:
 
 - [mp3skater](https://github.com/mp3skater) - Project Manager, lead developer and level builder
 - [Herwang](https://github.com/Herwang) - Head of design and level builder
-- [23paudav](https://github.com/23paudav) - UI developer and level builder
+- [23benji](https://github.com/23benji) - UI developer and level builder
 - [Pomipommes](https://github.com/Pomipommes) - Enemy developer and level builder
 
 ## License
