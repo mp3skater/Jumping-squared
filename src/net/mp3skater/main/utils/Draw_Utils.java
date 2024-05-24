@@ -89,14 +89,11 @@ public class Draw_Utils {
                 Draw_Utils.drawShadowString(g2,text,48F,297,150+39*i,new Color(144, 196, 144),new Color(78, 88, 78, 255));
             }
         } catch (IOException _) {
-            String s = "No scores yet";
-            g2.drawString(s, getXforCenteredText(g2, s), 200);
+            Draw_Utils.drawShadowString(g2,"No scores yet",30,getXforCenteredText(g2, "No scores yet"),200,new Color(144, 196, 144),new Color(78, 88, 78, 255));
         }
 
         // Back and title
         Draw_Utils.drawShadowString(g2,"> back",48F,65,520,new Color(217, 236, 214),new Color(78, 88, 78, 255));
-
-        g2.drawString("> back", 65, 520);
         Draw_Utils.drawShadowString(g2,"Highscores",48F,getXforCenteredText(g2, "Highscores"),50,new Color(144, 196, 144),new Color(78, 88, 78, 255));
     }
 
@@ -351,7 +348,7 @@ public class Draw_Utils {
     public static void drawShadowString(Graphics2D g2, String text,float textSize, int x, int y, Color colorFront, Color colorShadow){
         g2.setFont(g2.getFont().deriveFont(Font.BOLD,textSize));
         g2.setColor(colorShadow);
-        g2.drawString(text,x+2,y+2);
+        g2.drawString(text,x+3,y+3);
         g2.setColor(colorFront);
         g2.drawString(text, x, y);
     }
