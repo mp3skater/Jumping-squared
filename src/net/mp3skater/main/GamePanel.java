@@ -376,20 +376,17 @@ public class GamePanel extends JPanel implements Runnable {
 		else if(controlState) drawOptionControl(g2);
 	}
 	private void drawHearts(Graphics2D g2) throws Draw_Utils.BufferedImageGetException {
-		if(leben == 3){
-			Draw_Utils.drawImage(g2,"/images/heart_full.png",new double[]{645,15},new int[]{45,45});
-			Draw_Utils.drawImage(g2,"/images/heart_full.png",new double[]{690,15},new int[]{45,45});
-			Draw_Utils.drawImage(g2,"/images/heart_full.png",new double[]{735,15},new int[]{45,45});
+		String[] heartImages = {"/images/heart_blank.png", "/images/heart_blank.png", "/images/heart_blank.png"};
+
+		for (int i = 0; i < leben; i++) {
+			heartImages[i] = "/images/heart_full.png";
 		}
-		if(leben == 2){
-			Draw_Utils.drawImage(g2,"/images/heart_full.png",new double[]{645,15},new int[]{45,45});
-			Draw_Utils.drawImage(g2,"/images/heart_full.png",new double[]{690,15},new int[]{45,45});
-			Draw_Utils.drawImage(g2,"/images/heart_blank.png",new double[]{735,15},new int[]{45,45});
-		}
-		if(leben == 1){
-			Draw_Utils.drawImage(g2,"/images/heart_full.png",new double[]{645,15},new int[]{45,45});
-			Draw_Utils.drawImage(g2,"/images/heart_blank.png",new double[]{690,15},new int[]{45,45});
-			Draw_Utils.drawImage(g2,"/images/heart_blank.png",new double[]{735,15},new int[]{45,45});
+
+		int xPosition = 645;
+		for (String heartImage : heartImages) {
+			Draw_Utils.drawImage(g2, heartImage, new double[]{xPosition, 15}, new int[]{45, 45});
+			xPosition += 45;
 		}
 	}
+
 }
