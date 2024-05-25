@@ -18,7 +18,7 @@ public class Level_Utils {
      */
     public static Level getLevel(int level) {
         // Get the String value of the json file
-        String text = getJsonString(level);
+        String text = getJsonString(level==2?4:level==4?2:level);
         // Create a new Gson instance
         Gson gson = new Gson();
 
