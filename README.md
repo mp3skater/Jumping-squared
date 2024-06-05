@@ -37,6 +37,19 @@ As reported in our initial documentation (not public), we planned to finish the 
 <img alt="Jumping squared showcase thumbnail" width=50% src="https://dl-asset.cyberlink.com/web/prog/learning-center/html/4090/PDR19-YouTube-21_How_to_Name_Your_YouTube_Videos/img/No-Thumbnail.png" title="Watch on YouTube">
 </a>
 
+<div align="center">
+<h2>Official project day ranglist (1,4 level)</h2>
+2047 mp3skater (lol)</br>
+2174 Noe (the goat)</br>
+2474 IVAN (developer bruader)</br>
+2543 Jakob (Annihilator)</br>
+2726 Dome (developer)</br>
+3663 Benji (developer)</br>
+5141 Nick (Sigma male)</br>
+6064 Jacopo (developer)</br>
+7572 Christian</br>
+</div>
+
 ## Running the game
 To run this project you must have **JAVA** installed (preferably [java 22.0.1](https://jdk.java.net/22/) or more). For now you should be able to run the game on any device supporting **IntellIJ Idea**, by running the set run configuration **launch Game** or also by running the class **src/net/mp3skater/main/Main**. Or you can download the [latest release](https://github.com/mp3skater/GetOP-mod-data/releases)(coming soon) and execute it by doubleclicking it on the desktop or inside of the file explorer.
 
